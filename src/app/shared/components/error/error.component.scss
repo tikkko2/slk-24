@@ -1,0 +1,57 @@
+@media screen and (max-width: 668px) {
+  .message-box {
+    padding: 30px;
+    width: 95vw;
+    img {
+      max-width: 300px;
+    }
+  }
+}
+
+@media screen and (min-width: 669px) {
+  .message-box {
+    padding: 50px;
+    width: 35vw;
+    max-width: 400px;
+  }
+}
+
+.error-container {
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  background-image: radial-gradient(
+    circle,
+    #2d355a,
+    #2e3f7f,
+    #2f49a5,
+    #3251cc,
+    #3b59f3
+  );
+  user-select: none;
+  .message-box {
+    background-color: white;
+    min-height: 50vh;
+    position: absolute;
+    border-radius: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    img {
+      width: 100%;
+    }
+    .error-btn {
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      background-color: #3b59f3;
+      color: white;
+      box-shadow: rgba(255, 255, 255, 0.4) 0px 7px 29px 0px;
+      transition: 0.25s all ease-in-out;
+      &:hover {
+        box-shadow: rgba(58, 51, 51, 0.4) 0px 7px 29px 0px;
+      }
+    }
+  }
+}

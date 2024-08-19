@@ -7,24 +7,28 @@ import { CopyrightComponent } from './dashboard/modules/copyright/copyright.comp
 import { ScriptComponent } from './dashboard/modules/script/script.component';
 import { DescriptionComponent } from './dashboard/modules/description/description.component';
 import { ProfileComponent } from './dashboard/user/profile/profile.component';
+import { SignUpComponent } from './auth/sign-up/sign-up.component';
+import { SignInComponent } from './auth/sign-in/sign-in.component';
+import { ErrorComponent } from './shared/components/error/error.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'services/mail',
+    redirectTo: 'services/translate',
     pathMatch: 'full'
   },
   {
     path: 'services',
     component: DashboardComponent,
     children: [
-      {
-        path: 'mail',
-        component: MailComponent
-      },
+      { path: '', redirectTo: 'translate', pathMatch: 'full' },
       {
         path: 'translate',
         component: TranslateComponent,
+      },
+      {
+        path: 'mail',
+        component: MailComponent
       },
       {
         path: 'copyright',
@@ -43,7 +47,16 @@ const routes: Routes = [
         component: ProfileComponent
       }
     ]
-  }
+  },
+  {
+    path: 'sign-up',
+    component: SignUpComponent
+  },
+  {
+    path: 'sign-in',
+    component: SignInComponent
+  },
+  { path: '**', component: ErrorComponent },
 ];
 
 @NgModule({

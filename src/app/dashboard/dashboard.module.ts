@@ -9,6 +9,7 @@ import { CopyrightComponent } from './modules/copyright/copyright.component';
 import { ScriptComponent } from './modules/script/script.component';
 import { DescriptionComponent } from './modules/description/description.component';
 import { ProfileComponent } from './user/profile/profile.component';
+import { TranslocoRootModule } from '../transloco-root.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ProfileComponent } from './user/profile/profile.component';
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    RouterModule
+    RouterModule,
+    TranslocoRootModule
   ],
 })
 export class DashboardModule {}

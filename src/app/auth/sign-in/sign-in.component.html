@@ -1,0 +1,25 @@
+<div class="auth-bg align-items-center">
+  <div class="p-2 rounded position-absolute top-0 start-0 c-p" (click)="navigateToServices()">
+    <img src="../../../assets/images/SLK/logo_white.svg" width="120" alt="">
+  </div>
+  <div class="auth-container auth-sign-in">
+    <div class="text-center mb-5">
+      <h3>Login to Account</h3>
+      <p>Please enter your email and password to continue</p>
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="proceedLogin()">
+      <div class="input-field">
+        <label for="email">Email</label>
+        <input type="email" formControlName="username" placeholder="example@example.com" id="email" autocomplete="email"/>
+      </div>
+      <div class="input-field">
+        <label for="password">Password</label>
+        <input type="password" formControlName="password" placeholder="********" id="password"/>
+      </div>
+      <div class="mt-5 text-center">
+        <button type="submit" class="gen-btn w-75 rounded py-2 border-0 text-white">Sign in</button>
+      </div>
+    </form>
+    <p class="mt-4 text-center">Don’t have an account? <span class="slk-color" (click)="navigateToSignUp()">Create Account</span></p>
+  </div>
+</div>

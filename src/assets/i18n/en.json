@@ -1,0 +1,26 @@
+{
+  "header": {
+    "user": "User",
+    "admin": "Admin",
+    "signin": "Sign in"
+  },
+  "sidebar": {
+    "translate": "Translate",
+    "description": "Description",
+    "copyright": "Copywriter",
+    "script": "Scriptwriter",
+    "mail": "Mailman",
+    "balance": "Balance",
+    "profile": "Profile",
+    "logout": "Log out"
+  },
+  "sign-in": {
+    "h3": "Login to Account",
+    "p": "Please enter your email and password to continue",
+    "email": "Email",
+    "password": "Password",
+    "sign-in-btn": "Sign in",
+    "account": "Don’t have an account?",
+    "create-account": "Create Account"
+  }
+}

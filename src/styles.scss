@@ -1,37 +1,121 @@
-/* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+@import "https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap";
 
-@font-face {
-  font-family: roboto;
-  src: url(./assets/fonts/ROBOTO_GEO_NUS.TTF);
+/* src/styles.scss */
+// @font-face {
+//   font-family: roboto;
+//   src: url("./media/ROBOTO_GEO_NUS.TTF");
+// }
+// @font-face {
+//   font-family: bigroboto;
+//   src: url("./media/ROBOTO__GEO_MT_BOLD.TTF");
+// }
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
-
-@font-face {
-  font-family: bigroboto;
-  src: url(./assets/fonts/ROBOTO__GEO_MT_BOLD.TTF);
-}
-
-
-html, body {
-  overflow: hidden;
+html,
+body {
+  overflow-x: hidden !important;
   font-family: "Nunito Sans", sans-serif !important;
-  background-color: #F5F6FA !important;
+  background-color: #f5f6fa !important;
 }
-
-//////////////////////////// General classes ////////////////////////////
 .fs-14px {
   font-size: 14px;
 }
-
 .fs-12px {
   font-size: 12px;
 }
-//////////////////////////// General classes ////////////////////////////
-
-
-//////////////////////////// nav classes ////////////////////////////
-.nav a {
-  font-size: 14px;
+.slk-color {
+  color: #3b59f3;
 }
-//////////////////////////// nav classes ////////////////////////////
+@media screen and (max-width: 668px) {
+  .auth-sign-up {
+    width: 95vw;
+  }
+  .auth-sign-in {
+    width: 95vw;
+  }
+}
+@media screen and (max-width: 1079px) and (min-width: 669px) {
+  .auth-sign-up {
+    width: 60vw;
+  }
+}
+@media screen and (min-width: 1080px) {
+  .auth-sign-up {
+    width: 40vw;
+  }
+}
+.auth-bg {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  min-height: 100vh;
+  background-image: radial-gradient(
+    circle,
+    #2d355a,
+    #2e3f7f,
+    #2f49a5,
+    #3251cc,
+    #3b59f3
+  );
+}
+.auth-bg .auth-container {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+}
+.auth-bg .auth-container .input-field label {
+  display: block;
+  margin-top: 20px;
+}
+.auth-bg .auth-container .input-field input {
+  width: 100%;
+  padding: 0 10px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid rgb(201, 201, 201);
+  outline: none;
+}
+.auth-bg .auth-container p {
+  cursor: default;
+}
+.auth-bg .auth-container p span {
+  cursor: pointer;
+}
+.auth-bg .auth-sign-up {
+  margin: 6rem 0;
+}
+.c-p {
+  cursor: pointer;
+}
+.gen-btn {
+  background-color: #3b59f3;
+  transition: 0.15s all ease-in-out;
+}
+.gen-btn:hover {
+  background-color: #0e33ed;
+}
+.nav .nav-link {
+  display: flex;
+  align-items: center;
+  margin-bottom: 7px;
+  color: black;
+}
+.nav .nav-link:hover {
+  background-color: #3b59f3 !important;
+  color: white !important;
+}
+.nav p {
+  font-size: 14px;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+.nav .active {
+  background-color: #3b59f3 !important;
+  color: white !important;
+}

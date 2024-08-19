@@ -1,59 +1,77 @@
-<div class="d-flex flex-column flex-shrink-0 p-3 bg-white" style="width: 230px; height: 100vh;">
-  <a href="/" class="d-flex align-items-center mb-md-0 mx-md-auto link-dark text-decoration-none">
+<div
+  class="d-flex flex-column flex-shrink-0 p-3 bg-white"
+  style="width: 230px; height: 100vh"
+>
+  <a
+    href="/"
+    class="d-flex align-items-center mb-md-0 mx-md-auto link-dark text-decoration-none"
+  >
     <span class="fs-5 fw-bold mb-3">Suliko AI</span>
   </a>
   <ul class="nav nav-pills flex-column mb-auto">
     <li class="nav-item">
-      <a routerLink="translate" class="nav-link active" aria-current="page">
+      <p routerLink="translate" routerLinkActive="active" class="nav-link">
         <i class="bi bi-globe me-2 fs-5"></i>
-        Translate
-      </a>
+        <span>{{ 'sidebar.translate' | transloco }}</span>
+      </p>
     </li>
     <li>
-      <a routerLink="description" class="nav-link link-dark">
+      <p routerLink="description" routerLinkActive="active" class="nav-link">
         <i class="bi bi-body-text me-2 fs-5"></i>
-        Description
-      </a>
+        {{ 'sidebar.description' | transloco }}
+      </p>
     </li>
     <li>
-      <a routerLink="copyright" class="nav-link link-dark">
+      <p routerLink="copyright" routerLinkActive="active" class="nav-link">
         <i class="bi bi-chat-text me-2 fs-5"></i>
-        Copywriter
-      </a>
+        {{ 'sidebar.copyright' | transloco }}
+      </p>
     </li>
     <li>
-      <a routerLink="script" class="nav-link link-dark">
+      <p routerLink="script" routerLinkActive="active" class="nav-link">
         <i class="bi bi-menu-button-wide me-2 fs-5"></i>
-        Scriptwriter
-      </a>
+        {{ 'sidebar.script' | transloco }}
+      </p>
     </li>
     <li>
-      <a routerLink="mail" class="nav-link link-dark">
+      <p routerLink="mail" routerLinkActive="active" class="nav-link">
         <i class="bi bi-inbox me-2 fs-5"></i>
-        Mailman
-      </a>
+        {{ 'sidebar.mail' | transloco }}
+      </p>
     </li>
   </ul>
-  <hr>
-  <div class="">
+  <div *ngIf="isLoggedIn">
+    <hr />
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <a class="nav-link link-dark" aria-current="page">
-          <img class="bi me-2" src="../../../../assets/images/sidebar_icons/balance.svg" alt="">
-          Balance: 123
-        </a>
+        <p class="nav-link loggedin-link">
+          <img
+            class="bi me-2"
+            src="../../../../assets/images/sidebar_icons/balance.svg"
+            alt=""
+          />
+          {{ 'sidebar.balance' | transloco }}: 123
+        </p>
       </li>
       <li>
-        <a routerLink="profile" class="nav-link link-dark">
-          <img class="bi me-2" src="../../../../assets/images/sidebar_icons/settings.svg" alt="">
-          Profile
-        </a>
+        <p routerLink="profile" routerLinkActive="loggedin-link-active" class="nav-link loggedin-link">
+          <img
+            class="bi me-2"
+            src="../../../../assets/images/sidebar_icons/settings.svg"
+            alt=""
+          />
+          {{ 'sidebar.profile' | transloco }}
+        </p>
       </li>
       <li>
-        <a href="#" class="nav-link link-dark">
-          <img class="bi me-2" src="../../../../assets/images/sidebar_icons/logout.svg" alt="">
-          Log out
-        </a>
+        <p (click)="logout()" class="nav-link loggedin-link">
+          <img
+            class="bi me-2"
+            src="../../../../assets/images/sidebar_icons/logout.svg"
+            alt=""
+          />
+          <span>{{ 'sidebar.logout' | transloco }}</span>
+        </p>
       </li>
     </ul>
   </div>
