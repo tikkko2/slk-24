@@ -7,7 +7,7 @@
       <h3>Create an Account</h3>
       <p>Create a account to continue</p>
     </div>
-    <form>
+    <form [formGroup]="registerForm" (ngSubmit)="proceedRegistration()">
       <div class="input-field">
         <label for="name">Name</label>
         <input type="text" formControlName="firstname" placeholder="John" id="name" autocomplete="name"/>
@@ -34,11 +34,12 @@
       </div>
       <div class="input-field">
         <label for="password">Password</label>
-        <input type="password" placeholder="********" id="password"/>
+        <input type="password" formControlName="password" placeholder="********" id="password"/>
       </div>
       <div class="mt-5 text-center">
         <button class="gen-btn w-75 rounded py-2 border-0 text-white">
-          Sign up
+          <span *ngIf="!isLoading">Sign up</span>
+          <span *ngIf="isLoading">Sign up...</span>
         </button>
       </div>
     </form>

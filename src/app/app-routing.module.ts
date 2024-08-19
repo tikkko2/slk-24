@@ -10,6 +10,8 @@ import { ProfileComponent } from './dashboard/user/profile/profile.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { ErrorComponent } from './shared/components/error/error.component';
+import { authGuard } from './guard/auth.guard';
+import { userGuard } from './guard/user.guard';
 
 const routes: Routes = [
   {
@@ -44,17 +46,20 @@ const routes: Routes = [
       },
       {
         path: 'profile',
-        component: ProfileComponent
+        component: ProfileComponent,
+        canActivate: [userGuard]
       }
     ]
   },
   {
     path: 'sign-up',
-    component: SignUpComponent
+    component: SignUpComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'sign-in',
-    component: SignInComponent
+    component: SignInComponent,
+    canActivate: [authGuard]
   },
   { path: '**', component: ErrorComponent },
 ];

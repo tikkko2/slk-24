@@ -1,10 +1,19 @@
 <div class="bg-white d-flex align-items-center justify-content-end px-2 py-2">
-  <div>
-    <img
-      src="../../../../assets/images/sidebar_icons/uk.svg"
-      width="35"
-      alt="Language"
-    />
+  <div class="sound">
+    <div class="main" (click)="dropdownOpen()">
+      <img [src]="selectedLanguage.path" alt="language" />
+    </div>
+    <div class="content pt-2" *ngIf="contentDropdown">
+      <ul>
+        <li
+          class="mb-2"
+          *ngFor="let icon of filteredIcons()"
+          (click)="changeLanguage(icon)"
+        >
+          <img [src]="icon.path" alt="Language" />
+        </li>
+      </ul>
+    </div>
   </div>
   <div
     class="d-flex align-items-center justify-content-center gap-2 ms-4"
@@ -16,8 +25,8 @@
       alt="USER"
     />
     <div class="d-flex flex-column">
-      <h6 class="m-0 fs-14px">Username</h6>
-      <small class="fs-12px">{{ 'header.user' | transloco }}</small>
+      <h6 class="m-0 fs-14px text-capitalize">{{ username }}</h6>
+      <small class="fs-12px"> {{ role == 'USER' ? ('header.user' | transloco) : ('header.admin' | transloco) }}</small>
     </div>
   </div>
   <div *ngIf="!isLoggedIn">

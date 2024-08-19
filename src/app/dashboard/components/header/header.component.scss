@@ -1,0 +1,21 @@
+.main {
+  img {
+    cursor: pointer;
+    width: 40px;
+  }
+}
+
+ul {
+  padding: 0;
+  li {
+    list-style: none;
+    cursor: pointer;
+    img{
+      width: 40px;
+    }
+  }
+}
+
+.content {
+  position: absolute;
+}

@@ -46,9 +46,7 @@ export class SignInComponent implements OnInit {
           console.log("success");
           this.authService.JWTtoSession(res);
           this.isLoading = !this.isLoading;
-          this.toastr.success('You have been logged in successfully');
           this._router.navigate(['/services']);
-          // location.reload();
         },
         (err) => {
           console.log(err);

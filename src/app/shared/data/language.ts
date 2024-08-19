@@ -1,9 +1,12 @@
 export const language = [
-  { value: 1, viewValue: 'ქართული' },
-  { value: 2, viewValue: 'ინგლისური' },
-  { value: 3, viewValue: 'სლოვაკური' },
-  { value: 4, viewValue: 'ლიტვური' },
-  { value: 5, viewValue: 'სლოვენიური' },
+    {
+      path: '../../../assets/images/sidebar_icons/geo.svg',
+      key: 'ge',
+    },
+    {
+      path: `../../../assets/images/sidebar_icons/uk.svg`,
+      key: 'en',
+    },
 ];
 
 export const form = [

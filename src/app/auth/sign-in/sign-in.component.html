@@ -17,7 +17,10 @@
         <input type="password" formControlName="password" placeholder="********" id="password"/>
       </div>
       <div class="mt-5 text-center">
-        <button type="submit" class="gen-btn w-75 rounded py-2 border-0 text-white">Sign in</button>
+        <button type="submit" class="gen-btn w-75 rounded py-2 border-0 text-white">
+          <span *ngIf="!isLoading">Sign in</span>
+          <span *ngIf="isLoading">Sign in...</span>
+        </button>
       </div>
     </form>
     <p class="mt-4 text-center">Don’t have an account? <span class="slk-color" (click)="navigateToSignUp()">Create Account</span></p>
