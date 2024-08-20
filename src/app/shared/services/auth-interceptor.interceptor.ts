@@ -9,8 +9,6 @@ export const authInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
   const apiService = inject(HttpService);
 
   let loggedUserData: any;
-  localStorage.setItem("selectedLanguage", 'ge');
-
   let isLoggedIn = userService.IsLoggedIn();
 
   if (isLoggedIn) {

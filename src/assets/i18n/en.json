@@ -22,5 +22,17 @@
     "sign-in-btn": "Sign in",
     "account": "Don’t have an account?",
     "create-account": "Create Account"
+  },
+  "sign-up": {
+    "h3": "Create an Account",
+    "p": "Please enter your information",
+    "name": "First Name",
+    "surname": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "password": "Password",
+    "sign-up-btn": "Sign up",
+    "account": "Already have an account?",
+    "login": "Login"
   }
 }

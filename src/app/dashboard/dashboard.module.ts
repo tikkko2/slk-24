@@ -10,6 +10,7 @@ import { ScriptComponent } from './modules/script/script.component';
 import { DescriptionComponent } from './modules/description/description.component';
 import { ProfileComponent } from './user/profile/profile.component';
 import { TranslocoRootModule } from '../transloco-root.module';
+import { BalanceComponent } from './user/balance/balance.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { TranslocoRootModule } from '../transloco-root.module';
     ScriptComponent,
     DescriptionComponent,
     ProfileComponent,
+    BalanceComponent,
   ],
   imports: [
     ReactiveFormsModule,

@@ -12,6 +12,7 @@ import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { ErrorComponent } from './shared/components/error/error.component';
 import { authGuard } from './guard/auth.guard';
 import { userGuard } from './guard/user.guard';
+import { BalanceComponent } from './dashboard/user/balance/balance.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,11 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
+        canActivate: [userGuard]
+      },
+      {
+        path: 'balance',
+        component: BalanceComponent,
         canActivate: [userGuard]
       }
     ]

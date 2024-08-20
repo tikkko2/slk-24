@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AuthService } from '../../../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { language } from '../../../shared/data/language';
+import { DOCUMENT } from '@angular/common';
+import { identifierName } from '@angular/compiler';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = false;
-  availableLangs!: string[] | {id: string, label: string}[];
+  availableLangs!: string[] | { id: string; label: string }[];
   activeLang!: string;
 
   userInfo: any;
@@ -21,14 +23,16 @@ export class HeaderComponent implements OnInit {
   constructor(
     private _router: Router,
     private _auth: AuthService,
-    private _translate: TranslocoService
+    private _translate: TranslocoService,
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   ngOnInit() {
+    const localStorage = this.document.defaultView?.localStorage;
     this.activeLang = this._translate.getActiveLang();
     this.availableLangs = this._translate.getAvailableLangs();
     this.isLoggedIn = this._auth.IsLoggedIn();
-    if(this.isLoggedIn) {
+    if (this.isLoggedIn) {
       this.userInfo = this._auth.GetUserInfo();
       this.username = this.userInfo.email;
       const usernameSplit = this.username.split('@')[0];
@@ -36,8 +40,10 @@ export class HeaderComponent implements OnInit {
       this.username = `${usernameSplit}`;
       this.role = this.userInfo.role;
     }
-    if(localStorage.getItem('selectedLanguage') == 'en') {
-      this.selectedLanguage = this.languages[1];
+    if (localStorage) {
+      if (localStorage.getItem('selectedLanguage') == 'en') {
+        this.selectedLanguage = this.languages[1];
+      }
     }
   }
 
@@ -50,7 +56,9 @@ export class HeaderComponent implements OnInit {
   }
 
   filteredIcons() {
-    return this.languages.filter((icon) => icon.key !== this.selectedLanguage.key);
+    return this.languages.filter(
+      (icon) => icon.key !== this.selectedLanguage.key
+    );
   }
 
   changeLanguage(icon: { path: string; key: string }) {

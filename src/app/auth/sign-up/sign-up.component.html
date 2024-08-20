@@ -4,24 +4,24 @@
   </div>
   <div class="auth-container auth-sign-up">
     <div class="text-center mb-4">
-      <h3>Create an Account</h3>
-      <p>Create a account to continue</p>
+      <h3>{{ 'sign-up.h3' | transloco }}</h3>
+      <p>{{ 'sign-in.p' | transloco }}</p>
     </div>
     <form [formGroup]="registerForm" (ngSubmit)="proceedRegistration()">
       <div class="input-field">
-        <label for="name">Name</label>
+        <label for="name">{{ 'sign-up.name' | transloco }}</label>
         <input type="text" formControlName="firstname" placeholder="John" id="name" autocomplete="name"/>
       </div>
       <div class="input-field">
-        <label for="surname">Surname</label>
+        <label for="surname">{{ 'sign-up.surname' | transloco }}</label>
         <input type="text" formControlName="lastname" placeholder="Orhan" id="surname"/>
       </div>
       <div class="input-field">
-        <label for="email">Email</label>
+        <label for="email">{{ 'sign-up.mail' | transloco }}</label>
         <input type="email" formControlName="email" placeholder="example@example.com" id="email" autocomplete="email"/>
       </div>
       <div class="input-field">
-        <label for="phone">Phone</label>
+        <label for="phone">{{ 'sign-up.phone' | transloco }}</label>
         <input
           type="text"
           formControlName="phone"
@@ -33,19 +33,19 @@
         />
       </div>
       <div class="input-field">
-        <label for="password">Password</label>
+        <label for="password">{{ 'sign-up.password' | transloco }}</label>
         <input type="password" formControlName="password" placeholder="********" id="password"/>
       </div>
       <div class="mt-5 text-center">
         <button class="gen-btn w-75 rounded py-2 border-0 text-white">
-          <span *ngIf="!isLoading">Sign up</span>
-          <span *ngIf="isLoading">Sign up...</span>
+          <span *ngIf="!isLoading">{{ 'sign-up.sign-up-btn' | transloco }}</span>
+          <span *ngIf="isLoading">{{ 'sign-up.sign-up-btn' | transloco }}...</span>
         </button>
       </div>
     </form>
     <p class="mt-4 text-center">
-      Already have an account?
-      <span class="slk-color" (click)="navigateToSignIn()">Login</span>
+      {{ 'sign-up.account' | transloco }}
+      <span class="slk-color" (click)="navigateToSignIn()">{{ 'sign-up.login' | transloco }}</span>
     </p>
   </div>
 </div>
