@@ -43,7 +43,6 @@ export class SignInComponent implements OnInit {
       };
       this.userService.authorize(data).subscribe(
         (res) => {
-          console.log("success");
           this.authService.JWTtoSession(res);
           this.isLoading = !this.isLoading;
           this._router.navigate(['/services']);

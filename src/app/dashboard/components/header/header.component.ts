@@ -32,21 +32,19 @@ export class HeaderComponent implements OnInit {
       this.userInfo = this._auth.GetUserInfo();
       this.username = this.userInfo.email;
       const usernameSplit = this.username.split('@')[0];
-      const usernameInitial = this.username.charAt(0);
+      // const usernameInitial = this.username.charAt(0);
       this.username = `${usernameSplit}`;
       this.role = this.userInfo.role;
     }
-    console.log(this.userInfo);
+    if(localStorage.getItem('selectedLanguage') == 'en') {
+      this.selectedLanguage = this.languages[1];
+    }
   }
-
-  Speaker: number[] = [];
 
   languages: { path: string; key: string }[] = language;
   selectedLanguage: { path: string; key: string } = this.languages[0];
-
-  isSpeakerOn: boolean = false;
-
   contentDropdown: boolean = false;
+
   dropdownOpen() {
     this.contentDropdown = !this.contentDropdown;
   }
@@ -60,6 +58,7 @@ export class HeaderComponent implements OnInit {
     this._translate.setActiveLang(this.selectedLanguage.key);
     this.contentDropdown = !this.contentDropdown;
     this.activeLang = this.selectedLanguage.key;
+    localStorage.setItem('selectedLanguage', this.selectedLanguage.key);
   }
 
   navigateToLogin() {

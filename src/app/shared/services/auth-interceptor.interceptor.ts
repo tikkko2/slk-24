@@ -9,6 +9,8 @@ export const authInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
   const apiService = inject(HttpService);
 
   let loggedUserData: any;
+  localStorage.setItem("selectedLanguage", 'ge');
+
   let isLoggedIn = userService.IsLoggedIn();
 
   if (isLoggedIn) {
@@ -53,7 +55,7 @@ export const authInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
         if (err.status === 401) {
           // Handle unauthorized errors specifically
           console.error('Unauthorized request:', err);
-          // userService.ClearSession(); // Optionally clear session or handle re-authentication
+          userService.ClearSession(); // Optionally clear session or handle re-authentication
         } else {
           console.error('HTTP error:', err);
           userService.ClearSession();

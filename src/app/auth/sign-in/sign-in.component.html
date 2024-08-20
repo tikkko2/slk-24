@@ -4,25 +4,25 @@
   </div>
   <div class="auth-container auth-sign-in">
     <div class="text-center mb-5">
-      <h3>Login to Account</h3>
-      <p>Please enter your email and password to continue</p>
+      <h3>{{ 'sign-in.h3' | transloco }}</h3>
+      <p>{{ 'sign-in.p' | transloco }}</p>
     </div>
     <form [formGroup]="loginForm" (ngSubmit)="proceedLogin()">
       <div class="input-field">
-        <label for="email">Email</label>
+        <label for="email">{{ 'sign-in.email' | transloco }}</label>
         <input type="email" formControlName="username" placeholder="example@example.com" id="email" autocomplete="email"/>
       </div>
       <div class="input-field">
-        <label for="password">Password</label>
+        <label for="password">{{ 'sign-in.password' | transloco }}</label>
         <input type="password" formControlName="password" placeholder="********" id="password"/>
       </div>
       <div class="mt-5 text-center">
         <button type="submit" class="gen-btn w-75 rounded py-2 border-0 text-white">
-          <span *ngIf="!isLoading">Sign in</span>
-          <span *ngIf="isLoading">Sign in...</span>
+          <span *ngIf="!isLoading">{{ 'sign-in.sign-in-btn' | transloco }}</span>
+          <span *ngIf="isLoading">{{ 'sign-in.sign-in-btn' | transloco }}...</span>
         </button>
       </div>
     </form>
-    <p class="mt-4 text-center">Don’t have an account? <span class="slk-color" (click)="navigateToSignUp()">Create Account</span></p>
+    <p class="mt-4 text-center">{{ 'sign-in.account' | transloco }} <span class="slk-color" (click)="navigateToSignUp()">{{ 'sign-in.create-account' | transloco }}</span></p>
   </div>
 </div>
