@@ -1,1 +1,80 @@
-<p>mail works!</p>
+<div class="content-component">
+  <div class="container-fluid pt-5 px-5">
+    <h3>Mailman</h3>
+      <form [formGroup]="chatForm">
+        <div class="d-flex align-items-center justify-content-between mt-5 mb-4">
+          <select
+            id="languageSourceSelect"
+            class="form-select product-selection c-p shadow-none"
+            aria-label="Large select example"
+            [(ngModel)]="emailFormId"
+            [ngModelOptions]="{ standalone: true }"
+            required
+          >
+            <option
+              *ngFor="let form of emailFormList"
+              [value]="form.value"
+            >
+              {{ form.viewValue }}
+            </option>
+          </select>
+          <select
+            id="languageSelect"
+            class="form-select product-selection c-p shadow-none"
+            aria-label="Large select example"
+            [(ngModel)]="selectedLanguage"
+            [ngModelOptions]="{ standalone: true }"
+            required
+          >
+            <option selected value="0" disabled>აირჩიეთ სამიზნე ენა</option>
+            <option *ngFor="let language of languages" [value]="language.id">
+              {{ language.name }}
+            </option>
+          </select>
+        </div>
+        <div class="translate-container pt-3 d-flex gap-5">
+          <div class="translate-content">
+            <textarea
+              #textareaElement
+              class="form-control shadow-none"
+              placeholder="იმეილი"
+              [maxlength]="maxChars"
+              formControlName="text"
+              (input)="updateTextareaContent($event)"
+              (input)="adjustTextareaHeight()"
+              id="floatingTextarea2"
+            ></textarea>
+            <div class="text-end pe-3 pb-2">
+              <small class="chars text-muted"
+                >{{ textareaContent.length }}/{{ maxChars }}</small
+              >
+            </div>
+          </div>
+          <div class="translated-content p-2">
+            <div class="translated-div">
+              <div class="loader" *ngIf="isLoading"></div>
+              <p
+                *ngIf="!isLoading"
+                [innerHTML]="translatedText"
+                class="pe-3"
+                #generatedResponse
+              ></p>
+            </div>
+            <i
+              *ngIf="copyBtn"
+              class="bi bi-copy text-muted"
+              (click)="copyToClipboard()"
+            ></i>
+          </div>
+        </div>
+        <div class="text-center py-5">
+          <button class="button content-btn" (click)="sendText()">
+            <span class="button-content">პასუხის მიღება</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+</div>
+
+

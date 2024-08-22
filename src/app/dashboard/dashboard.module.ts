@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -11,6 +11,9 @@ import { DescriptionComponent } from './modules/description/description.componen
 import { ProfileComponent } from './user/profile/profile.component';
 import { TranslocoRootModule } from '../transloco-root.module';
 import { BalanceComponent } from './user/balance/balance.component';
+import { TextComponent } from './modules/translate-options/text/text.component';
+import { ImageComponent } from './modules/translate-options/image/image.component';
+import { DocComponent } from './modules/translate-options/doc/doc.component';
 
 @NgModule({
   declarations: [
@@ -22,10 +25,14 @@ import { BalanceComponent } from './user/balance/balance.component';
     DescriptionComponent,
     ProfileComponent,
     BalanceComponent,
+    TextComponent,
+    ImageComponent,
+    DocComponent,
   ],
   imports: [
     ReactiveFormsModule,
     CommonModule,
+    FormsModule,
     RouterModule,
     TranslocoRootModule
   ],

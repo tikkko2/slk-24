@@ -1,44 +1,42 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   OnInit,
   Renderer2,
   ViewChild,
 } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import { HttpService } from '../../../../shared/services/http.service';
+import { AuthService } from '../../../../shared/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { MatDialog } from '@angular/material/dialog';
+import { BalanceService } from '../../../../shared/services/balance.service';
+import { TranslateModel } from '../../../../shared/models/translate.model';
+import { url } from '../../../../shared/data/api';
 import { SafeUrl } from '@angular/platform-browser';
-import { TextComponent } from '../translate-options/text/text.component';
-import { Language } from '../../../shared/interfaces/language.interface';
-import { HttpService } from '../../../shared/services/http.service';
-import { AuthService } from '../../../shared/services/auth.service';
-import { BalanceService } from '../../../shared/services/balance.service';
-import { url } from '../../../shared/data/api';
-import { form, language } from '../../../shared/data/language';
-import { EmailModel } from '../../../shared/models/email.model';
-import { ProductCategoryService } from '../../../shared/services/product-category.service';
-import { CommonModule } from '@angular/common';
+import { Language } from '../../../../shared/interfaces/language.interface';
+import { ProductCategoryService } from '../../../../shared/services/product-category.service';
+import { FreeServiceService } from '../../../../shared/services/free-service.service';
+import { switchMap, timer } from 'rxjs';
+import { Router } from '@angular/router';
 
-interface Email {
-  value: number,
-  viewValue: string
-}
 
 @Component({
-  selector: 'app-mail',
-  templateUrl: './mail.component.html',
-  styleUrl: './mail.component.scss',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  standalone: true
+  selector: 'app-text',
+  templateUrl: './text.component.html',
+  styleUrl: './text.component.scss',
 })
-export class MailComponent implements OnInit {
+export class TextComponent implements OnInit, AfterViewInit {
   @ViewChild('textareaElement', { static: false }) textareaElement!: ElementRef;
   @ViewChild('generatedResponse', { static: false }) generatedResponse!: ElementRef;
 
   activeComponent: any = TextComponent;
 
   maxChars: number = 2500;
+
+  public fakeToken: any;
+
+  initialSelection: string = '';
 
   isLoggedIn: boolean = false;
   userID: string = '';
@@ -51,14 +49,12 @@ export class MailComponent implements OnInit {
   imageUrl: SafeUrl | null = null;
 
   isLoading: boolean = false;
-  selectedLanguage = 0;
-  emailFormId = 1;
+  selectedLanguage: number = 0;
   uniqueKey = '00a48775-c474-49d4-9705-46c9c67e512a';
 
-  translatedText: string = 'იმეილის პასუხი';
+  translatedText: string = 'Translation';
 
   languages: Language[] = [];
-  emailFormList: Email[] = form;
 
   constructor(
     private builder: FormBuilder,
@@ -66,13 +62,15 @@ export class MailComponent implements OnInit {
     private authService: AuthService,
     private toastr: ToastrService,
     private renderer: Renderer2,
-    private dialog: MatDialog,
     private balanceService: BalanceService,
-    private languageService: ProductCategoryService
+    private languageService: ProductCategoryService,
+    private freeService: FreeServiceService,
+    private _router: Router
   ) {}
 
   ngOnInit() {
     this.isLoggedIn = this.authService.IsLoggedIn();
+    this.freeService.getToken().subscribe((value) => (this.fakeToken = value));
     this.balanceService
       .getBalance()
       .subscribe((value) => (this.balance = value));
@@ -87,18 +85,25 @@ export class MailComponent implements OnInit {
         }
       );
     } else {
-      this.languageService.getFreeLanguage(url.language).subscribe(
+
+    }
+  }
+  ngAfterViewInit() {
+    if(!this.isLoggedIn) {
+      timer(500).pipe(
+        switchMap(() => this.languageService.getFreeLanguage(url.language))
+      ).subscribe(
         (response: any) => {
           this.languages = response;
         },
-        (error) => {
+        (error: any) => {
           console.error('Error fetching languages', error);
         }
       );
     }
   }
 
-  chatForm: FormGroup = this.builder.group({
+  chatForm = this.builder.group({
     text: this.builder.control(``, Validators.required),
   });
 
@@ -116,7 +121,7 @@ export class MailComponent implements OnInit {
       !this.authService.IsLoggedIn()
     ) {
       this.toastr.error('აუცილებელია რეგისტრაცია');
-
+      this._router.navigate(['/sign-up'])
       return;
     }
     if (this.balance <= 0) {
@@ -128,61 +133,43 @@ export class MailComponent implements OnInit {
 
     const userMessageText = this.chatForm.value.text ?? '';
 
-    const model = new EmailModel(
+    const model = new TranslateModel(
       userMessageText,
       Number(this.selectedLanguage),
-      Number(this.emailFormId)
+      this.uniqueKey
     );
 
-    if(!this.authService.IsLoggedIn()) {
-      this.apiService.postFreeEmail(url.email, model).subscribe(
-        (response: any) => {
-          this.translatedText = response.text;
-          this.isLoading = false;
-          this.copyBtn = !this.copyBtn;
-        },
-        (error) => {
-          console.error('Error:', error);
-          this.isLoading = false;
-        }
-      );
-    } else {
-      this.apiService.postEmail(url.email, model).subscribe(
-        (response: any) => {
-          this.translatedText = response.text;
-          this.isLoading = false;
-          this.copyBtn = !this.copyBtn;
+    this.apiService.postTranslate(url.translate, model).subscribe(
+      (response: any) => {
+        this.translatedText = response.text.replace(/<br\s*\/?>/gi, '');
+        this.isLoading = false;
+        this.copyBtn = !this.copyBtn;
 
-          var user = this.authService.GetUserInfo();
-          if (this.isLoggedIn) {
-            this.userID = user.UserId;
-            this.apiService.get(url.user, this.userID).subscribe(
-              (res) => {
-                this.userInfoUpdate = JSON.parse(res);
-                delete this.userInfoUpdate.roleName;
-                this.userInfoUpdate.balance -= 10;
-                this.balanceService.setBalance(this.userInfoUpdate.balance);
-                this.apiService
-                  .updateUserInfo('/api/User', this.userInfoUpdate)
-                  .subscribe();
-              },
-              (err) => {
-                console.log(err);
-              }
-            );
-          }
-        },
-        (error) => {
-          console.error('Error:', error);
-          this.isLoading = false;
+        var user = this.authService.GetUserInfo();
+        if (this.isLoggedIn) {
+          this.userID = user.UserId;
+          this.apiService.get(url.user, this.userID).subscribe(
+            (res) => {
+              this.userInfoUpdate = JSON.parse(res);
+              delete this.userInfoUpdate.roleName;
+              this.userInfoUpdate.balance -= 10;
+              this.balanceService.setBalance(this.userInfoUpdate.balance);
+              this.apiService
+                .updateUserInfo('/api/User', this.userInfoUpdate)
+                .subscribe();
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
         }
-      );
-    }
+      },
+      (error) => {
+        console.error('Error:', error);
+        this.isLoading = false;
+      }
+    );
   }
-
-  onFileSelected(event: Event): void {}
-
-  onDeleteImage(): void {}
 
   copyToClipboard() {
     var textToCopy = this.generatedResponse.nativeElement.innerText;

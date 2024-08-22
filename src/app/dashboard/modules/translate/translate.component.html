@@ -1,1 +1,28 @@
-<p>translate works!</p>
+<div class="content-component">
+  <div class="container-fluid pt-5 px-5">
+    <h3>Translate</h3>
+    <div class="translate-options mb-5 mt-4">
+      <button
+        (click)="onText()"
+        [class.active-translate-item]="activeButton === 'text'"
+      >
+        <i class="bi bi-textarea-t"></i> ტექსტი
+      </button>
+      <button
+        (click)="onImage()"
+        [class.active-translate-item]="activeButton === 'image'"
+      >
+        <i class="bi bi-image"></i> ფოტო
+      </button>
+      <button
+        (click)="onDoc()"
+        [class.active-translate-item]="activeButton === 'doc'"
+      >
+        <i class="bi bi-file-earmark-pdf"></i> დოკუმენტი
+      </button>
+    </div>
+    <div *ngIf="activeComponent" class="chat-container mt-3">
+      <div class="ng-renderer" *ngComponentOutlet="activeComponent"></div>
+    </div>
+  </div>
+</div>

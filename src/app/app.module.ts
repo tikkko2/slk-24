@@ -9,7 +9,7 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { HttpClientModule, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ErrorComponent } from './shared/components/error/error.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { TranslocoRootModule } from './transloco-root.module';
@@ -27,6 +27,7 @@ import { authInterceptorInterceptor } from './shared/services/auth-interceptor.i
     AppRoutingModule,
     DashboardModule,
     CommonModule,
+    FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
