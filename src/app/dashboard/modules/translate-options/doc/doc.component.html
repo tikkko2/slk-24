@@ -1,1 +1,111 @@
-<p>doc works!</p>
+<form [formGroup]="docTranslateForm">
+  <div
+    class="d-flex align-items-center justify-content-between flex-wrap gap-3"
+  >
+    <select
+      id="languageSourceSelect"
+      class="form-select product-selection c-p shadow-none"
+      aria-label="Large select example"
+      [(ngModel)]="selectedSourceLanguage"
+      [ngModelOptions]="{ standalone: true }"
+      required
+    >
+      <option selected value="0" disabled>აირჩიეთ დედანის ენა</option>
+      <option *ngFor="let language of sourceLanguages" [value]="language.id">
+        {{ language.nameGeo }}
+      </option>
+    </select>
+    <select
+      id="languageSelect"
+      class="form-select product-selection c-p shadow-none"
+      aria-label="Large select example"
+      [(ngModel)]="selectedLanguage"
+      [ngModelOptions]="{ standalone: true }"
+      required
+    >
+      <option selected value="0" disabled>აირჩიეთ სამიზნე ენა</option>
+      <option *ngFor="let language of languages" [value]="language.id">
+        {{ language.nameGeo }}
+      </option>
+    </select>
+  </div>
+  <div class="image-container mt-3 mb-5 d-flex">
+    <div
+      class="image-input"
+      (dragover)="changeBack()"
+      (dragleave)="changeBackLeave()"
+      [ngClass]="[divStyle]"
+    >
+      <div class="text-center drag-drop-container">
+        <p class="p-0 m-0">
+          <i class="bi bi-cloud-arrow-up-fill"></i><br /><span
+            [innerHTML]="text"
+          ></span>
+        </p>
+      </div>
+      <input
+        #myFileInput
+        type="file"
+        formControlName="files"
+        class="translate-img"
+        (change)="getImage($event)"
+        accept=".pdf"
+        multiple="true"
+      />
+    </div>
+    <div
+      class="image-preview d-flex align-items-center justify-content-center flex-column"
+      *ngIf="!translatedText && !isLoading"
+    >
+      <div
+        *ngFor="let file of files; let index = index"
+        class="file-div position-relative"
+      >
+        <p class="c-p file-name-text">
+          <i class="bi bi-file-earmark-check-fill text-muted fs-5 me-2"></i
+          >{{ file.name }}
+        </p>
+        <i
+          class="bi bi-x-octagon position-absolute"
+          (click)="deleteImage(index)"
+        ></i>
+      </div>
+
+      <p *ngIf="!files">No file chosen</p>
+      <small class="text-muted">Supported file type: .pdf</small>
+    </div>
+    <div
+      class="image-preview d-flex align-items-center justify-content-center flex-column position-relative"
+      *ngIf="translatedText"
+      [ngClass]="translatedText ? 'w-100' : ''"
+    >
+      <i class="bi bi-copy text-muted" (click)="copyToClipboard()"></i>
+      <i class="bi bi-download text-muted" (click)="downloadAsWord()"></i>
+      <p
+        class="px-2 pb-0 pt-2 m-0 w-100 overflow-y-scroll"
+        #generatedResponse
+        [innerHTML]="translatedText"
+      ></p>
+    </div>
+    <div
+      class="image-preview d-flex align-items-center justify-content-center flex-column"
+      *ngIf="isLoading"
+      [ngClass]="isLoading ? 'w-100' : ''"
+    >
+      <!-- <span class="loader-image-text"></span> -->
+      <div class="pr-container my-1">
+        <div class="progress-bar__container">
+          <div class="progress-bar" #progressBar></div>
+        </div>
+      </div>
+      <span class="progress-text mt-3 fw-bold slk-color"
+        >{{ currentText }} {{ currentPercentage }}%</span
+      >
+    </div>
+  </div>
+  <div class="text-center pb-5">
+    <button class="button content-btn" (click)="sendDocs()">
+      <span class="button-content">თარგმნა</span>
+    </button>
+  </div>
+</form>

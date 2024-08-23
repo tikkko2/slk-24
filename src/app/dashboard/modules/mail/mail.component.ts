@@ -19,6 +19,7 @@ import { form, language } from '../../../shared/data/language';
 import { EmailModel } from '../../../shared/models/email.model';
 import { ProductCategoryService } from '../../../shared/services/product-category.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 interface Email {
   value: number,
@@ -66,7 +67,7 @@ export class MailComponent implements OnInit {
     private authService: AuthService,
     private toastr: ToastrService,
     private renderer: Renderer2,
-    private dialog: MatDialog,
+    private router: Router,
     private balanceService: BalanceService,
     private languageService: ProductCategoryService
   ) {}
@@ -116,7 +117,7 @@ export class MailComponent implements OnInit {
       !this.authService.IsLoggedIn()
     ) {
       this.toastr.error('აუცილებელია რეგისტრაცია');
-
+      this.router.navigate(['/sign-up']);
       return;
     }
     if (this.balance <= 0) {

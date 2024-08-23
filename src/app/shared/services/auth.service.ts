@@ -2,15 +2,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { JwtDecodeService } from './jwt-decode.service';
 import { isPlatformBrowser } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   accessToken: any;
+  private logoutInProgress = false;
 
   constructor(
     private http: HttpClient,
+    private _router: Router,
     private jwt_decode: JwtDecodeService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
@@ -43,8 +46,15 @@ export class AuthService {
   }
 
   ClearSession(): void {
+    if (this.logoutInProgress) return;
+
+    this.logoutInProgress = true;
     localStorage.removeItem('authorize');
-    this.refreshPage();
+
+    this._router.navigate(['/services']).then(() => {
+      this.logoutInProgress = false;
+      window.location.reload();
+    });
   }
 
   refreshPage() {

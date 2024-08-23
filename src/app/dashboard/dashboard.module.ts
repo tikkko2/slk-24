@@ -14,6 +14,9 @@ import { BalanceComponent } from './user/balance/balance.component';
 import { TextComponent } from './modules/translate-options/text/text.component';
 import { ImageComponent } from './modules/translate-options/image/image.component';
 import { DocComponent } from './modules/translate-options/doc/doc.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { DocComponent } from './modules/translate-options/doc/doc.component';
     CommonModule,
     FormsModule,
     RouterModule,
-    TranslocoRootModule
+    TranslocoRootModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    NgxMatSelectSearchModule
   ],
 })
 export class DashboardModule {}

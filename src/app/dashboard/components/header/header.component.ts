@@ -5,6 +5,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import { language } from '../../../shared/data/language';
 import { DOCUMENT } from '@angular/common';
 import { identifierName } from '@angular/compiler';
+import { SidebarService } from '../../../shared/services/component/sidebar.service';
 
 @Component({
   selector: 'app-header',
@@ -24,6 +25,7 @@ export class HeaderComponent implements OnInit {
     private _router: Router,
     private _auth: AuthService,
     private _translate: TranslocoService,
+    private sidebarService: SidebarService,
     @Inject(DOCUMENT) private document: Document
   ) {}
 
@@ -71,5 +73,9 @@ export class HeaderComponent implements OnInit {
 
   navigateToLogin() {
     this._router.navigate(['/sign-in']);
+  }
+
+  toggleSidebar() {
+    this.sidebarService.toggleSidebar();
   }
 }

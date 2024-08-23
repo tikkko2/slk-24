@@ -1,9 +1,12 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { AuthService } from '../shared/services/auth.service';
 import { HttpService } from '../shared/services/http.service';
 import { url } from '../shared/data/api';
 import { BalanceService } from '../shared/services/balance.service';
 import { FreeServiceService } from '../shared/services/free-service.service';
+import { isPlatformBrowser } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { SidebarService } from '../shared/services/component/sidebar.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,13 +17,17 @@ export class DashboardComponent implements OnInit {
   isLoggedIn: boolean = false;
   isSmallScreen: boolean = false;
   sidebarShown: boolean = true;
+  private subscription!: Subscription;
   public fakeToken: any;
 
   constructor(
     private _auth: AuthService,
     private _api: HttpService,
-    private _free: FreeServiceService
-  ) {}
+    private _free: FreeServiceService,
+    private sidebarService: SidebarService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+  }
 
   ngOnInit(): void {
     this.isLoggedIn = this._auth.IsLoggedIn();
@@ -40,20 +47,6 @@ export class DashboardComponent implements OnInit {
           console.log('Not Logged In');
         }
       );
-    }
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event): void {
-    this.checkScreenWidth();
-  }
-
-  private checkScreenWidth(): void {
-    this.isSmallScreen = window.innerWidth < 778;
-    if (this.isSmallScreen) {
-      this.sidebarShown = false;
-    } else {
-      this.sidebarShown = true;
     }
   }
 }
