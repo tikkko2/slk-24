@@ -1,0 +1,11 @@
+*::-webkit-scrollbar {
+  height: 50%;
+  width: 0.2rem !important;
+  background-color: #eeeeee !important; /* or add it to the track */
+  border-radius: 1rem;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 1rem;
+  background: #b4b4b4 !important;
+}

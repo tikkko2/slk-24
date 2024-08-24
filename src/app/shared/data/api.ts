@@ -11,5 +11,6 @@ export const url = {
   fileTranslate: '/api/UserContent/translate',
   email: '/api/UserContent/email',
   language: '/api/Language',
-  history: '/api/UserRequestLog/by-user/'
-}
+  history: '/api/UserRequestLog/by-user/',
+  lawyer: '/api/Content/prompt',
+};

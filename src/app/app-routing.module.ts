@@ -13,6 +13,7 @@ import { ErrorComponent } from './shared/components/error/error.component';
 import { authGuard } from './guard/auth.guard';
 import { userGuard } from './guard/user.guard';
 import { BalanceComponent } from './dashboard/user/balance/balance.component';
+import { LawyerComponent } from './dashboard/chats/lawyer/lawyer.component';
 
 const routes: Routes = [
   {
@@ -44,6 +45,10 @@ const routes: Routes = [
       {
         path: 'description',
         component: DescriptionComponent
+      },
+      {
+        path: 'lawyer',
+        component: LawyerComponent
       },
       {
         path: 'profile',

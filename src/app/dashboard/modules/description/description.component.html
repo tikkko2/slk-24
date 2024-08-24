@@ -1,34 +1,68 @@
-<div class="content-component">
-    <div class="description-container">
-      <div class="header">
-        <h3>Description</h3>
-        <hr>
+<div class="content-component px-md-5 px-sm-1 pb-5">
+  <app-greeting
+    [title]="'sidebar.description' | transloco"
+    description1="დააგენერირე ნებისმიერი პროდუქტის აღწერილობა"
+  ></app-greeting>
+  <div class="container">
+    <form [formGroup]="chatForm" (ngSubmit)="sendText()" class="mb-5">
+      <div
+        class="input-search-container d-flex align-items-center justify-content-md-between justify-content-sm-center flex-sm-wrap flex-md-nowrap"
+      >
+        <div class="search-text-ctg d-flex align-items-center">
+          <input
+            type="text"
+            placeholder="ლეპტოპი"
+            formControlName="text"
+            class="flex-grow-1"
+          />
+          <div class="px-2" [style]="!isSmallScreen ? 'width: 220px' : ''">
+            <mat-select
+              placeholder="კატეგორია"
+              #singleSelect
+              class="h-100"
+              (selectionChange)="onCategorySelection($event)"
+            >
+              <mat-option>
+                <ngx-mat-select-search
+                  placeholderLabel="ძიება"
+                  formControlName="category"
+                ></ngx-mat-select-search>
+              </mat-option>
+              <mat-option
+                *ngFor="let category of filterOptions | async"
+                [value]="category.id"
+                class="px-2"
+              >
+                {{ category.name }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="ms-md-2 ms-sm-0 mt-sm-4 mt-md-0 text-center">
+          <button
+            type="submit"
+            class="content-btn mx-auto d-flex gap-2 px-4"
+            title="Send"
+          >
+            <span>Send</span><i class="bi bi-send-fill"></i>
+          </button>
+        </div>
       </div>
-      <div class="chat-container">
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur eligendi aut modi quisquam placeat sit dignissimos eius ab dolores, sed facere nemo veniam libero quasi voluptas veritatis, corrupti mollitia?</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur eligendi aut modi quisquam placeat sit dignissimos eius ab dolores, sed facere nemo veniam libero quasi voluptas veritatis, corrupti mollitia?</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur eligendi aut modi quisquam placeat sit dignissimos eius ab dolores, sed facere nemo veniam libero quasi voluptas veritatis, corrupti mollitia?</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur eligendi aut modi quisquam placeat sit dignissimos eius ab dolores, sed facere nemo veniam libero quasi voluptas veritatis, corrupti mollitia?</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur eligendi aut modi quisquam placeat sit dignissimos eius ab dolores, sed facere nemo veniam libero quasi voluptas veritatis, corrupti mollitia?</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur eligendi aut modi quisquam placeat sit dignissimos eius ab dolores, sed facere nemo veniam libero quasi voluptas veritatis, corrupti mollitia?</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur eligendi aut modi quisquam placeat sit dignissimos eius ab dolores, sed facere nemo veniam libero quasi voluptas veritatis, corrupti mollitia?</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur eligendi aut modi quisquam placeat sit dignissimos eius ab dolores, sed facere nemo veniam libero quasi voluptas veritatis, corrupti mollitia?</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur eligendi aut modi quisquam placeat sit dignissimos eius ab dolores, sed facere nemo veniam libero quasi voluptas veritatis, corrupti mollitia?</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur eligendi aut modi quisquam placeat sit dignissimos eius ab dolores, sed facere nemo veniam libero quasi voluptas veritatis, corrupti mollitia?</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur eligendi aut modi quisquam placeat sit dignissimos eius ab dolores, sed facere nemo veniam libero quasi voluptas veritatis, corrupti mollitia?</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur eligendi aut modi quisquam placeat sit dignissimos eius ab dolores, sed facere nemo veniam libero quasi voluptas veritatis, corrupti mollitia?</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur eligendi aut modi quisquam placeat sit dignissimos eius ab dolores, sed facere nemo veniam libero quasi voluptas veritatis, corrupti mollitia?</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur eligendi aut modi quisquam placeat sit dignissimos eius ab dolores, sed facere nemo veniam libero quasi voluptas veritatis, corrupti mollitia?</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur eligendi aut modi quisquam placeat sit dignissimos eius ab dolores, sed facere nemo veniam libero quasi voluptas veritatis, corrupti mollitia?</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur eligendi aut modi quisquam placeat sit dignissimos eius ab dolores, sed facere nemo veniam libero quasi voluptas veritatis, corrupti mollitia?</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur eligendi aut modi quisquam placeat sit dignissimos eius ab dolores, sed facere nemo veniam libero quasi voluptas veritatis, corrupti mollitia?</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur eligendi aut modi quisquam placeat sit dignissimos eius ab dolores, sed facere nemo veniam libero quasi voluptas veritatis, corrupti mollitia?</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur eligendi aut modi quisquam placeat sit dignissimos eius ab dolores, sed facere nemo veniam libero quasi voluptas veritatis, corrupti mollitia?</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur eligendi aut modi quisquam placeat sit dignissimos eius ab dolores, sed facere nemo veniam libero quasi voluptas veritatis, corrupti mollitia?</h1>
-        <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum pariatur eligendi aut modi quisquam placeat sit dignissimos eius ab dolores, sed facere nemo veniam libero quasi voluptas veritatis, corrupti mollitia?</h1>
+    </form>
+    <div class="response-container" *ngIf="responseText">
+      <h5>{{ selectedCategoryName }}: {{ userMessageText }}</h5>
+      <hr />
+      <div class="text-end">
+        <i
+          class="bi bi-copy"
+          title="Copy to clipboard"
+          (click)="copyToClipboard()"
+        ></i>
       </div>
-      <div class="input-container">
-        <textarea name="" id=""></textarea>
-      </div>
+      <p #generatedResponse [innerHTML]="responseText"></p>
     </div>
+    <div class="generator-loader-container text-center" *ngIf="isLoading">
+      <div class="loader-generator mx-auto"></div>
+    </div>
+  </div>
 </div>

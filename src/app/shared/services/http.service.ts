@@ -30,7 +30,6 @@ export class HttpService {
     this.$refreshToken.subscribe((res: any) => {
       this.getRefreshToken();
     });
-
   }
 
   getRefreshToken(): Observable<any> {
@@ -67,8 +66,11 @@ export class HttpService {
     const auth = localStorage.getItem('authorize');
     if (auth != null) {
       const loggedUserData = JSON.parse(auth);
-      const decodedToken = this.jwt_decode.decodeToken(loggedUserData.accessToken);
-      const isExpired = decodedToken.exp < Math.floor(Date.now() / 1000) + 60 * 4;
+      const decodedToken = this.jwt_decode.decodeToken(
+        loggedUserData.accessToken
+      );
+      const isExpired =
+        decodedToken.exp < Math.floor(Date.now() / 1000) + 60 * 4;
       return of(isExpired);
     }
     return of(true); // Assume token is expired if not found
@@ -208,6 +210,17 @@ export class HttpService {
     this.freeService.getToken().subscribe((value) => (this.fakeToken = value));
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.fakeToken}`,
+      'Content-Type': 'application/json',
+    });
+    this.requestCount++;
+    localStorage.setItem('requestCount', this.requestCount.toString());
+    return this._http.post(`${this.host}${apiUrl}`, JSON.stringify(data), {
+      headers,
+    });
+  }
+
+  postLawyer(apiUrl: string, data: any) {
+    const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
     this.requestCount++;

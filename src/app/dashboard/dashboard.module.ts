@@ -17,6 +17,9 @@ import { DocComponent } from './modules/translate-options/doc/doc.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { LawyerComponent } from './chats/lawyer/lawyer.component';
+import { FinanceComponent } from './chats/finance/finance.component';
+import { GreetingComponent } from '../shared/components/greeting/greeting.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     TextComponent,
     ImageComponent,
     DocComponent,
+    LawyerComponent,
+    FinanceComponent,
+    GreetingComponent
   ],
   imports: [
     ReactiveFormsModule,
