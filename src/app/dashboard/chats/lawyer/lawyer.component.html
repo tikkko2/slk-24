@@ -1,7 +1,7 @@
 <div class="content-component">
   <div class="chatting-container">
-    <div class="header px-3 py-1">
-      <h4>ადვოკატი</h4>
+    <div class="header px-3 pt-2 pb-1">
+      <h4>{{ "lawyer.title" | transloco }}</h4>
     </div>
     <div class="chat-container">
       <div class="text-center text-muted pt-3 pb-5">
@@ -10,7 +10,7 @@
           width="40"
           alt="SULIKO"
         />
-        <p class="pt-2">სისტემამ შეიძლება დაუშვას შეცდომები</p>
+        <p class="pt-2">{{ "lawyer.des" | transloco }}</p>
       </div>
       <div class="chat-content" *ngFor="let chat of chats; let i = index">
         <div class="question-div" *ngIf="chat.isUser">
@@ -76,14 +76,14 @@
           <textarea
             #textareaElement
             (keydown)="onEnterPressed($event)"
-            placeholder="პროდუქტის სახელი"
+            [placeholder]="'lawyer.prod-name' | transloco"
             formControlName="text"
             (ngModelChange)="adjustTextareaHeight()"
           ></textarea>
         </div>
         <div class="btn-container">
           <button type="submit" class="content-btn px-4">
-            <span>Send</span>
+            <span>{{ "send" | transloco }}</span>
             <i class="bi bi-send ps-2"></i>
           </button>
         </div>

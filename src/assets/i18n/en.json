@@ -10,6 +10,10 @@
     "copyright": "Copywriter",
     "script": "Scriptwriter",
     "mail": "Mailman",
+    "chats": {
+      "finance": "Finance",
+      "lawyer": "Lawyer"
+    },
     "balance": "Balance",
     "profile": "Profile",
     "logout": "Log out"
@@ -34,5 +38,74 @@
     "sign-up-btn": "Sign up",
     "account": "Already have an account?",
     "login": "Login"
+  },
+  "send": "Send",
+  "productname": "Product Name",
+  "search": "Search",
+  "translate": {
+    "title": "Translate",
+    "text": "Text",
+    "photo": "Photo",
+    "document": "Document",
+    "language-detection": "Automatic language detection",
+    "language-main": "Select the original language",
+    "language-options": "Select the target language",
+    "text-to-be-translated": "Text to be translated",
+    "translation": "Translation",
+    "translate": "Translate"
+  },
+  "mailman": {
+    "title": "Mailman",
+    "f1": "Formal",
+    "f2": "Friendly",
+    "f3": "Neutral",
+    "language-options": "Select the target language",
+    "email": "Email",
+    "reply": "Response email",
+    "receiver": "Generate"
+  },
+  "screenwriter": {
+    "title": "Screenwriter",
+    "des1": "Upload a photo, write the product name, and generate a video description.",
+    "des2": "The photo must be in one of the following formats: jpeg, png, gif, webp!",
+    "device": "Laptop"
+  },
+  "advertiser": {
+    "title": "Advertiser",
+    "des1": "Upload a photo, write the product name, and generate its full description.",
+    "des2": "The photo must be in one of the following formats: jpeg, png, gif, webp!",
+    "device": "Laptop"
+  },
+  "description": {
+    "title": "Description guru",
+    "des": "Generate any product description",
+    "device": "Laptop",
+    "category": "Category"
+  },
+  "lawyer": {
+    "title": "Lawyer",
+    "des": "The system may make errors",
+    "prod-name": "Write a question"
+  },
+  "profile": {
+    "name": "Full name",
+    "email": "Email",
+    "phone": "Phone number",
+    "balance": "Balance",
+    "btn1": "Add balance",
+    "btn2": "Change password",
+    "c-pass": "Current Password",
+    "n-pass": "New Password",
+    "ch-label": "Password length must be at least 3",
+    "btn3": "Update"
+  },
+  "balance-sub": {
+    "buy": "Buy",
+    "sub1": "Standard",
+    "sub1-p": "Subscription",
+    "sub2": "Premium",
+    "sub2-p": "₾30 Subscription",
+    "sub3": "Write your price",
+    "sub3-p": "Individual subscription"
   }
 }

@@ -17,6 +17,7 @@ import gsap from 'gsap';
 import { TextToWordService } from '../../../../shared/services/text-to-word.service';
 import { ProductCategoryService } from '../../../../shared/services/product-category.service';
 import { Router } from '@angular/router';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-doc',
@@ -78,7 +79,8 @@ export class DocComponent implements OnInit {
     private balanceService: BalanceService,
     private renderer: Renderer2,
     private docxService: TextToWordService,
-    private languageService: ProductCategoryService
+    private languageService: ProductCategoryService,
+    public _transloco: TranslocoService,
   ) {}
 
   docTranslateForm = this.builder.group({

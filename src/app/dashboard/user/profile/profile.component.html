@@ -7,12 +7,12 @@
         alt="USER"
       />
       <p class="mt-2 mb-0 pb-0">{{ userDetails.name }}</p>
-      <p class="text-capitalize">{{ userDetails.role }}</p>
+      <p class="text-capitalize">{{ userDetails.role == "user" ? ("header.user" | transloco) : ("header.admin" | transloco) }}</p>
     </div>
     <div>
       <div class="row mb-3">
         <div class="form-group col-md-6">
-          <label for="name">Full name</label>
+          <label for="name">{{ 'profile.name' | transloco }}</label>
           <input
             type="text"
             class="form-control form-control-sm"
@@ -22,7 +22,7 @@
           />
         </div>
         <div class="form-group col-md-6">
-          <label for="email">Email</label>
+          <label for="email">{{ 'profile.email' | transloco }}</label>
           <input
             type="text"
             class="form-control form-control-sm"
@@ -34,7 +34,7 @@
       </div>
       <div class="row mb-3">
         <div class="form-group col-md-6">
-          <label for="phone">Phone number</label>
+          <label for="phone">{{ 'profile.phone' | transloco }}</label>
           <input
             type="text"
             class="form-control form-control-sm"
@@ -44,7 +44,7 @@
           />
         </div>
         <div class="form-group col-md-6">
-          <label for="balance">Balance</label>
+          <label for="balance">{{ 'profile.balance' | transloco }}</label>
           <input
             type="text"
             class="form-control form-control-sm"
@@ -58,12 +58,12 @@
     <div class="mt-5 d-flex justify-content-center align-items-center gap-2">
       <div>
         <button type="button" class="content-btn" (click)="navigateBalance()">
-          ბალანსის შევსება
+          {{ 'profile.btn1' | transloco }}
         </button>
       </div>
       <div>
         <button type="button" class="content-btn" (click)="togglePassword()">
-          პაროლის შეცვლა
+          {{ 'profile.btn2' | transloco }}
         </button>
       </div>
     </div>
@@ -74,7 +74,7 @@
     >
       <div class="row mt-5">
         <div class="form-group col-md-6">
-          <label for="password">Current Password</label>
+          <label for="password">{{ 'profile.c-pass' | transloco }}</label>
           <input
             type="password"
             class="form-control form-control-sm"
@@ -83,11 +83,11 @@
             minlength="3"
           />
           <small class="text-muted mb-4"
-            >პაროლის სიგრძე მინიმუმ უნდა იყოს 3.</small
+            >{{ 'profile.ch-label' | transloco }}</small
           >
         </div>
         <div class="form-group col-md-6">
-          <label for="newpassword">New Password</label>
+          <label for="newpassword">{{ 'profile.n-pass' | transloco }}</label>
           <input
             type="password"
             class="form-control form-control-sm"
@@ -96,16 +96,16 @@
             minlength="3"
           />
           <small class="text-muted mb-4"
-            >პაროლის სიგრძე მინიმუმ უნდა იყოს 3.</small
+            >{{ 'profile.ch-label' | transloco }}</small
           >
         </div>
       </div>
       <div class="text-center mt-3">
         <button type="submit" class="content-btn" *ngIf="!isLoading">
-          განახლება
+          {{ 'profile.btn3' | transloco }}
         </button>
         <button type="button" class="content-btn" *ngIf="isLoading">
-          განახლება...
+          {{ 'profile.btn3' | transloco }}...
         </button>
       </div>
     </form>

@@ -1,1 +1,44 @@
-<p>balance works!</p>
+<div class="content-component balance-container">
+  <h3 class="mt-1 ms-2">{{ "sidebar.balance" | transloco }}</h3>
+  <div class="balance-cards mt-5 pt-4">
+    <div class="row gap-5 justify-content-center">
+      <div class="card-b col-md-4 px-4 py-5 bg-white text-center">
+        <h5 class="fw-bold">{{ "balance-sub.sub1" | transloco }}</h5>
+        <p>{{ "balance-sub.sub1-p" | transloco }}</p>
+        <h1 class="mt-4 fw-bold">₾ 9.50</h1>
+        <hr class="my-5" />
+        <div>
+          <button type="button" class="buy">{{ "balance-sub.buy" | transloco }}</button>
+        </div>
+      </div>
+      <div class="card-b col-md-4 px-4 py-5 bg-white text-center">
+        <h5 class="fw-bold">{{ "balance-sub.sub2" | transloco }}</h5>
+        <p>{{ "balance-sub.sub2-p" | transloco }}</p>
+        <h1 class="mt-4 fw-bold">₾ 19.50</h1>
+        <hr class="my-5" />
+        <div>
+          <button type="button" class="buy">{{ "balance-sub.buy" | transloco }}</button>
+        </div>
+      </div>
+      <div class="card-b col-md-4 px-4 py-5 bg-white text-center">
+        <h5 class="fw-bold">{{ "balance-sub.sub3" | transloco }}</h5>
+        <p style="margin-bottom: 1.4rem">{{ "balance-sub.sub3-p" | transloco }}</p>
+        <input
+          type="text"
+          name="currency-field"
+          id="currency-field"
+          [(ngModel)]="amount"
+          (keyup)="onKeyUp($event)"
+          (blur)="onBlur($event)"
+          placeholder="₾30.00"
+          autocomplete="off"
+          class="text-center fw-bold"
+        />
+        <hr class="my-5" />
+        <div>
+          <button type="button" (click)="clickToBuy()" class="buy">{{ "balance-sub.buy" | transloco }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

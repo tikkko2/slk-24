@@ -1,8 +1,8 @@
 <div class="content-component px-md-5 px-sm-1 pb-5">
   <app-greeting
     [title]="'sidebar.script' | transloco"
-    description1="ატვირთე ფოტო, დაწერე პროდუქტის სახელი და დააგენერირე მისი ვიდეო აღწერა."
-    description2="ფოტო უნდა იყოს შემდეგი ფორმატებიდან: jpeg, png, gif, webp!"
+    [description1]="'screenwriter.des1' | transloco"
+    [description2]="'screenwriter.des2' | transloco"
   ></app-greeting>
   <div class="container">
     <form [formGroup]="chatForm" (ngSubmit)="sendText()" class="mb-5">
@@ -27,7 +27,7 @@
         </div>
         <input
           type="text"
-          placeholder="ლეპტოპი"
+          [placeholder]=" 'productname' | transloco"
           formControlName="text"
           class="flex-grow-1 copyright-input"
         />
@@ -35,9 +35,9 @@
           <button
             type="submit"
             class="content-btn mx-auto d-flex gap-2 px-4"
-            title="Send"
+            [title]="'send' | transloco"
           >
-            <span>Send</span><i class="bi bi-send-fill"></i>
+            <span>{{ 'send' | transloco}}</span><i class="bi bi-send-fill"></i>
           </button>
         </div>
       </div>

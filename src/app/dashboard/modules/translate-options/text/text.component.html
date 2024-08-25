@@ -1,7 +1,7 @@
 <form [formGroup]="chatForm">
   <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
     <div class="dis">
-      <span>ავტომატური ენის დეტექცია</span>
+      <span>{{ 'translate.language-detection' | transloco }}</span>
     </div>
     <select
       id="languageSelect"
@@ -11,9 +11,9 @@
       [ngModelOptions]="{ standalone: true }"
       required
     >
-    <option selected value="0" disabled>აირჩიეთ სამიზნე ენა</option>
+    <option selected value="0" disabled>{{ 'translate.language-options' | transloco }}</option>
       <option *ngFor="let language of languages" [value]="language.id">
-        {{ language.nameGeo }}
+        {{ this._transloco.getActiveLang() == 'ge' ? language.nameGeo : language.name }}
       </option>
     </select>
   </div>
@@ -22,7 +22,7 @@
       <textarea
         #textareaElement
         class="form-control shadow-none"
-        placeholder="სათარგმნი ტექსტი"
+        [placeholder]="'translate.text-to-be-translated' | transloco"
         [maxlength]="maxChars"
         formControlName="text"
         (input)="updateTextareaContent($event)"
@@ -54,7 +54,7 @@
   </div>
   <div class="text-center py-5">
     <button class="button content-btn" (click)="sendText()">
-      <span class="button-content">თარგმნა</span>
+      <span class="button-content">{{ 'translate.translate' | transloco }}</span>
     </button>
   </div>
 </form>

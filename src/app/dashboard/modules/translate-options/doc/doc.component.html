@@ -10,9 +10,9 @@
       [ngModelOptions]="{ standalone: true }"
       required
     >
-      <option selected value="0" disabled>აირჩიეთ დედანის ენა</option>
+      <option selected value="0" disabled>{{ 'translate.language-main' | transloco }}</option>
       <option *ngFor="let language of sourceLanguages" [value]="language.id">
-        {{ language.nameGeo }}
+        {{ this._transloco.getActiveLang() == 'ge' ? language.nameGeo : language.name }}
       </option>
     </select>
     <select
@@ -23,9 +23,9 @@
       [ngModelOptions]="{ standalone: true }"
       required
     >
-      <option selected value="0" disabled>აირჩიეთ სამიზნე ენა</option>
+      <option selected value="0" disabled>{{ 'translate.language-options' | transloco }}</option>
       <option *ngFor="let language of languages" [value]="language.id">
-        {{ language.nameGeo }}
+        {{ this._transloco.getActiveLang() == 'ge' ? language.nameGeo : language.name }}
       </option>
     </select>
   </div>
@@ -105,7 +105,7 @@
   </div>
   <div class="text-center pb-5">
     <button class="button content-btn" (click)="sendDocs()">
-      <span class="button-content">თარგმნა</span>
+      <span class="button-content">{{ 'translate.translate' | transloco }}</span>
     </button>
   </div>
 </form>

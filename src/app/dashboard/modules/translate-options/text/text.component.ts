@@ -19,6 +19,7 @@ import { ProductCategoryService } from '../../../../shared/services/product-cate
 import { FreeServiceService } from '../../../../shared/services/free-service.service';
 import { switchMap, timer } from 'rxjs';
 import { Router } from '@angular/router';
+import { TranslocoService } from '@ngneat/transloco';
 
 
 @Component({
@@ -64,6 +65,7 @@ export class TextComponent implements OnInit, AfterViewInit {
     private renderer: Renderer2,
     private balanceService: BalanceService,
     private languageService: ProductCategoryService,
+    public _transloco: TranslocoService,
     private freeService: FreeServiceService,
     private _router: Router
   ) {}

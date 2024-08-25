@@ -1,24 +1,24 @@
 <div class="content-component">
   <div class="container-fluid pt-5 px-5">
-    <h3>Translate</h3>
+    <h3>{{ 'sidebar.translate' | transloco }}</h3>
     <div class="translate-options d-flex overflow-x-scroll mb-5 mt-4">
       <button
         (click)="onText()"
         [class.active-translate-item]="activeButton === 'text'"
       >
-        <i class="bi bi-textarea-t"></i> ტექსტი
+        <i class="bi bi-textarea-t"></i> {{ 'translate.text' | transloco }}
       </button>
       <button
         (click)="onImage()"
         [class.active-translate-item]="activeButton === 'image'"
       >
-        <i class="bi bi-image"></i> ფოტო
+        <i class="bi bi-image"></i> {{ 'translate.photo' | transloco }}
       </button>
       <button
         (click)="onDoc()"
         [class.active-translate-item]="activeButton === 'doc'"
       >
-        <i class="bi bi-file-earmark-pdf"></i> დოკუმენტი
+        <i class="bi bi-file-earmark-pdf"></i> {{ 'translate.document' | transloco }}
       </button>
     </div>
     <div *ngIf="activeComponent" class="chat-container mt-3">

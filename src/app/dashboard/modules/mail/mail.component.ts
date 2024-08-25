@@ -20,6 +20,7 @@ import { EmailModel } from '../../../shared/models/email.model';
 import { ProductCategoryService } from '../../../shared/services/product-category.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { TranslocoService } from '@ngneat/transloco';
 
 interface Email {
   value: number,
@@ -30,8 +31,6 @@ interface Email {
   selector: 'app-mail',
   templateUrl: './mail.component.html',
   styleUrl: './mail.component.scss',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  standalone: true
 })
 export class MailComponent implements OnInit {
   @ViewChild('textareaElement', { static: false }) textareaElement!: ElementRef;
@@ -56,7 +55,7 @@ export class MailComponent implements OnInit {
   emailFormId = 1;
   uniqueKey = '00a48775-c474-49d4-9705-46c9c67e512a';
 
-  translatedText: string = 'იმეილის პასუხი';
+  translatedText: string = 'Response email';
 
   languages: Language[] = [];
   emailFormList: Email[] = form;
@@ -69,6 +68,7 @@ export class MailComponent implements OnInit {
     private renderer: Renderer2,
     private router: Router,
     private balanceService: BalanceService,
+    public translocoService: TranslocoService,
     private languageService: ProductCategoryService
   ) {}
 

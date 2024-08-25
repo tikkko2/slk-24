@@ -1,7 +1,7 @@
 <div class="content-component px-md-5 px-sm-1 pb-5">
   <app-greeting
     [title]="'sidebar.description' | transloco"
-    description1="დააგენერირე ნებისმიერი პროდუქტის აღწერილობა"
+    [description1]="'description.des' | transloco"
   ></app-greeting>
   <div class="container">
     <form [formGroup]="chatForm" (ngSubmit)="sendText()" class="mb-5">
@@ -11,20 +11,20 @@
         <div class="search-text-ctg d-flex align-items-center">
           <input
             type="text"
-            placeholder="ლეპტოპი"
+            [placeholder]=" 'productname' | transloco"
             formControlName="text"
             class="flex-grow-1"
           />
           <div class="px-2" [style]="!isSmallScreen ? 'width: 220px' : ''">
             <mat-select
-              placeholder="კატეგორია"
+              [placeholder]="'description.category' | transloco"
               #singleSelect
               class="h-100"
               (selectionChange)="onCategorySelection($event)"
             >
               <mat-option>
                 <ngx-mat-select-search
-                  placeholderLabel="ძიება"
+                  [placeholderLabel]="'search' | transloco"
                   formControlName="category"
                 ></ngx-mat-select-search>
               </mat-option>
@@ -42,9 +42,9 @@
           <button
             type="submit"
             class="content-btn mx-auto d-flex gap-2 px-4"
-            title="Send"
+            [title]="'send' | transloco"
           >
-            <span>Send</span><i class="bi bi-send-fill"></i>
+            <span>{{ 'send' | transloco}}</span><i class="bi bi-send-fill"></i>
           </button>
         </div>
       </div>

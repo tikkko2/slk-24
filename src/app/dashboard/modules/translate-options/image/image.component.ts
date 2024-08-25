@@ -11,6 +11,7 @@ import { TextToWordService } from '../../../../shared/services/text-to-word.serv
 import gsap from 'gsap';
 import { ProductCategoryService } from '../../../../shared/services/product-category.service';
 import { Router } from '@angular/router';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-image',
@@ -72,7 +73,8 @@ export class ImageComponent {
     private balanceService: BalanceService,
     private renderer: Renderer2,
     private docxService: TextToWordService,
-    private languageService: ProductCategoryService
+    private languageService: ProductCategoryService,
+    public _transloco: TranslocoService,
   ) {}
 
   ngOnInit() {

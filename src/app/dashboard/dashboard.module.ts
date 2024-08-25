@@ -20,6 +20,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { LawyerComponent } from './chats/lawyer/lawyer.component';
 import { FinanceComponent } from './chats/finance/finance.component';
 import { GreetingComponent } from '../shared/components/greeting/greeting.component';
+import { MailComponent } from './modules/mail/mail.component';
+import { TranslateComponent } from './modules/translate/translate.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { GreetingComponent } from '../shared/components/greeting/greeting.compon
     ImageComponent,
     DocComponent,
     LawyerComponent,
+    MailComponent,
     FinanceComponent,
+    TranslateComponent,
     GreetingComponent
   ],
   imports: [

@@ -1,6 +1,6 @@
 <div class="content-component">
   <div class="container-fluid pt-5 px-5">
-    <h3>Mailman</h3>
+    <h3>{{ 'sidebar.copyright' | transloco }}</h3>
       <form [formGroup]="chatForm">
         <div class="d-flex align-items-center justify-content-between mt-5 mb-4">
           <select
@@ -11,12 +11,9 @@
             [ngModelOptions]="{ standalone: true }"
             required
           >
-            <option
-              *ngFor="let form of emailFormList"
-              [value]="form.value"
-            >
-              {{ form.viewValue }}
-            </option>
+            <option value="1">{{ 'mailman.f1' | transloco }}</option>
+            <option value="2">{{ 'mailman.f2' | transloco }}</option>
+            <option value="3">{{ 'mailman.f3' | transloco }}</option>
           </select>
           <select
             id="languageSelect"
@@ -26,9 +23,9 @@
             [ngModelOptions]="{ standalone: true }"
             required
           >
-            <option selected value="0" disabled>აირჩიეთ სამიზნე ენა</option>
+            <option selected value="0" disabled>{{ 'mailman.language-options' | transloco }}</option>
             <option *ngFor="let language of languages" [value]="language.id">
-              {{ language.nameGeo }}
+              {{ this.translocoService.getActiveLang() == 'ge' ? language.nameGeo : language.name }}
             </option>
           </select>
         </div>
@@ -37,7 +34,7 @@
             <textarea
               #textareaElement
               class="form-control shadow-none"
-              placeholder="იმეილი"
+              [placeholder]="'mailman.email' | transloco"
               [maxlength]="maxChars"
               formControlName="text"
               (input)="updateTextareaContent($event)"
@@ -69,7 +66,7 @@
         </div>
         <div class="text-center py-5">
           <button class="button content-btn" (click)="sendText()">
-            <span class="button-content">პასუხის მიღება</span>
+            <span class="button-content">{{ 'mailman.receiver' | transloco }}</span>
           </button>
         </div>
       </form>

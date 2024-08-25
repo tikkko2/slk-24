@@ -1,0 +1,64 @@
+.balance-container {
+  background-color: #f5f6fa !important;
+  .card-b {
+    border-radius: 20px;
+    max-width: 300px;
+    h1,
+    .buy,
+    input {
+      color: #3b59f3;
+    }
+    .buy {
+      border: 2px solid #3b59f3;
+      border-radius: 20px;
+      width: 70%;
+      height: 40px;
+      background-color: white;
+      &:hover {
+        background-color: #3b5af31f;
+      }
+    }
+    input {
+      font-size: 40px;
+      line-height: 1.25;
+      font-weight: 500;
+      border: none;
+      outline: none;
+      max-width: 100%;
+      padding: 0;
+    }
+    hr {
+      background-color: #f5f6fa !important;
+    }
+  }
+}
+
+.included {
+  background-color: #3b5af31f !important;
+  cursor: default;
+}
+
+.style-1 {
+  del {
+    color: rgba(red, 0.5);
+    text-decoration: none;
+    position: relative;
+    &:before {
+      content: " ";
+      display: block;
+      width: 100%;
+      border-top: 2px solid rgba(red, 0.8);
+      height: 12px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transform: rotate(-7deg);
+    }
+  }
+  ins {
+    color: #3b59f3;
+    font-size: 32px;
+    text-decoration: none;
+    padding: 1em 1em 1em 0.5em;
+  }
+}
