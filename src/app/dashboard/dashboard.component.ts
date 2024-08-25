@@ -7,6 +7,7 @@ import { FreeServiceService } from '../shared/services/free-service.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { SidebarService } from '../shared/services/component/sidebar.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,6 +24,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private _auth: AuthService,
     private _api: HttpService,
+    private router: Router,
     private _free: FreeServiceService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
@@ -51,6 +53,11 @@ export class DashboardComponent implements OnInit {
       this.checkScreenWidth();
       this.toggleSidebarIfNeeded();
     }
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.hideSidebarOnRouteChange();
+      }
+    });
   }
 
   @HostListener('window:resize', ['$event'])
@@ -75,5 +82,11 @@ export class DashboardComponent implements OnInit {
 
   toggleSidebar(): void {
     this.sidebarShown = !this.sidebarShown;
+  }
+
+  private hideSidebarOnRouteChange(): void {
+    if (this.isSmallScreen) {
+      this.sidebarShown = false;
+    }
   }
 }

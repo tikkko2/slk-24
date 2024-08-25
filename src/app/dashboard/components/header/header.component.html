@@ -6,6 +6,7 @@
     class="bi bi-layout-sidebar-inset-reverse fs-5 text-muted ms-2 c-p"
     (click)="onToggleSidebar()"
   ></i>
+  <h6 class="m-0 p-0 text-muted" >{{ isSmallScreen ? ('test-title2' | transloco) : ('test-title1' | transloco) }}</h6>
   <div class="d-flex align-items-center justify-content-between">
     <div class="sound">
       <div class="main" (click)="dropdownOpen()">

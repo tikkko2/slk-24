@@ -10,9 +10,15 @@
       [ngModelOptions]="{ standalone: true }"
       required
     >
-      <option selected value="0" disabled>{{ 'translate.language-main' | transloco }}</option>
+      <option selected value="0" disabled>
+        {{ "translate.language-main" | transloco }}
+      </option>
       <option *ngFor="let language of sourceLanguages" [value]="language.id">
-        {{ this._transloco.getActiveLang() == 'ge' ? language.nameGeo : language.name }}
+        {{
+          this._transloco.getActiveLang() == "ge"
+            ? language.nameGeo
+            : language.name
+        }}
       </option>
     </select>
     <select
@@ -23,9 +29,15 @@
       [ngModelOptions]="{ standalone: true }"
       required
     >
-      <option selected value="0" disabled>{{ 'translate.language-options' | transloco }}</option>
+      <option selected value="0" disabled>
+        {{ "translate.language-options" | transloco }}
+      </option>
       <option *ngFor="let language of languages" [value]="language.id">
-        {{ this._transloco.getActiveLang() == 'ge' ? language.nameGeo : language.name }}
+        {{
+          this._transloco.getActiveLang() == "ge"
+            ? language.nameGeo
+            : language.name
+        }}
       </option>
     </select>
   </div>
@@ -54,7 +66,7 @@
       />
     </div>
     <div
-      class="image-preview d-flex align-items-center justify-content-center flex-column"
+      class="image-preview with-m d-flex align-items-center justify-content-center flex-column"
       *ngIf="!translatedText && !isLoading"
     >
       <div
@@ -105,7 +117,9 @@
   </div>
   <div class="text-center pb-5">
     <button class="button content-btn" (click)="sendDocs()">
-      <span class="button-content">{{ 'translate.translate' | transloco }}</span>
+      <span class="button-content">{{
+        "translate.translate" | transloco
+      }}</span>
     </button>
   </div>
 </form>

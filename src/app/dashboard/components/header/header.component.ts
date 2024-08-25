@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Inject, OnInit, Output, PLATFORM_ID } from '@angular/core';
 import { AuthService } from '../../../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { language } from '../../../shared/data/language';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { identifierName } from '@angular/compiler';
 import { SidebarService } from '../../../shared/services/component/sidebar.service';
 
@@ -18,6 +18,8 @@ export class HeaderComponent implements OnInit {
   availableLangs!: string[] | { id: string; label: string }[];
   activeLang!: string;
 
+  isSmallScreen: boolean = false;
+
   userInfo: any;
   username!: string;
   role!: string;
@@ -26,8 +28,8 @@ export class HeaderComponent implements OnInit {
     private _router: Router,
     private _auth: AuthService,
     private _translate: TranslocoService,
-    private sidebarService: SidebarService,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit() {
@@ -47,6 +49,9 @@ export class HeaderComponent implements OnInit {
       if (localStorage.getItem('selectedLanguage') == 'en') {
         this.selectedLanguage = this.languages[1];
       }
+    }
+    if (isPlatformBrowser(this.platformId)) {
+      this.checkScreenWidth();
     }
   }
 
@@ -79,4 +84,16 @@ export class HeaderComponent implements OnInit {
   onToggleSidebar() {
     this.sidebarToggle.emit();
   }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.checkScreenWidth();
+    }
+  }
+
+  private checkScreenWidth(): void {
+    this.isSmallScreen = window.innerWidth < 778;
+  }
+
 }

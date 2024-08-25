@@ -42,6 +42,8 @@
   "send": "Send",
   "productname": "Product Name",
   "search": "Search",
+  "test-title1": "The site is launched in test mode",
+  "test-title2": "Test mode",
   "translate": {
     "title": "Translate",
     "text": "Text",

@@ -55,7 +55,7 @@
         />
       </div>
       <div
-        class="image-preview d-flex align-items-center justify-content-center flex-column"
+        class="image-preview with-m d-flex align-items-center flex-column overflow-y-auto"
         *ngIf="!translatedText && !isLoading"
       >
         <div *ngFor="let file of files; let index = index" class="file-div position-relative">

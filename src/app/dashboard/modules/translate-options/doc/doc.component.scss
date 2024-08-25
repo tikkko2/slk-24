@@ -36,6 +36,10 @@
   .image-preview {
     border-left: 0.25px solid rgba(128, 128, 128, 0.1);
   }
+  .image-preview.with-m {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
   .image-input {
     position: relative;
     transition: all 0.5s ease;

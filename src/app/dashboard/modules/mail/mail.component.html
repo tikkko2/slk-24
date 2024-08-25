@@ -1,35 +1,22 @@
 <div class="content-component">
   <div class="container-fluid pt-5 px-5">
-    <h3>{{ 'sidebar.copyright' | transloco }}</h3>
-      <form [formGroup]="chatForm">
-        <div class="d-flex align-items-center justify-content-between mt-5 mb-4">
+    <h3>{{ "sidebar.mail" | transloco }}</h3>
+    <form [formGroup]="chatForm">
+      <div class="translate-container row">
+        <div class="col-12 col-lg-6">
           <select
             id="languageSourceSelect"
-            class="form-select product-selection c-p shadow-none"
+            class="form-select product-selection c-p shadow-none mt-5 mb-4"
             aria-label="Large select example"
             [(ngModel)]="emailFormId"
             [ngModelOptions]="{ standalone: true }"
             required
           >
-            <option value="1">{{ 'mailman.f1' | transloco }}</option>
-            <option value="2">{{ 'mailman.f2' | transloco }}</option>
-            <option value="3">{{ 'mailman.f3' | transloco }}</option>
+            <option value="1">{{ "mailman.f1" | transloco }}</option>
+            <option value="2">{{ "mailman.f2" | transloco }}</option>
+            <option value="3">{{ "mailman.f3" | transloco }}</option>
           </select>
-          <select
-            id="languageSelect"
-            class="form-select product-selection c-p shadow-none"
-            aria-label="Large select example"
-            [(ngModel)]="selectedLanguage"
-            [ngModelOptions]="{ standalone: true }"
-            required
-          >
-            <option selected value="0" disabled>{{ 'mailman.language-options' | transloco }}</option>
-            <option *ngFor="let language of languages" [value]="language.id">
-              {{ this.translocoService.getActiveLang() == 'ge' ? language.nameGeo : language.name }}
-            </option>
-          </select>
-        </div>
-        <div class="translate-container pt-3 d-flex gap-5">
+
           <div class="translate-content">
             <textarea
               #textareaElement
@@ -47,6 +34,28 @@
               >
             </div>
           </div>
+        </div>
+
+        <div class="col-12 col-lg-6">
+          <select
+            id="languageSelect"
+            class="form-select product-selection c-p shadow-none mt-5 mb-4 ms-auto"
+            aria-label="Large select example"
+            [(ngModel)]="selectedLanguage"
+            [ngModelOptions]="{ standalone: true }"
+            required
+          >
+            <option selected value="0" disabled>
+              {{ "mailman.language-options" | transloco }}
+            </option>
+            <option *ngFor="let language of languages" [value]="language.id">
+              {{
+                this.translocoService.getActiveLang() == "ge"
+                  ? language.nameGeo
+                  : language.name
+              }}
+            </option>
+          </select>
           <div class="translated-content p-2">
             <div class="translated-div">
               <div class="loader" *ngIf="isLoading"></div>
@@ -64,14 +73,14 @@
             ></i>
           </div>
         </div>
-        <div class="text-center py-5">
-          <button class="button content-btn" (click)="sendText()">
-            <span class="button-content">{{ 'mailman.receiver' | transloco }}</span>
-          </button>
-        </div>
-      </form>
-    </div>
-
+      </div>
+      <div class="text-center py-5">
+        <button class="button content-btn" (click)="sendText()">
+          <span class="button-content">{{
+            "mailman.receiver" | transloco
+          }}</span>
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
-
-

@@ -1,6 +1,6 @@
 <form [formGroup]="chatForm">
-  <div class="translate-container d-flex gap-5">
-    <div class="flex-grow-1">
+  <div class="translate-container row">
+    <div class="col-12 col-lg-6">
       <div class="dis my-3">
         <span>{{ "translate.language-detection" | transloco }}</span>
       </div>
@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div class="flex-grow-1">
+    <div class="col-12 col-lg-6">
       <div class="py-3">
         <select
           id="languageSelect"
