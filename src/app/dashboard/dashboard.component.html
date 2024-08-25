@@ -1,9 +1,9 @@
 <div class="d-flex">
   <div class="sidenav-container position-relative" [ngClass]="{ hidden: !sidebarShown }">
-    <app-sidebar></app-sidebar>
+    <app-sidebar (sidebarToggle)="toggleSidebar()"></app-sidebar>
   </div>
   <div class="w-100">
-    <app-header></app-header>
+    <app-header (sidebarToggle)="toggleSidebar()"></app-header>
     <router-outlet></router-outlet>
   </div>
 </div>

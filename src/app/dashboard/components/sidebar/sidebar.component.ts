@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth.service';
 import { FreeServiceService } from '../../../shared/services/free-service.service';
@@ -12,6 +12,7 @@ import { url } from '../../../shared/data/api';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent implements OnInit {
+  @Output() sidebarToggle = new EventEmitter<void>();
   isLoggedIn: boolean = false;
 
   public fakeToken: any;
@@ -49,8 +50,11 @@ export class SidebarComponent implements OnInit {
     }
   }
 
+  onToggleSidebar() {
+    this.sidebarToggle.emit();
+  }
+
   logout() {
     this._auth.ClearSession();
-    this._router.navigate(['/services'])
   }
 }

@@ -3,9 +3,9 @@
     class="message-box text-center d-flex align-items-center justify-content-around flex-column"
   >
     <img src="../../../../assets/images/error.webp" alt="ERROR 404" />
-    <p class="m-0 mt-4">Looks like you’ve got lost….</p>
+    <p class="m-0 mt-4 fw-bold fs-5">{{ 'error.err1' | transloco }}</p>
     <button class="error-btn mt-4 px-3 py-2" (click)="navigateToMain()">
-      Back to Dashboard
+      {{ 'error.err2' | transloco }}
     </button>
   </div>
 </div>

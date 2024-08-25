@@ -24,7 +24,6 @@ export class DashboardComponent implements OnInit {
     private _auth: AuthService,
     private _api: HttpService,
     private _free: FreeServiceService,
-    private sidebarService: SidebarService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
   }
@@ -48,5 +47,33 @@ export class DashboardComponent implements OnInit {
         }
       );
     }
+    if (isPlatformBrowser(this.platformId)) {
+      this.checkScreenWidth();
+      this.toggleSidebarIfNeeded();
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.checkScreenWidth();
+      this.toggleSidebarIfNeeded();
+    }
+  }
+
+  private checkScreenWidth(): void {
+    this.isSmallScreen = window.innerWidth < 778;
+  }
+
+  private toggleSidebarIfNeeded(): void {
+    if (this.isSmallScreen && this.sidebarShown) {
+      this.sidebarShown = false;
+    } else if (!this.isSmallScreen && !this.sidebarShown) {
+      this.sidebarShown = true;
+    }
+  }
+
+  toggleSidebar(): void {
+    this.sidebarShown = !this.sidebarShown;
   }
 }

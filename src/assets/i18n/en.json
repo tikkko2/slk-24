@@ -107,5 +107,9 @@
     "sub2-p": "₾30 Subscription",
     "sub3": "Write your price",
     "sub3-p": "Individual subscription"
+  },
+  "error": {
+    "err1": "Looks like you’ve got lost...",
+    "err2": "Back to Dashboard"
   }
 }

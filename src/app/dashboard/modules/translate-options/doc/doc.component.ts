@@ -213,12 +213,14 @@ export class DocComponent implements OnInit {
   }
 
   getImage(event: any) {
+    const fileInput = event.target as HTMLInputElement;
     const file: FileList = event.target.files;
     if (file) {
       this.files = Array.from(file);
       this.changeBackLeave();
     }
     this.changeBackLeave();
+    fileInput.value = '';
   }
 
   deleteImage(index: number) {

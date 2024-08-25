@@ -1,60 +1,73 @@
 <form [formGroup]="chatForm">
-  <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
-    <div class="dis">
-      <span>{{ 'translate.language-detection' | transloco }}</span>
+  <div class="translate-container d-flex gap-5">
+    <div class="flex-grow-1">
+      <div class="dis my-3">
+        <span>{{ "translate.language-detection" | transloco }}</span>
+      </div>
+      <div class="translate-content">
+        <textarea
+          #textareaElement
+          class="form-control shadow-none"
+          [placeholder]="'translate.text-to-be-translated' | transloco"
+          [maxlength]="maxChars"
+          formControlName="text"
+          (input)="updateTextareaContent($event)"
+          (input)="adjustTextareaHeight()"
+          id="floatingTextarea2"
+        ></textarea>
+        <div class="text-end pe-3 pb-2">
+          <small class="chars text-muted"
+            >{{ textareaContent.length }}/{{ maxChars }}</small
+          >
+        </div>
+      </div>
     </div>
-    <select
-      id="languageSelect"
-      class="form-select product-selection c-p shadow-none"
-      aria-label="Large select example"
-      [(ngModel)]="selectedLanguage"
-      [ngModelOptions]="{ standalone: true }"
-      required
-    >
-    <option selected value="0" disabled>{{ 'translate.language-options' | transloco }}</option>
-      <option *ngFor="let language of languages" [value]="language.id">
-        {{ this._transloco.getActiveLang() == 'ge' ? language.nameGeo : language.name }}
-      </option>
-    </select>
-  </div>
-  <div class="translate-container pt-3 d-flex gap-5">
-    <div class="translate-content">
-      <textarea
-        #textareaElement
-        class="form-control shadow-none"
-        [placeholder]="'translate.text-to-be-translated' | transloco"
-        [maxlength]="maxChars"
-        formControlName="text"
-        (input)="updateTextareaContent($event)"
-        (input)="adjustTextareaHeight()"
-        id="floatingTextarea2"
-      ></textarea>
-      <div class="text-end pe-3 pb-2">
-        <small class="chars text-muted"
-          >{{ textareaContent.length }}/{{ maxChars }}</small
+
+    <div class="flex-grow-1">
+      <div class="py-3">
+        <select
+          id="languageSelect"
+          class="form-select product-selection c-p shadow-none ms-auto"
+          aria-label="Large select example"
+          [(ngModel)]="selectedLanguage"
+          [ngModelOptions]="{ standalone: true }"
+          required
         >
+          <option selected value="0" disabled>
+            {{ "translate.language-options" | transloco }}
+          </option>
+          <option *ngFor="let language of languages" [value]="language.id">
+            {{
+              this._transloco.getActiveLang() == "ge"
+                ? language.nameGeo
+                : language.name
+            }}
+          </option>
+        </select>
       </div>
-    </div>
-    <div class="translated-content p-2">
-      <div class="translated-div">
-        <div class="loader" *ngIf="isLoading"></div>
-        <p
-          *ngIf="!isLoading"
-          [innerHTML]="translatedText"
-          class="pe-3"
-          #generatedResponse
-        ></p>
+      <div class="translated-content p-2">
+        <div class="translated-div">
+          <div class="loader" *ngIf="isLoading"></div>
+          <p
+            *ngIf="!isLoading"
+            [innerHTML]="translatedText"
+            class="pe-3"
+            #generatedResponse
+          ></p>
+        </div>
+        <i
+          *ngIf="copyBtn"
+          class="bi bi-copy text-muted"
+          (click)="copyToClipboard()"
+        ></i>
       </div>
-      <i
-        *ngIf="copyBtn"
-        class="bi bi-copy text-muted"
-        (click)="copyToClipboard()"
-      ></i>
     </div>
   </div>
   <div class="text-center py-5">
     <button class="button content-btn" (click)="sendText()">
-      <span class="button-content">{{ 'translate.translate' | transloco }}</span>
+      <span class="button-content">{{
+        "translate.translate" | transloco
+      }}</span>
     </button>
   </div>
 </form>

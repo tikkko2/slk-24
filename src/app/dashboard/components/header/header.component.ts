@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { AuthService } from '../../../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
@@ -13,6 +13,7 @@ import { SidebarService } from '../../../shared/services/component/sidebar.servi
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit {
+  @Output() sidebarToggle = new EventEmitter<void>();
   isLoggedIn: boolean = false;
   availableLangs!: string[] | { id: string; label: string }[];
   activeLang!: string;
@@ -75,7 +76,7 @@ export class HeaderComponent implements OnInit {
     this._router.navigate(['/sign-in']);
   }
 
-  toggleSidebar() {
-    this.sidebarService.toggleSidebar();
+  onToggleSidebar() {
+    this.sidebarToggle.emit();
   }
 }
