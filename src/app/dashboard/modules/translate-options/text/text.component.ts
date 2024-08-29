@@ -111,11 +111,11 @@ export class TextComponent implements OnInit, AfterViewInit {
 
   sendText() {
     if(this.selectedLanguage === 0) {
-      this.toastr.error('აირჩიეთ ენა')
+      this.toastr.error('აირჩიეთ სამიზნე ენა')
       return;
     }
     if (!this.chatForm.valid) {
-      this.toastr.error('ჩაწერეთ ტექსტი', 'ფორმა ცარიელია!');
+      this.toastr.error('ჩაწერეთ სათარგმნი ტექსტი');
       return;
     };
     if (

@@ -74,7 +74,7 @@ export class ImageComponent {
     private renderer: Renderer2,
     private docxService: TextToWordService,
     private languageService: ProductCategoryService,
-    public _transloco: TranslocoService,
+    public _transloco: TranslocoService
   ) {}
 
   ngOnInit() {
@@ -110,9 +110,21 @@ export class ImageComponent {
   });
 
   sendImages() {
-    if (this.selectedLanguage === '0' || this.selectedSourceLanguage === '0') {
-      this.toastr.error('აირჩიეთ ენა');
-      return;
+    switch (true) {
+      case this.selectedLanguage === '0' && this.selectedSourceLanguage === '0':
+        this.toastr.error('აირჩიეთ დედანისა და სამიზნე ენა');
+        break;
+
+      case this.selectedLanguage === '0':
+        this.toastr.error('აირჩიეთ სამიზნე ენა');
+        break;
+
+      case this.selectedSourceLanguage === '0':
+        this.toastr.error('აირჩიეთ დედანის ენა');
+        break;
+
+      default:
+        break;
     }
     if (!this.imageTranslateForm.valid) {
       this.toastr.error('ატვირთეთ ფოტო/ფოტოები!');

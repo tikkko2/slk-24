@@ -42,16 +42,17 @@
   "send": "Send",
   "productname": "Product Name",
   "search": "Search",
-  "test-title1": "The site is launched in test mode",
+  "test-title1": "The site is working in test mode",
   "test-title2": "Test mode",
   "translate": {
     "title": "Translate",
+    "description": "Translate any complexity text from photo/document in 1 minute",
     "text": "Text",
     "photo": "Photo",
     "document": "Document",
-    "language-detection": "Automatic language detection",
-    "language-main": "Select the original language",
-    "language-options": "Select the target language",
+    "language-detection": "Language detection",
+    "language-main": "Original language",
+    "language-options": "Target language",
     "text-to-be-translated": "Text to be translated",
     "translation": "Translation",
     "translate": "Translate"
@@ -61,7 +62,7 @@
     "f1": "Formal",
     "f2": "Friendly",
     "f3": "Neutral",
-    "language-options": "Select the target language",
+    "language-options": "Target language",
     "email": "Email",
     "reply": "Response email",
     "receiver": "Generate"
@@ -80,7 +81,7 @@
   },
   "description": {
     "title": "Description guru",
-    "des": "Generate any product description",
+    "des": "Generate any product description by specifying only the title and category",
     "device": "Laptop",
     "category": "Category"
   },

@@ -116,9 +116,21 @@ export class DocComponent implements OnInit {
   }
 
   sendDocs() {
-    if(this.selectedLanguage === '0' || this.selectedSourceLanguage === '0') {
-      this.toastr.error('აირჩიეთ ენა')
-      return;
+    switch (true) {
+      case this.selectedLanguage === '0' && this.selectedSourceLanguage === '0':
+        this.toastr.error('აირჩიეთ დედანისა და სამიზნე ენა');
+        break;
+
+      case this.selectedLanguage === '0':
+        this.toastr.error('აირჩიეთ სამიზნე ენა');
+        break;
+
+      case this.selectedSourceLanguage === '0':
+        this.toastr.error('აირჩიეთ დედანის ენა');
+        break;
+
+      default:
+        break;
     }
     if (!this.docTranslateForm.valid) {
       this.toastr.error('ატვირთეთ ფაილი/ფაილები!');

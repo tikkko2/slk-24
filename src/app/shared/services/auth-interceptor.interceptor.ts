@@ -60,6 +60,7 @@ export const authInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
           userService.ClearSession();
         } else {
           console.error('HTTP error:', err);
+          userService.ClearSession();
         }
       } else {
         console.error('An error occurred:', err);
