@@ -119,8 +119,6 @@ export class LawyerComponent implements OnInit {
           this.apiService.get(url.user, this.userID).subscribe(
             (res) => {
               this.userInfoUpdate = JSON.parse(res);
-              delete this.userInfoUpdate.roleName;
-              this.userInfoUpdate.balance -= 15;
               this.balanceService.setBalance(this.userInfoUpdate.balance);
               this.apiService
                 .updateUserInfo('/api/User', this.userInfoUpdate)

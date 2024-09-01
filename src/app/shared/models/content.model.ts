@@ -5,7 +5,6 @@ export class ContentModel {
     public productName: string,
     public languageId: number,
     public productCategoryId: string,
-    public uniqueKey: string,
     public attributes: KeyValueModel[]
   ) {}
 }

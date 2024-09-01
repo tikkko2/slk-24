@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { catchError, Observable, of, Subject, tap, throwError } from 'rxjs';
 import { FreeServiceService } from './free-service.service';
 import { url } from '../data/api';
 import { JwtDecodeService } from './jwt-decode.service';
 import { AuthService } from './auth.service';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +25,8 @@ export class HttpService {
     private _http: HttpClient,
     private authService: AuthService,
     private freeService: FreeServiceService,
-    private jwt_decode: JwtDecodeService
+    private jwt_decode: JwtDecodeService,
+    @Inject(DOCUMENT) private document: Document
   ) {
     this.host = environment.apiUrl;
     this.$refreshToken.subscribe((res: any) => {
@@ -35,7 +37,7 @@ export class HttpService {
   getRefreshToken(): Observable<any> {
     let loggedUserData: any;
     if (this.authService.IsLoggedIn()) {
-      const auth = localStorage.getItem('authorize');
+      const auth = this.document.defaultView?.localStorage.getItem('authorize');
       if (auth != null) {
         loggedUserData = JSON.parse(auth);
       }
@@ -49,7 +51,7 @@ export class HttpService {
             accessToken: res.token,
             refreshToken: res.refreshToken,
           };
-          localStorage.setItem('authorize', JSON.stringify(jwtMetadata));
+          this.document.defaultView?.localStorage.setItem('authorize', JSON.stringify(jwtMetadata));
           this.refreshInProgress = false;
         }),
         catchError((error: any) => {
@@ -63,7 +65,7 @@ export class HttpService {
   }
 
   isTokenExpired(): Observable<boolean> {
-    const auth = localStorage.getItem('authorize');
+    const auth = this.document.defaultView?.localStorage.getItem('authorize');
     if (auth != null) {
       const loggedUserData = JSON.parse(auth);
       const decodedToken = this.jwt_decode.decodeToken(
@@ -101,39 +103,7 @@ export class HttpService {
     return this._http.put(`${this.host}${apiUrl}`, data, { headers });
   }
 
-  postFileTranlate(apiUrl: string, data: any) {
-    const auth: any = localStorage.getItem('authorize');
-    const newToken = JSON.parse(auth);
-    const token: string = newToken.accessToken;
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    this.requestCount++;
-    localStorage.setItem('requestCount', this.requestCount.toString());
-    return this._http.post(`${this.host}${apiUrl}`, data, { headers });
-  }
-
-  postFreeFileTranlate(apiUrl: string, data: any) {
-    this.freeService.getToken().subscribe((value) => (this.fakeToken = value));
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.fakeToken}`,
-    });
-    this.requestCount++;
-    localStorage.setItem('requestCount', this.requestCount.toString());
-    return this._http.post(`${this.host}${apiUrl}`, data, { headers });
-  }
-
-  postLog(apiUrl: string, data: any) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-    return this._http.post(`${this.host}${apiUrl}`, JSON.stringify(data), {
-      headers,
-    });
-  }
-
-  postReg(apiUrl: string, data: any) {
+  postAuth(apiUrl: string, data: any) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
@@ -143,7 +113,7 @@ export class HttpService {
   }
 
   patchChangePassword(apiUrl: string, data: any) {
-    const auth: any = localStorage.getItem('authorize');
+    const auth: any = this.document.defaultView?.localStorage.getItem('authorize');
     const newToken = JSON.parse(auth);
     const token: string = newToken.accessToken;
 
@@ -152,6 +122,42 @@ export class HttpService {
       'Content-Type': 'application/json',
     });
     return this._http.patch(`${this.host}${apiUrl}`, JSON.stringify(data), {
+      headers,
+    });
+  }
+
+  postTranslate(apiUrl: string, data: any) {
+    const auth: any = this.document.defaultView?.localStorage.getItem('authorize');
+    const newToken = JSON.parse(auth);
+    const token: string = newToken.accessToken;
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    this.requestCount++;
+    localStorage.setItem('requestCount', this.requestCount.toString());
+    return this._http.post(`${this.host}${apiUrl}`, data, { headers });
+  }
+
+  postFreeTranlate(apiUrl: string, data: any) {
+    this.freeService.getToken().subscribe((value) => (this.fakeToken = value));
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.fakeToken}`,
+    });
+    this.requestCount++;
+    localStorage.setItem('requestCount', this.requestCount.toString());
+    return this._http.post(`${this.host}${apiUrl}`, data, { headers });
+  }
+
+  postFreeContent(apiUrl: string, data: any) {
+    this.freeService.getToken().subscribe((value) => (this.fakeToken = value));
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.fakeToken}`,
+      'Content-Type': 'application/json',
+    });
+    this.requestCount++;
+    localStorage.setItem('requestCount', this.requestCount.toString());
+    return this._http.post(`${this.host}${apiUrl}`, JSON.stringify(data), {
       headers,
     });
   }
@@ -167,31 +173,25 @@ export class HttpService {
     });
   }
 
-  postTranslate(apiUrl: string, data: any) {
+  postFreeWriter(apiUrl: string, data: any) {
+    this.freeService.getToken().subscribe((value) => (this.fakeToken = value));
+
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.fakeToken}`,
     });
     this.requestCount++;
     localStorage.setItem('requestCount', this.requestCount.toString());
-    return this._http.post(`${this.host}${apiUrl}`, JSON.stringify(data), {
-      headers,
-    });
+    return this._http.post(`${this.host}${apiUrl}`, data, { headers });
   }
 
-  postCopyright(apiUrl: string, data: any) {
-    this.requestCount++;
-    localStorage.setItem('requestCount', this.requestCount.toString());
-    return this._http.post(`${this.host}${apiUrl}`, data);
-  }
-
-  postScript(apiUrl: string, data: any) {
+  postWriter(apiUrl: string, data: any) {
     this.requestCount++;
     localStorage.setItem('requestCount', this.requestCount.toString());
     return this._http.post(`${this.host}${apiUrl}`, data);
   }
 
   postEmail(apiUrl: string, data: any) {
-    const auth: any = localStorage.getItem('authorize');
+    const auth: any = this.document.defaultView?.localStorage.getItem('authorize');
     const newToken = JSON.parse(auth);
     const token: string = newToken.accessToken;
 
@@ -231,7 +231,7 @@ export class HttpService {
   }
 
   hasExceededFreeRequests(): boolean {
-    const requested = Number(localStorage.getItem('requestCount'));
+    const requested = Number(this.document.defaultView?.localStorage.getItem('requestCount'));
     return requested >= this.maxFreeRequests;
   }
 }

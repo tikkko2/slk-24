@@ -1,8 +1,8 @@
 export const url = {
-  content: '/api/Content',
-  translate: '/api/Content/translate',
-  copyright: '/api/Content/copyright',
-  videoScript: '/api/Content/video-script',
+  content: '/api/UserContent',
+  translate: '/api/UserContent/translate',
+  copyright: '/api/UserContent/copyright',
+  videoScript: '/api/UserContent/video-script',
   productCategory: '/api/ProductCategory',
   login: '/api/auth/login',
   register: '/api/Auth/register',

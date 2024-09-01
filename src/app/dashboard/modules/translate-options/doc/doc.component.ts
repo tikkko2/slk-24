@@ -59,7 +59,6 @@ export class DocComponent implements OnInit {
   isLoading: boolean = false;
   selectedLanguage = '0';
   selectedSourceLanguage = '0';
-  uniqueKey = '00a48775-c474-49d4-9705-46c9c67e512a';
 
   isPdf = 'true';
   description = '';
@@ -68,7 +67,6 @@ export class DocComponent implements OnInit {
   translatedText!: string;
 
   languages: Language[] = [];
-  sourceLanguages: Language[] = [];
 
   constructor(
     private toastr: ToastrService,
@@ -96,7 +94,6 @@ export class DocComponent implements OnInit {
       this.languageService.getLanguage(url.language).subscribe(
         (response: any) => {
           this.languages = response;
-          this.sourceLanguages = response;
         },
         (error) => {
           console.error('Error fetching languages', error);
@@ -106,7 +103,6 @@ export class DocComponent implements OnInit {
       this.languageService.getFreeLanguage(url.language).subscribe(
         (response: any) => {
           this.languages = response;
-          this.sourceLanguages = response;
         },
         (error) => {
           console.error('Error fetching languages', error);
@@ -119,16 +115,13 @@ export class DocComponent implements OnInit {
     switch (true) {
       case this.selectedLanguage === '0' && this.selectedSourceLanguage === '0':
         this.toastr.error('აირჩიეთ დედანისა და სამიზნე ენა');
-        break;
-
+        return;
       case this.selectedLanguage === '0':
         this.toastr.error('აირჩიეთ სამიზნე ენა');
-        break;
-
+        return;
       case this.selectedSourceLanguage === '0':
         this.toastr.error('აირჩიეთ დედანის ენა');
-        break;
-
+        return;
       default:
         break;
     }
@@ -166,7 +159,7 @@ export class DocComponent implements OnInit {
 
     if (!this.authService.IsLoggedIn()) {
       this.apiService
-        .postFreeFileTranlate(url.fileTranslate, formData)
+        .postFreeTranlate(url.fileTranslate, formData)
         .subscribe(
           (response: any) => {
             this.translatedText = response.text;
@@ -181,7 +174,7 @@ export class DocComponent implements OnInit {
           }
         );
     } else {
-      this.apiService.postFileTranlate(url.fileTranslate, formData).subscribe(
+      this.apiService.postTranslate(url.fileTranslate, formData).subscribe(
         (response: any) => {
           this.translatedText = response.text;
           this.isLoading = !this.isLoading;
@@ -193,8 +186,6 @@ export class DocComponent implements OnInit {
             this.apiService.get(url.user, this.userID).subscribe(
               (res) => {
                 this.userInfoUpdate = JSON.parse(res);
-                delete this.userInfoUpdate.roleName;
-                this.userInfoUpdate.balance -= 10;
                 this.balanceService.setBalance(this.userInfoUpdate.balance);
                 this.apiService
                   .updateUserInfo('/api/User', this.userInfoUpdate)

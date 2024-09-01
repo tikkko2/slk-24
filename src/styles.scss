@@ -14,6 +14,12 @@
 
 /////////// MEDIA QUERIES ///////////
 
+@media screen and (max-width: 427px) {
+  .btn-mt-div {
+    margin-top: 1rem;
+  }
+}
+
 @media screen and (max-width: 778px) {
   app-sidebar {
     position: fixed;
@@ -37,15 +43,37 @@
   .nav {
     width: 100% !important;
   }
+  .chatting-container .question-div, .chatting-container .answer-chat-text {
+    max-width: 80%;
+  }
 }
 
 @media screen and (min-width: 779px) {
   .bi-arrow-bar-left {
     display: none;
   }
+  .chatting-container .question-div, .chatting-container .answer-chat-text {
+    max-width: 60%;
+  }
+}
+
+@media screen and (max-width: 888px) {
+  .responsed-text {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 889px) {
+  .responsed-text {
+    display: flex;
+  }
 }
 
 @media screen and (max-width: 668px) {
+  .profile-container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
   .auth-sign-up {
     width: 95vw;
   }
@@ -403,6 +431,9 @@ body {
 }
 
 .photo-upload {
+  position: absolute;
+  top: 11px;
+  left: 12px;
   .custom-file-upload {
     border: 1px solid #ccc;
     display: inline-block;

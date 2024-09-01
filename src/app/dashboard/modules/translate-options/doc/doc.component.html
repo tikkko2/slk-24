@@ -13,7 +13,7 @@
       <option selected value="0" disabled>
         {{ "translate.language-main" | transloco }}
       </option>
-      <option *ngFor="let language of sourceLanguages" [value]="language.id">
+      <option *ngFor="let language of languages" [value]="language.id">
         {{
           this._transloco.getActiveLang() == "ge"
             ? language.nameGeo

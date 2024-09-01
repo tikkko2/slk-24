@@ -57,7 +57,6 @@ export class SignUpComponent implements OnInit {
         phoneNUmber: this.registerForm.value.phone,
         password: this.registerForm.value.password,
       };
-      console.log(data);
       this.userService.register(data).subscribe(
         (res) => {
           this.isLoading = !this.isLoading;

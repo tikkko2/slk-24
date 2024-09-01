@@ -9,3 +9,27 @@
   border-radius: 1rem;
   background: #adadad !important;
 }
+
+.loader {
+  width: fit-content;
+  font-weight: 500;
+  font-size: 16px;
+  background: radial-gradient(circle closest-side, #3d3a4e 94%, #0000)
+    right/calc(200% - 1em) 100%;
+  animation: l24 1s infinite alternate linear;
+}
+.loader::before {
+  content: "მეილი იწერება...";
+  line-height: 1em;
+  color: #0000;
+  background: inherit;
+  background-image: radial-gradient(circle closest-side, #fff 94%, #3b59f3);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+@keyframes l24 {
+  100% {
+    background-position: left;
+  }
+}

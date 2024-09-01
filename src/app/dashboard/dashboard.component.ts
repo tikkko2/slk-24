@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
         username: 'free@gmail.com',
         password: '123',
       };
-      this._api.postLog(url.login, data).subscribe(
+      this._api.postAuth(url.login, data).subscribe(
         (res: any) => {
           this._free.setToken(res.token);
           this._free

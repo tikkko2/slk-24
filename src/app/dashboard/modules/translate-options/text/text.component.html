@@ -1,9 +1,22 @@
 <form [formGroup]="chatForm">
   <div class="translate-container row">
     <div class="col-12 col-lg-6">
-      <div class="dis my-3">
-        <span>{{ "translate.language-detection" | transloco }}</span>
-      </div>
+        <select
+        id="languageSourceSelect"
+        class="form-select product-selection c-p shadow-none my-3"
+        aria-label="Large select example"
+        [(ngModel)]="selectedSourceLanguage"
+        [ngModelOptions]="{ standalone: true }"
+        required
+      >
+      <option selected value="0" disabled>{{ 'translate.language-main' | transloco }}</option>
+        <option
+          *ngFor="let language of languages"
+          [value]="language.id"
+        >
+        {{ this._transloco.getActiveLang() == 'ge' ? language.nameGeo : language.name }}
+        </option>
+      </select>
       <div class="translate-content">
         <textarea
           #textareaElement

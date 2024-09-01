@@ -4,11 +4,15 @@ import { AuthService } from './auth.service';
 import { HttpService } from './http.service';
 import { catchError, from, of, switchMap, throwError } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 export const authInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
   const userService = inject(AuthService);
   const apiService = inject(HttpService);
   const document = inject(DOCUMENT);
+  const toastr = inject(ToastrService);
+  const router = inject(Router);
 
   let loggedUserData: any;
   let isLoggedIn = userService.IsLoggedIn();
@@ -60,7 +64,9 @@ export const authInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
           userService.ClearSession();
         } else {
           console.error('HTTP error:', err);
-          userService.ClearSession();
+          router.navigate(['']);
+          // userService.ClearSession();
+          toastr.error(`${err.error.errorText}`)
         }
       } else {
         console.error('An error occurred:', err);

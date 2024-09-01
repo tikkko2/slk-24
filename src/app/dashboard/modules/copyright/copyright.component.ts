@@ -1,17 +1,8 @@
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  OnInit,
-  Renderer2,
-  ViewChild,
-} from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '../../../shared/services/http.service';
-import { ProductCategoryService } from '../../../shared/services/product-category.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../shared/services/auth.service';
-import { MatDialog } from '@angular/material/dialog';
 import { BalanceService } from '../../../shared/services/balance.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ChatWithPhotoModel } from '../../../shared/models/chat-with-photo.model';
@@ -21,10 +12,11 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-copyright',
   templateUrl: './copyright.component.html',
-  styleUrl: './copyright.component.scss'
+  styleUrl: './copyright.component.scss',
 })
 export class CopyrightComponent {
-  @ViewChild('generatedResponse', { static: false }) generatedResponse!: ElementRef;
+  @ViewChild('generatedResponse', { static: false })
+  generatedResponse!: ElementRef;
 
   userMessageText: string = '';
   responseText: any;
@@ -40,7 +32,6 @@ export class CopyrightComponent {
 
   file: any;
   selectedLanguage = '1';
-  uniqueKey = '00a48775-c474-49d4-9705-46c9c67e512a';
   chats: ChatWithPhotoModel[] = [];
 
   constructor(
@@ -88,44 +79,58 @@ export class CopyrightComponent {
     this.userMessageText = this.chatForm.value.text ?? '';
 
     var formData = new FormData();
-    formData.append('uniqueKey', this.uniqueKey);
     formData.append('productName', this.chatForm.value.text);
     formData.append('languageId', this.selectedLanguage);
     formData.append('file', this.file);
 
     this.chatForm.reset();
 
-    this.apiService.postCopyright(url.copyright, formData).subscribe(
-      (response: any) => {
-        this.responseText = response.text;
-        this.isLoading = false;
+    if (this.authService.IsLoggedIn()) {
+      this.apiService.postWriter(url.copyright, formData).subscribe(
+        (response: any) => {
+          this.responseText = response.text;
+          this.isLoading = false;
 
-        var user = this.authService.GetUserInfo();
-        if (this.isLoggedIn) {
-          this.userID = user.UserId;
-          this.apiService.get(url.user, this.userID).subscribe(
-            (res) => {
-              this.userInfoUpdate = JSON.parse(res);
-              delete this.userInfoUpdate.roleName;
-              this.userInfoUpdate.balance -= 10;
-              this.balanceService.setBalance(this.userInfoUpdate.balance);
-              this.apiService
-                .updateUserInfo('/api/User', this.userInfoUpdate)
-                .subscribe();
-            },
-            (err) => {
-              console.log(err);
-            }
-          );
+          var user = this.authService.GetUserInfo();
+          if (this.isLoggedIn) {
+            this.userID = user.UserId;
+            this.apiService.get(url.user, this.userID).subscribe(
+              (res) => {
+                this.userInfoUpdate = JSON.parse(res);
+                this.balanceService.setBalance(this.userInfoUpdate.balance);
+                this.apiService
+                  .updateUserInfo('/api/User', this.userInfoUpdate)
+                  .subscribe();
+              },
+              (err) => {
+                console.log(err);
+              }
+            );
+          }
+        },
+        (error) => {
+          console.error('Error:', error);
+          const errorText =
+            error.error.errorText || 'An unexpected error occurred';
+          this.responseText = errorText;
+          this.isLoading = false;
         }
-      },
-      (error) => {
-        console.error('Error:', error);
-        const errorText = error.error.errorText || 'An unexpected error occurred';
-        this.responseText = errorText;
-        this.isLoading = false;
-      }
-    );
+      );
+    } else {
+      this.apiService.postFreeWriter(url.copyright, formData).subscribe(
+        (response: any) => {
+          this.responseText = response.text;
+          this.isLoading = false;
+        },
+        (error) => {
+          console.error('Error:', error);
+          const errorText =
+            error.error.errorText || 'An unexpected error occurred';
+          this.responseText = errorText;
+          this.isLoading = false;
+        }
+      );
+    }
   }
 
   onFileSelected(event: any) {
@@ -137,8 +142,11 @@ export class CopyrightComponent {
 
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.displayUploadedImageTextArea = this.sanitizer.bypassSecurityTrustUrl(e.target.result);
-        this.displayImageOnUserChat = this.sanitizer.bypassSecurityTrustUrl(e.target.result);
+        this.displayUploadedImageTextArea =
+          this.sanitizer.bypassSecurityTrustUrl(e.target.result);
+        this.displayImageOnUserChat = this.sanitizer.bypassSecurityTrustUrl(
+          e.target.result
+        );
       };
       reader.readAsDataURL(file);
 

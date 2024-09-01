@@ -10,22 +10,22 @@
     <form [formGroup]="registerForm" (ngSubmit)="proceedRegistration()">
       <div class="input-field">
         <label for="name">{{ 'sign-up.name' | transloco }}</label>
-        <input type="text" formControlName="firstname" placeholder="John" id="name" autocomplete="name"/>
+        <input type="text" formControlName="firstname" placeholder="Suliko" id="name" autocomplete="name"/>
       </div>
       <div class="input-field">
         <label for="surname">{{ 'sign-up.surname' | transloco }}</label>
-        <input type="text" formControlName="lastname" placeholder="Orhan" id="surname"/>
+        <input type="text" formControlName="lastname" placeholder="Tsereteli" id="surname"/>
       </div>
       <div class="input-field">
         <label for="email">{{ 'sign-up.mail' | transloco }}</label>
-        <input type="email" formControlName="email" placeholder="example@example.com" id="email" autocomplete="email"/>
+        <input type="email" formControlName="email" placeholder="suliko@suliko.com" id="email" autocomplete="email"/>
       </div>
       <div class="input-field">
         <label for="phone">{{ 'sign-up.phone' | transloco }}</label>
         <input
           type="text"
           formControlName="phone"
-          placeholder="123456789"
+          placeholder="5XX 11 22 33"
           minlength="6"
           maxlength="9"
           id="phone"
