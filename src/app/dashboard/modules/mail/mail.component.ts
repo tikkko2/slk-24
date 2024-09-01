@@ -55,7 +55,7 @@ export class MailComponent implements OnInit {
   emailFormId = 1;
   uniqueKey = '00a48775-c474-49d4-9705-46c9c67e512a';
 
-  translatedText: string = 'Response email';
+  translatedText: string = 'Response mail';
 
   languages: Language[] = [];
   emailFormList: Email[] = form;
@@ -160,8 +160,6 @@ export class MailComponent implements OnInit {
             this.apiService.get(url.user, this.userID).subscribe(
               (res) => {
                 this.userInfoUpdate = JSON.parse(res);
-                delete this.userInfoUpdate.roleName;
-                this.userInfoUpdate.balance -= 10;
                 this.balanceService.setBalance(this.userInfoUpdate.balance);
                 this.apiService
                   .updateUserInfo('/api/User', this.userInfoUpdate)

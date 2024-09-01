@@ -9,10 +9,10 @@ export class UserService {
   constructor(private _apiService: HttpService) {}
 
   authorize(data: any) {
-    return this._apiService.postLog(url.login, data);
+    return this._apiService.postAuth(url.login, data);
   }
 
   register(data: any) {
-    return this._apiService.postReg(url.register, data);
+    return this._apiService.postAuth(url.register, data);
   }
 }

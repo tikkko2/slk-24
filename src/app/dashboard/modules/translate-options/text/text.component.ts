@@ -50,8 +50,8 @@ export class TextComponent implements OnInit, AfterViewInit {
   imageUrl: SafeUrl | null = null;
 
   isLoading: boolean = false;
-  selectedLanguage: number = 0;
-  uniqueKey = '00a48775-c474-49d4-9705-46c9c67e512a';
+  selectedLanguage = '0';
+  selectedSourceLanguage = '0';
 
   translatedText: string = 'Translation';
 
@@ -110,7 +110,7 @@ export class TextComponent implements OnInit, AfterViewInit {
   });
 
   sendText() {
-    if(this.selectedLanguage === 0) {
+    if(this.selectedLanguage === '0') {
       this.toastr.error('აირჩიეთ სამიზნე ენა')
       return;
     }
@@ -134,14 +134,14 @@ export class TextComponent implements OnInit, AfterViewInit {
     this.isLoading = true;
 
     const userMessageText = this.chatForm.value.text ?? '';
+    var formData = new FormData();
+    formData.append('description', userMessageText);
+    formData.append('languageId', this.selectedLanguage);
+    formData.append('sourceLanguageId', this.selectedSourceLanguage);
+    formData.append('files', '[]');
+    formData.append('isPdf', 'false');
 
-    const model = new TranslateModel(
-      userMessageText,
-      Number(this.selectedLanguage),
-      this.uniqueKey
-    );
-
-    this.apiService.postTranslate(url.translate, model).subscribe(
+    this.apiService.postTranslate(url.translate, formData).subscribe(
       (response: any) => {
         this.translatedText = response.text.replace(/<br\s*\/?>/gi, '');
         this.isLoading = false;
@@ -153,8 +153,6 @@ export class TextComponent implements OnInit, AfterViewInit {
           this.apiService.get(url.user, this.userID).subscribe(
             (res) => {
               this.userInfoUpdate = JSON.parse(res);
-              delete this.userInfoUpdate.roleName;
-              this.userInfoUpdate.balance -= 10;
               this.balanceService.setBalance(this.userInfoUpdate.balance);
               this.apiService
                 .updateUserInfo('/api/User', this.userInfoUpdate)

@@ -41,7 +41,6 @@ export class DescriptionComponent {
   sent: boolean = false;
 
   selectedLanguage = '1';
-  uniqueKey = '00a48775-c474-49d4-9705-46c9c67e512a';
 
   filterString: string = '';
   selectedProductCategoryId: string = '';
@@ -131,38 +130,49 @@ export class DescriptionComponent {
       this.userMessageText,
       Number(this.selectedLanguage),
       this.selectedProductCategoryId,
-      this.uniqueKey,
       []
     );
 
-    this.apiService.postContent(url.content, model).subscribe(
-      (response: any) => {
-        this.sent = !this.sent;
-        this.responseText = response.text.replace(/<br\s*\/?>/gi, '');
-        this.isLoading = false;
+    if(this.authService.IsLoggedIn()) {
+      this.apiService.postContent(url.content, model).subscribe(
+        (response: any) => {
+          this.sent = !this.sent;
+          this.responseText = response.text.replace(/<br\s*\/?>/gi, '');
+          this.isLoading = false;
 
-        var user = this.authService.GetUserInfo();
-        if(this.isLoggedIn) {
-          this.userID = user.UserId;
-          this.apiService.get(url.user, this.userID).subscribe(
-            (res) => {
-              this.userInfoUpdate = JSON.parse(res);
-              delete this.userInfoUpdate.roleName;
-              this.userInfoUpdate.balance -= 15;
-              this.balanceService.setBalance(this.userInfoUpdate.balance);
-              this.apiService.updateUserInfo('/api/User', this.userInfoUpdate).subscribe();
-            },
-            (err) => {
-              console.log(err);
-            }
-          );
+          var user = this.authService.GetUserInfo();
+          if(this.isLoggedIn) {
+            this.userID = user.UserId;
+            this.apiService.get(url.user, this.userID).subscribe(
+              (res) => {
+                this.userInfoUpdate = JSON.parse(res);
+                this.balanceService.setBalance(this.userInfoUpdate.balance);
+                this.apiService.updateUserInfo('/api/User', this.userInfoUpdate).subscribe();
+              },
+              (err) => {
+                console.log(err);
+              }
+            );
+          }
+        },
+        (error) => {
+          console.error('Error:', error);
+          this.isLoading = false;
         }
-      },
-      (error) => {
-        console.error('Error:', error);
-        this.isLoading = false;
-      }
-    );
+      );
+    } else {
+      this.apiService.postFreeContent(url.content, model).subscribe(
+        (response: any) => {
+          this.sent = !this.sent;
+          this.responseText = response.text.replace(/<br\s*\/?>/gi, '');
+          this.isLoading = false;
+        },
+        (error) => {
+          console.error('Error:', error);
+          this.isLoading = false;
+        }
+      )
+    }
   }
 
   private initializeFilterOptions() {

@@ -5,6 +5,7 @@ import { FreeServiceService } from '../../../shared/services/free-service.servic
 import { BalanceService } from '../../../shared/services/balance.service';
 import { HttpService } from '../../../shared/services/http.service';
 import { url } from '../../../shared/data/api';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sidebar',
@@ -23,11 +24,10 @@ export class SidebarComponent implements OnInit {
   userInfo: any;
 
   constructor(
-    private _router: Router,
     private _auth: AuthService,
     private _api: HttpService,
     private _balance: BalanceService,
-    private _free: FreeServiceService
+    private _toastr: ToastrService
   ) {}
 
   ngOnInit() {
@@ -48,6 +48,10 @@ export class SidebarComponent implements OnInit {
         }
       );
     }
+  }
+
+  onFinance() {
+    this._toastr.info('სერვისი მალე დაემატება', 'Coming Soon...')
   }
 
   onToggleSidebar() {

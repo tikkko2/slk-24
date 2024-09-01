@@ -42,14 +42,18 @@ export class AuthService {
       accessToken: data.token,
       refreshToken: data.refreshToken,
     };
-    localStorage.setItem('authorize', JSON.stringify(jwtMetadata));
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('authorize', JSON.stringify(jwtMetadata));
+    }
   }
 
   ClearSession(): void {
     if (this.logoutInProgress) return;
 
     this.logoutInProgress = true;
-    localStorage.removeItem('authorize');
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('authorize');
+    }
 
     this._router.navigate(['/services']).then(() => {
       this.logoutInProgress = false;
@@ -57,14 +61,12 @@ export class AuthService {
     });
   }
 
-  refreshPage() {
-    window.location.reload();
-  }
-
   GetUserInfo() {
-    const storedData = localStorage.getItem('authorize');
-    if (storedData == null) return null;
-    const metadata = this.jwt_decode.decodeToken(storedData);
-    return metadata;
+    if (isPlatformBrowser(this.platformId)) {
+      const storedData = localStorage.getItem('authorize');
+      if (storedData == null) return null;
+      const metadata = this.jwt_decode.decodeToken(storedData);
+      return metadata;
+    }
   }
 }
