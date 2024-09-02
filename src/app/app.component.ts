@@ -1,7 +1,8 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 import Hotjar from '@hotjar/browser'
+import { PixelService } from 'ngx-multi-pixel';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,19 +14,25 @@ export class AppComponent implements OnInit {
   selectedLanguage: any;
   savedLanguage: any;
 
+  isBrowser: any;
+
   siteID = 5099385;
   hotjarV = 6;
 
-  initHotjar() {
-    Hotjar.init(this.siteID, this.hotjarV);
-  }
   constructor(
     private _translate: TranslocoService,
-    @Inject(DOCUMENT) private document: Document
-  ) {}
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private pixel: PixelService,
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   ngOnInit() {
-    this.initHotjar();
+    if(this.isBrowser) {
+      this.initHotjar();
+      this.initPixel();
+    }
     const localStorage = this.document.defaultView?.localStorage;
     if (localStorage) {
       this.savedLanguage = localStorage.getItem('selectedLanguage');
@@ -41,5 +48,13 @@ export class AppComponent implements OnInit {
         this.activeLang = this._translate.getDefaultLang();
       }
     }
+  }
+
+  initHotjar() {
+    Hotjar.init(this.siteID, this.hotjarV);
+  }
+
+  initPixel() {
+    this.pixel.initialize();
   }
 }

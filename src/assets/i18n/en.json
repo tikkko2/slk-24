@@ -45,6 +45,7 @@
   "test-title1": "The site is working in test mode",
   "test-title2": "Test mode",
   "translate": {
+    "price": "1 Page - 10 Tetri",
     "title": "Translate",
     "description": "Translate any complexity text from photo/document in 1 minute",
     "text": "Text",
@@ -70,13 +71,13 @@
   "screenwriter": {
     "title": "Screenwriter",
     "des1": "Upload a photo, write the product name, and generate a video description.",
-    "des2": "The photo must be in one of the following formats: jpeg, png, gif, webp!",
+    "des2": "The photo must be in one of the following formats: JPEG, PNG, GIF, WEBP!",
     "device": "Laptop"
   },
   "advertiser": {
     "title": "Advertiser",
     "des1": "Upload a photo, write the product name, and generate its full description.",
-    "des2": "The photo must be in one of the following formats: jpeg, png, gif, webp!",
+    "des2": "The photo must be in one of the following formats: JPEG, PNG, GIF, WEBP!",
     "device": "Laptop"
   },
   "description": {
