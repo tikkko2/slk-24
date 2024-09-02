@@ -14,6 +14,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { TranslocoRootModule } from './transloco-root.module';
 import { authInterceptorInterceptor } from './shared/services/auth-interceptor.interceptor';
+import { PixelModule } from 'ngx-multi-pixel';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { authInterceptorInterceptor } from './shared/services/auth-interceptor.i
     HttpClientModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
+    PixelModule.forRoot({ enabled: true, pixelId: ["536291588920812"]}),
     TranslocoRootModule
   ],
   providers: [
