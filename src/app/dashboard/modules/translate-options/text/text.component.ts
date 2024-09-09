@@ -17,7 +17,7 @@ import { SafeUrl } from '@angular/platform-browser';
 import { Language } from '../../../../shared/interfaces/language.interface';
 import { ProductCategoryService } from '../../../../shared/services/product-category.service';
 import { FreeServiceService } from '../../../../shared/services/free-service.service';
-import { switchMap, timer } from 'rxjs';
+import { debounceTime, Subject, switchMap, timer } from 'rxjs';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 
@@ -30,6 +30,8 @@ import { TranslocoService } from '@ngneat/transloco';
 export class TextComponent implements OnInit, AfterViewInit {
   @ViewChild('textareaElement', { static: false }) textareaElement!: ElementRef;
   @ViewChild('generatedResponse', { static: false }) generatedResponse!: ElementRef;
+
+  private inputSubject = new Subject<string>();
 
   activeComponent: any = TextComponent;
 
@@ -53,8 +55,12 @@ export class TextComponent implements OnInit, AfterViewInit {
   selectedLanguage = '0';
   selectedSourceLanguage = '0';
 
+  languageNotSelected = false;
+  sourceLanguageNotSelected = false;
+
   translatedText: string = 'Translation';
 
+  sourceLanguages: Language[] = [];
   languages: Language[] = [];
 
   constructor(
@@ -68,7 +74,13 @@ export class TextComponent implements OnInit, AfterViewInit {
     public _transloco: TranslocoService,
     private freeService: FreeServiceService,
     private _router: Router
-  ) {}
+  ) {
+    this.inputSubject.pipe(
+      debounceTime(500) // Adjust the debounce time (in milliseconds) as needed
+    ).subscribe(() => {
+      this.sendText(); // Trigger sendText after debounce
+    });
+  }
 
   ngOnInit() {
     this.isLoggedIn = this.authService.IsLoggedIn();
@@ -80,23 +92,26 @@ export class TextComponent implements OnInit, AfterViewInit {
     if(this.isLoggedIn) {
       this.languageService.getLanguage(url.language).subscribe(
         (response: any) => {
+          this.sourceLanguages = response;
           this.languages = response;
+          this.deleteById(10);
         },
         (error) => {
           console.error('Error fetching languages', error);
         }
       );
-    } else {
-
     }
   }
+
   ngAfterViewInit() {
     if(!this.isLoggedIn) {
       timer(500).pipe(
         switchMap(() => this.languageService.getFreeLanguage(url.language))
       ).subscribe(
         (response: any) => {
+          this.sourceLanguages = response;
           this.languages = response;
+          this.deleteById(10);
         },
         (error: any) => {
           console.error('Error fetching languages', error);
@@ -109,9 +124,19 @@ export class TextComponent implements OnInit, AfterViewInit {
     text: this.builder.control(``, Validators.required),
   });
 
+  onInput(event: any) {
+    const inputValue = event.target.value;
+    this.inputSubject.next(inputValue); // Pass input value to the debounced Subject
+  }
+
   sendText() {
     if(this.selectedLanguage === '0') {
       this.toastr.error('აირჩიეთ სამიზნე ენა')
+      this.languageNotSelected = true;
+      return;
+    } else if(this.selectedSourceLanguage === '0') {
+      this.toastr.error('აირჩიეთ დედანის ენა')
+      this.sourceLanguageNotSelected = true;
       return;
     }
     if (!this.chatForm.valid) {
@@ -169,6 +194,10 @@ export class TextComponent implements OnInit, AfterViewInit {
         this.isLoading = false;
       }
     );
+  }
+
+  deleteById(id: any): void {
+    this.languages = this.languages.filter((item: any) => item.id !== id);
   }
 
   copyToClipboard() {

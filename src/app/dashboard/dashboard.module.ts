@@ -22,6 +22,7 @@ import { FinanceComponent } from './chats/finance/finance.component';
 import { GreetingComponent } from '../shared/components/greeting/greeting.component';
 import { MailComponent } from './modules/mail/mail.component';
 import { TranslateComponent } from './modules/translate/translate.component';
+import { HistoryComponent } from './user/history/history.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { TranslateComponent } from './modules/translate/translate.component';
     MailComponent,
     FinanceComponent,
     TranslateComponent,
-    GreetingComponent
+    GreetingComponent,
+    HistoryComponent
   ],
   imports: [
     ReactiveFormsModule,

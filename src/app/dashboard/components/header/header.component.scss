@@ -19,3 +19,47 @@ ul {
 .content {
   position: absolute;
 }
+
+.dropdown-user {
+  position: relative;
+  .user-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 7px 12px;
+    background-color: #3b59f3;
+    margin-left: 5px;
+    border-radius: 7px;
+    cursor: pointer;
+    i {
+      color: white;
+    }
+  }
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    display: block;
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    user-select: none;
+    min-width: 250px;
+  }
+}
+
+.lang-drop {
+  position: relative;
+  img {
+    height: 25px !important;
+    width: 25px !important;
+    object-fit: contain;
+  }
+  .content {
+    right: calc(100% + 10px);
+    top: 0;
+  }
+}

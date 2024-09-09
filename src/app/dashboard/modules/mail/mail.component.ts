@@ -82,6 +82,7 @@ export class MailComponent implements OnInit {
       this.languageService.getLanguage(url.language).subscribe(
         (response: any) => {
           this.languages = response;
+          this.deleteById(10);
         },
         (error) => {
           console.error('Error fetching languages', error);
@@ -91,6 +92,7 @@ export class MailComponent implements OnInit {
       this.languageService.getFreeLanguage(url.language).subscribe(
         (response: any) => {
           this.languages = response;
+          this.deleteById(10);
         },
         (error) => {
           console.error('Error fetching languages', error);
@@ -179,9 +181,9 @@ export class MailComponent implements OnInit {
     }
   }
 
-  onFileSelected(event: Event): void {}
-
-  onDeleteImage(): void {}
+  deleteById(id: any): void {
+    this.languages = this.languages.filter((item: any) => item.id !== id);
+  }
 
   copyToClipboard() {
     var textToCopy = this.generatedResponse.nativeElement.innerText;

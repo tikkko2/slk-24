@@ -1,14 +1,45 @@
 <div
   class="bg-white d-flex align-items-center justify-content-between px-2 py-2"
 >
-  <i
-    title="Sidebar"
-    class="bi bi-layout-sidebar-inset-reverse fs-5 text-muted ms-2 c-p"
-    (click)="onToggleSidebar()"
-  ></i>
-  <h6 class="m-0 p-0 text-muted" >{{ isSmallScreen ? ('test-title2' | transloco) : ('test-title1' | transloco) }}</h6>
+  <div class="ms-2 c-p">
+    <svg
+      (click)="onToggleSidebar()"
+      fill="#4d4d4d"
+      width="20"
+      height="20"
+      viewBox="0 0 52 52"
+      data-name="Layer 1"
+      id="Layer_1"
+      xmlns="http://www.w3.org/2000/svg"
+      stroke="#4d4d4d"
+    >
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <path d="M50,12.5H2a2,2,0,0,1,0-4H50a2,2,0,0,1,0,4Z"></path>
+        <path d="M50,28H2a2,2,0,0,1,0-4H50a2,2,0,0,1,0,4Z"></path>
+        <path d="M50,43.5H2a2,2,0,0,1,0-4H50a2,2,0,0,1,0,4Z"></path>
+      </g>
+    </svg>
+    <img
+      src="../../../../assets/images/SLK/Logo.svg"
+      width="30"
+      class="ms-3"
+      alt="SULIKO"
+    />
+  </div>
+
+  <h6 class="m-0 p-0 text-muted">
+    {{
+      isSmallScreen ? ("test-title2" | transloco) : ("test-title1" | transloco)
+    }}
+  </h6>
   <div class="d-flex align-items-center justify-content-between">
-    <div class="sound">
+    <div class="sound" *ngIf="!isLoggedIn">
       <div class="main" (click)="dropdownOpen()">
         <img [src]="selectedLanguage.path" alt="language" />
       </div>
@@ -24,24 +55,99 @@
         </ul>
       </div>
     </div>
-    <div
-      class="d-flex align-items-center justify-content-center gap-2 ms-4"
-      *ngIf="isLoggedIn"
-    >
-      <img
-        src="../../../../assets/images/sidebar_icons/profile_photo.svg"
-        width="40"
-        alt="USER"
-      />
-      <div class="d-flex flex-column">
-        <h6 class="m-0 fs-14px text-capitalize">{{ username }}</h6>
-        <small class="fs-12px">
-          {{
-            role == "USER"
-              ? ("header.user" | transloco)
-              : ("header.admin" | transloco)
-          }}</small
-        >
+    <div class="dropdown-user" *ngIf="isLoggedIn">
+      <div
+        class="user-div"
+        (mouseenter)="showDropdown()"
+        (click)="toggleUserDropdown()"
+      >
+        <i class="bi bi-person-lines-fill"></i>
+      </div>
+      <div
+        class="dropdown-menu"
+        *ngIf="isDropdownVisible"
+        (mouseleave)="hideDropdown()"
+      >
+        <div class="d-flex align-items-center justify-content-start gap-3 p-2">
+          <img
+            src="../../../../assets/images/sidebar_icons/profile_photo.svg"
+            width="40"
+            alt="USER"
+          />
+          <div class="d-flex flex-column">
+            <h6 class="m-0 text-capitalize">{{ username }}</h6>
+            <small>
+              {{
+                role == "USER"
+                  ? ("header.user" | transloco)
+                  : ("header.admin" | transloco)
+              }}</small
+            >
+          </div>
+        </div>
+        <hr />
+        <ul class="m-0 px-2">
+          <li>
+            <p
+              routerLink="profile"
+              routerLinkActive="loggedin-link-active"
+              class="p-0 m-0 pb-2"
+            >
+              {{ "sidebar.profile" | transloco }}
+            </p>
+          </li>
+          <li>
+            <p
+              routerLink="balance"
+              routerLinkActive="loggedin-link-active"
+              class="p-0 m-0 pb-2"
+            >
+              <span>{{ "sidebar.balance" | transloco }}</span>
+            </p>
+          </li>
+          <li>
+            <p
+              routerLink="history"
+              routerLinkActive="loggedin-link-active"
+              class="p-0 m-0"
+            >
+              <span>{{ "sidebar.history" | transloco }}</span>
+            </p>
+          </li>
+        </ul>
+        <hr />
+        <ul class="m-0 px-2">
+          <li class="d-flex justify-content-between align-items-center pb-2">
+            <p class="p-0 m-0">ენა</p>
+            <div class="lang-drop">
+              <div class="sound">
+                <div class="main" (click)="dropdownOpen()">
+                  <img
+                    [src]="selectedLanguage.path"
+                    width="20"
+                    alt="language"
+                  />
+                </div>
+                <div class="content" *ngIf="contentDropdown">
+                  <ul>
+                    <li
+                      class="mb-2"
+                      *ngFor="let icon of filteredIcons()"
+                      (click)="changeLanguage(icon)"
+                    >
+                      <img [src]="icon.path" alt="Language" />
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <p (click)="logout()" class="p-0 m-0">
+              <span>{{ "sidebar.logout" | transloco }}</span>
+            </p>
+          </li>
+        </ul>
       </div>
     </div>
     <div *ngIf="!isLoggedIn">

@@ -14,6 +14,7 @@ import { authGuard } from './guard/auth.guard';
 import { userGuard } from './guard/user.guard';
 import { BalanceComponent } from './dashboard/user/balance/balance.component';
 import { LawyerComponent } from './dashboard/chats/lawyer/lawyer.component';
+import { HistoryComponent } from './dashboard/user/history/history.component';
 
 const routes: Routes = [
   {
@@ -58,6 +59,11 @@ const routes: Routes = [
       {
         path: 'balance',
         component: BalanceComponent,
+        canActivate: [userGuard]
+      },
+      {
+        path: 'history',
+        component: HistoryComponent,
         canActivate: [userGuard]
       }
     ]

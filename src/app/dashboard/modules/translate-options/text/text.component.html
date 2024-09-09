@@ -3,15 +3,17 @@
     <div class="col-12 col-lg-6">
         <select
         id="languageSourceSelect"
+        (change)="onInput($event)"
         class="form-select product-selection c-p shadow-none my-3"
         aria-label="Large select example"
         [(ngModel)]="selectedSourceLanguage"
         [ngModelOptions]="{ standalone: true }"
+        [ngClass]="{'select-error': sourceLanguageNotSelected && selectedSourceLanguage === '0'}"
         required
       >
       <option selected value="0" disabled>{{ 'translate.language-main' | transloco }}</option>
         <option
-          *ngFor="let language of languages"
+          *ngFor="let language of sourceLanguages"
           [value]="language.id"
         >
         {{ this._transloco.getActiveLang() == 'ge' ? language.nameGeo : language.name }}
@@ -26,6 +28,7 @@
           formControlName="text"
           (input)="updateTextareaContent($event)"
           (input)="adjustTextareaHeight()"
+          (input)="onInput($event)"
           id="floatingTextarea2"
         ></textarea>
         <div class="text-end pe-3 pb-2">
@@ -40,10 +43,12 @@
       <div class="py-3">
         <select
           id="languageSelect"
+          (change)="onInput($event)"
           class="form-select product-selection c-p shadow-none ms-auto"
           aria-label="Large select example"
           [(ngModel)]="selectedLanguage"
           [ngModelOptions]="{ standalone: true }"
+          [ngClass]="{'select-error': languageNotSelected && selectedLanguage === '0'}"
           required
         >
           <option selected value="0" disabled>
@@ -76,11 +81,11 @@
       </div>
     </div>
   </div>
-  <div class="text-center py-5">
+  <!-- <div class="text-center py-5">
     <button class="button content-btn" (click)="sendText()">
       <span class="button-content">{{
         "translate.translate" | transloco
       }}</span>
     </button>
-  </div>
+  </div> -->
 </form>

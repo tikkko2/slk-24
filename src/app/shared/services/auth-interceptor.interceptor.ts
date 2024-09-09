@@ -66,7 +66,9 @@ export const authInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
           console.error('HTTP error:', err);
           router.navigate(['']);
           // userService.ClearSession();
-          toastr.error(`${err.error.errorText}`)
+          if(err.error.errorText != undefined) {
+            toastr.error(`${err.error.errorText}`);
+          }
         }
       } else {
         console.error('An error occurred:', err);

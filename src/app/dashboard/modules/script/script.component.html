@@ -9,13 +9,15 @@
       <div
         class="input-search-container d-flex align-items-center justify-content-center flex-wrap flex-lg-nowrap position-relative"
       >
-        <div class="photo-upload flex-shrink-0 me-2">
+      <div class="d-flex align-items-center justify-content-start flex-grow-1 copyright-input">
+        <div class="photo-upload">
           <label
             for="file-upload"
-            class="custom-file-upload"
+            class="custom-file-upload px-3"
             title="Add an image (Format: png, jpeg, webp, gif)"
           >
-            <i class="bi bi-file-earmark-image"></i>
+            <i class="bi bi-file-earmark-arrow-up me-2"></i>
+            <span class="text-muted">Attach File</span>
           </label>
           <input
             type="file"
@@ -29,8 +31,9 @@
           type="text"
           [placeholder]=" 'productname' | transloco"
           formControlName="text"
-          class="flex-grow-1 copyright-input ps-5"
+          class="flex-grow-1"
         />
+      </div>
         <div class="ms-sm-2 text-center btn-mt-div">
           <button
             type="submit"
