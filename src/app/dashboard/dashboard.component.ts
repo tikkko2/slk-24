@@ -17,7 +17,7 @@ import { NavigationEnd, Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
   isLoggedIn: boolean = false;
   isSmallScreen: boolean = false;
-  sidebarShown: boolean = true;
+  sidebarShown: boolean = false;
   private subscription!: Subscription;
   public fakeToken: any;
 
@@ -51,7 +51,6 @@ export class DashboardComponent implements OnInit {
     }
     if (isPlatformBrowser(this.platformId)) {
       this.checkScreenWidth();
-      this.toggleSidebarIfNeeded();
     }
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -64,7 +63,7 @@ export class DashboardComponent implements OnInit {
   onResize(event: Event): void {
     if (isPlatformBrowser(this.platformId)) {
       this.checkScreenWidth();
-      this.toggleSidebarIfNeeded();
+      // this.toggleSidebarIfNeeded();
     }
   }
 
@@ -72,13 +71,13 @@ export class DashboardComponent implements OnInit {
     this.isSmallScreen = window.innerWidth < 778;
   }
 
-  private toggleSidebarIfNeeded(): void {
-    if (this.isSmallScreen && this.sidebarShown) {
-      this.sidebarShown = false;
-    } else if (!this.isSmallScreen && !this.sidebarShown) {
-      this.sidebarShown = true;
-    }
-  }
+  // private toggleSidebarIfNeeded(): void {
+  //   if (this.isSmallScreen && this.sidebarShown) {
+  //     this.sidebarShown = false;
+  //   } else if (!this.isSmallScreen && !this.sidebarShown) {
+  //     this.sidebarShown = true;
+  //   }
+  // }
 
   toggleSidebar(): void {
     this.sidebarShown = !this.sidebarShown;

@@ -4,8 +4,6 @@ import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { language } from '../../../shared/data/language';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { identifierName } from '@angular/compiler';
-import { SidebarService } from '../../../shared/services/component/sidebar.service';
 
 @Component({
   selector: 'app-header',
@@ -23,6 +21,7 @@ export class HeaderComponent implements OnInit {
   userInfo: any;
   username!: string;
   role!: string;
+  isDropdownVisible: boolean = false;
 
   constructor(
     private _router: Router,
@@ -85,6 +84,18 @@ export class HeaderComponent implements OnInit {
     this.sidebarToggle.emit();
   }
 
+  toggleUserDropdown() {
+    this.isDropdownVisible = !this.isDropdownVisible;
+  }
+
+  showDropdown() {
+    this.isDropdownVisible = true;
+  }
+
+  hideDropdown() {
+    this.isDropdownVisible = false;
+  }
+
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -96,4 +107,7 @@ export class HeaderComponent implements OnInit {
     this.isSmallScreen = window.innerWidth < 778;
   }
 
+  logout() {
+    this._auth.ClearSession();
+  }
 }

@@ -3,6 +3,11 @@
 @import "https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap";
 @import "https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap";
 
+@font-face {
+  font-family: ROBOTOGEO;
+  src: url("./assets/fonts/ROBOTO_GEO_NUS.TTF");
+}
+
 .content-component {
   background-color: white;
   margin: 10px;
@@ -43,7 +48,8 @@
   .nav {
     width: 100% !important;
   }
-  .chatting-container .question-div, .chatting-container .answer-chat-text {
+  .chatting-container .question-div,
+  .chatting-container .answer-chat-text {
     max-width: 80%;
   }
 }
@@ -52,7 +58,8 @@
   .bi-arrow-bar-left {
     display: none;
   }
-  .chatting-container .question-div, .chatting-container .answer-chat-text {
+  .chatting-container .question-div,
+  .chatting-container .answer-chat-text {
     max-width: 60%;
   }
 }
@@ -101,7 +108,6 @@
   }
 }
 
-
 /////////// MEDIA QUERIES ///////////
 
 *,
@@ -114,7 +120,7 @@
 html,
 body {
   overflow-x: hidden !important;
-  font-family: "Nunito Sans", sans-serif !important;
+  font-family: ROBOTOGEO, "Nunito Sans", sans-serif !important;
   background-color: #f5f6fa !important;
 }
 
@@ -389,14 +395,19 @@ body {
 .copyright-input {
   border: 1px solid rgb(210, 210, 210);
   border-radius: 100px;
+  input {
     outline: none;
     padding: 0.8rem 1rem;
+    border-left: 1px solid rgb(210, 210, 210) !important;
+    border-radius: 0 100px 100px 0;
+    border: none;
+  }
 }
 
 .response-border-div {
   padding: 1rem;
-    border: 1px solid #cfcfcf;
-    border-radius: 10px;
+  border: 1px solid #cfcfcf;
+  border-radius: 10px;
 }
 
 #file-upload {
@@ -431,14 +442,11 @@ body {
 }
 
 .photo-upload {
-  position: absolute;
-  top: 11px;
-  left: 12px;
+  // position: absolute;
+  // top: 12px;
+  // left: 0;
   .custom-file-upload {
-    border: 1px solid #ccc;
     display: inline-block;
-    border-radius: 50%;
-    padding: 3px 6px 1px 6px;
     cursor: pointer;
     i {
       color: rgb(73, 73, 73);
@@ -479,3 +487,9 @@ body {
     transform: rotate(1turn);
   }
 }
+
+/////////// ERRORs /////////////
+.select-error {
+  border: red 1px solid !important;
+}
+/////////// ERRORs /////////////

@@ -79,6 +79,16 @@
       </li>
       <li>
         <p
+          routerLink="history"
+          routerLinkActive="loggedin-link-active"
+          class="nav-link loggedin-link"
+        >
+          <i class="bi bi-archive me-2 fs-5"></i>
+          {{ "sidebar.history" | transloco }}
+        </p>
+      </li>
+      <li>
+        <p
           routerLink="profile"
           routerLinkActive="loggedin-link-active"
           class="nav-link loggedin-link"

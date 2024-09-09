@@ -15,6 +15,7 @@
       "lawyer": "Lawyer"
     },
     "balance": "Balance",
+    "history": "History",
     "profile": "Profile",
     "logout": "Log out"
   },
@@ -60,12 +61,13 @@
   },
   "mailman": {
     "title": "Mailman",
+    "p": "Drop us the email you received and Suliko will help you with the response",
     "f1": "Formal",
     "f2": "Friendly",
     "f3": "Neutral",
     "language-options": "Target language",
-    "email": "Email",
-    "reply": "Response email",
+    "email": "Received email",
+    "reply": "Our advice",
     "receiver": "Generate"
   },
   "screenwriter": {
