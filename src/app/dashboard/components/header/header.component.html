@@ -96,14 +96,15 @@
               {{ "sidebar.profile" | transloco }}
             </p>
           </li>
-          <li>
-            <p
-              routerLink="balance"
-              routerLinkActive="loggedin-link-active"
-              class="p-0 m-0 pb-2"
-            >
+          <li
+            class="d-flex justify-content-between align-items-center pb-2"
+            routerLink="balance"
+            routerLinkActive="loggedin-link-active"
+          >
+            <p class="p-0 m-0">
               <span>{{ "sidebar.balance" | transloco }}</span>
             </p>
+            <span>₾ {{ balance }}</span>
           </li>
           <li>
             <p

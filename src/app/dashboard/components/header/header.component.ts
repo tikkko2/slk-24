@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { language } from '../../../shared/data/language';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { BalanceService } from '../../../shared/services/balance.service';
+import { HttpService } from '../../../shared/services/http.service';
+import { url } from '../../../shared/data/api';
 
 @Component({
   selector: 'app-header',
@@ -18,6 +21,7 @@ export class HeaderComponent implements OnInit {
 
   isSmallScreen: boolean = false;
 
+  balance: any;
   userInfo: any;
   username!: string;
   role!: string;
@@ -27,6 +31,8 @@ export class HeaderComponent implements OnInit {
     private _router: Router,
     private _auth: AuthService,
     private _translate: TranslocoService,
+    private _balance: BalanceService,
+    private _api: HttpService,
     @Inject(DOCUMENT) private document: Document,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
@@ -43,6 +49,18 @@ export class HeaderComponent implements OnInit {
       // const usernameInitial = this.username.charAt(0);
       this.username = `${usernameSplit}`;
       this.role = this.userInfo.role;
+      this._api.get(url.user, this.userInfo.UserId).subscribe(
+        (res) => {
+          this.userInfo = JSON.parse(res);
+          this._balance.setBalance(this.userInfo.balance);
+          this._balance
+            .getBalance()
+            .subscribe((value) => (this.balance = value));
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
     }
     if (localStorage) {
       if (localStorage.getItem('selectedLanguage') == 'en') {
