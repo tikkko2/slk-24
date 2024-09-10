@@ -2,7 +2,8 @@
   "header": {
     "user": "User",
     "admin": "Admin",
-    "signin": "Sign in"
+    "signin": "Sign in",
+    "language": "Language"
   },
   "sidebar": {
     "translate": "Translate",
@@ -45,6 +46,7 @@
   "search": "Search",
   "test-title1": "The site is working in test mode",
   "test-title2": "Test mode",
+  "attach-file": "Attach File",
   "translate": {
     "price": "1 Page - 10 Tetri",
     "title": "Translate",
@@ -105,6 +107,13 @@
     "ch-label": "Password length must be at least 3",
     "btn3": "Update"
   },
+  "history": {
+    "title": "Your history",
+    "check": "Check",
+    "send": "Request text:",
+    "rec": "Response text:",
+    "empty": "Your history is empty"
+  },
   "balance-sub": {
     "buy": "Buy",
     "sub1": "Standard",
@@ -117,5 +126,11 @@
   "error": {
     "err1": "Looks like you’ve got lost...",
     "err2": "Back to Dashboard"
+  },
+  "error-toastr": {
+    "translate-text": "Write the text to be translated!",
+    "email-text": "Write a received mail!",
+    "balance": "Due to insufficient balance, you can no longer use the services. Please top up!",
+    "registration": "Registration is required!"
   }
 }

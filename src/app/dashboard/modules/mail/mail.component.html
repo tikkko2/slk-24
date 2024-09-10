@@ -18,7 +18,9 @@
             <option value="3">{{ "mailman.f3" | transloco }}</option>
           </select>
 
-          <div class="translate-content">
+          <div class="translate-content"
+          [ngClass]="{'select-error': chatForm.get('text')?.invalid && (chatForm.get('text')?.touched || chatForm.get('text')?.dirty)}"
+          >
             <textarea
               #textareaElement
               class="form-control shadow-none"
@@ -44,6 +46,7 @@
             aria-label="Large select example"
             [(ngModel)]="selectedLanguage"
             [ngModelOptions]="{ standalone: true }"
+            [ngClass]="{'select-error': notSelectedLanguage && selectedLanguage == 0}"
             required
           >
             <option selected value="0" disabled>
@@ -51,7 +54,7 @@
             </option>
             <option *ngFor="let language of languages" [value]="language.id">
               {{
-                this.translocoService.getActiveLang() == "ge"
+                this._transloco.getActiveLang() == "ge"
                   ? language.nameGeo
                   : language.name
               }}

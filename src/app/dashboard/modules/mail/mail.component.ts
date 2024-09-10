@@ -52,10 +52,10 @@ export class MailComponent implements OnInit {
 
   isLoading: boolean = false;
   selectedLanguage = 0;
-  emailFormId = 1;
-  uniqueKey = '00a48775-c474-49d4-9705-46c9c67e512a';
+  notSelectedLanguage = false;
 
-  translatedText: string = 'Response mail';
+  emailFormId = 1;
+  translatedText: string = '';
 
   languages: Language[] = [];
   emailFormList: Email[] = form;
@@ -68,7 +68,7 @@ export class MailComponent implements OnInit {
     private renderer: Renderer2,
     private router: Router,
     private balanceService: BalanceService,
-    public translocoService: TranslocoService,
+    public _transloco: TranslocoService,
     private languageService: ProductCategoryService
   ) {}
 
@@ -99,6 +99,10 @@ export class MailComponent implements OnInit {
         }
       );
     }
+    this._transloco.langChanges$.subscribe((lang) => {
+      this.setTranslatedText(lang);
+    });
+    this.setTranslatedText(this._transloco.getActiveLang());
   }
 
   chatForm: FormGroup = this.builder.group({
@@ -107,27 +111,28 @@ export class MailComponent implements OnInit {
 
   sendText() {
     if(this.selectedLanguage === 0) {
-      this.toastr.error('აირჩიეთ ენა')
+      this.notSelectedLanguage = true;
       return;
     }
     if (!this.chatForm.valid) {
-      this.toastr.error('ჩაწერეთ ტექსტი', 'ფორმა ცარიელია!');
+      this.toastr.error(this._transloco.translate('error-toastr.email-text'));
       return;
     };
     if (
       this.apiService.hasExceededFreeRequests() &&
       !this.authService.IsLoggedIn()
     ) {
-      this.toastr.error('აუცილებელია რეგისტრაცია');
+      this.toastr.error(this._transloco.translate('error-toastr.registration'));
       this.router.navigate(['/sign-up']);
       return;
     }
     if (this.balance <= 0) {
-      this.toastr.error('არასაკმარისი ბალანსის გამო ვეღარ ისარგებლებთ სერვისებით, შეავსეთ!');
+      this.toastr.error(this._transloco.translate('error-toastr.balance'));
       return;
     }
     if (this.isLoading) return;
     this.isLoading = true;
+    this.notSelectedLanguage = false;
 
     const userMessageText = this.chatForm.value.text ?? '';
 
@@ -183,6 +188,14 @@ export class MailComponent implements OnInit {
 
   deleteById(id: any): void {
     this.languages = this.languages.filter((item: any) => item.id !== id);
+  }
+
+  setTranslatedText(lang: string) {
+    if (lang === 'en') {
+      this.translatedText = 'Our advice';
+    } else {
+      this.translatedText = 'ჩვენი რჩევა';
+    }
   }
 
   copyToClipboard() {

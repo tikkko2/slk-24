@@ -8,6 +8,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ChatWithPhotoModel } from '../../../shared/models/chat-with-photo.model';
 import { url } from '../../../shared/data/api';
 import { Router } from '@angular/router';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-copyright',
@@ -34,6 +35,9 @@ export class CopyrightComponent {
   selectedLanguage = '1';
   chats: ChatWithPhotoModel[] = [];
 
+  notProductName = false;
+  notUploadedFile = false;
+
   constructor(
     private sanitizer: DomSanitizer,
     private renderer: Renderer2,
@@ -42,7 +46,8 @@ export class CopyrightComponent {
     private builder: FormBuilder,
     private toastr: ToastrService,
     private authService: AuthService,
-    private balanceService: BalanceService
+    private balanceService: BalanceService,
+    private _transloco: TranslocoService,
   ) {}
 
   ngOnInit() {
@@ -58,20 +63,23 @@ export class CopyrightComponent {
   });
 
   sendText() {
+    this.notProductName = false;
+    this.notUploadedFile = false;
     if (!this.chatForm.valid) {
-      this.toastr.error('გთხოვთ ჩაწეროთ პროდუქტის სახელი და ატვირთოთ ფოტო.');
+      this.notProductName = true;
+      this.notUploadedFile = true;
       return;
     }
     if (
       this.apiService.hasExceededFreeRequests() &&
       !this.authService.IsLoggedIn()
     ) {
-      this.toastr.error('აუცილებელია რეგისტრაცია');
+      this.toastr.error(this._transloco.translate('error-toastr.registration'));
       this.router.navigate(['/sign-up']);
       return;
     }
     if (this.balance <= 0) {
-      this.toastr.error('შეავსეთ ბალანსი, ვეღარ ისარგებლებთ სერვისებით!');
+      this.toastr.error(this._transloco.translate('error-toastr.balance'));
       return;
     }
     this.displayUploadedImageTextArea = null;

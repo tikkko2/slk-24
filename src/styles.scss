@@ -488,8 +488,27 @@ body {
   }
 }
 
+.attach-file-text {
+  color: rgba(33, 37, 41, 0.75);
+}
+
 /////////// ERRORs /////////////
 .select-error {
-  border: red 1px solid !important;
+  border: rgba(255, 0, 0, 0.4) 1px solid !important;
+  box-shadow: rgba(255, 0, 0, 0.2) 0px 2px 8px 0px !important;
+}
+
+.error-text {
+  color: red !important;
+}
+
+.error-place::placeholder {
+  color: red !important;
+}
+
+.ctg {
+  .mat-mdc-select-placeholder.mat-mdc-select-min-line {
+    color: red !important;
+  }
 }
 /////////// ERRORs /////////////

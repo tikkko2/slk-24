@@ -16,6 +16,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { BalanceService } from '../../../shared/services/balance.service';
 import { Router } from '@angular/router';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-script',
@@ -41,6 +42,9 @@ export class ScriptComponent {
   file: any;
   selectedLanguage = '1';
 
+  notProductName = false;
+  notUploadedFile = false;
+
   constructor(
     private sanitizer: DomSanitizer,
     private renderer: Renderer2,
@@ -49,7 +53,8 @@ export class ScriptComponent {
     private authService: AuthService,
     private builder: FormBuilder,
     private toastr: ToastrService,
-    private balanceService: BalanceService
+    private balanceService: BalanceService,
+    private _transloco: TranslocoService,
   ) {}
 
   chatForm: FormGroup = this.builder.group({
@@ -58,20 +63,23 @@ export class ScriptComponent {
   });
 
   sendText() {
+    this.notProductName = false;
+    this.notUploadedFile = false;
     if (!this.chatForm.valid) {
-      this.toastr.error('გთხოვთ ჩაწეროთ პროდუქტის სახელი და ატვირთოთ ფოტო.');
+      this.notProductName = true;
+      this.notUploadedFile = true;
       return;
     }
     if (
       this.apiService.hasExceededFreeRequests() &&
       !this.authService.IsLoggedIn()
     ) {
-      this.toastr.error('აუცილებელია რეგისტრაცია');
+      this.toastr.error(this._transloco.translate('error-toastr.registration'));
       this.router.navigate(['/sign-up']);
       return;
     }
     if (this.balance <= 0) {
-      this.toastr.error('შეავსეთ ბალანსი, ვეღარ ისარგებლებთ სერვისებით!');
+      this.toastr.error(this._transloco.translate('error-toastr.balance'));
       return;
     }
     this.displayUploadedImageTextArea = null;

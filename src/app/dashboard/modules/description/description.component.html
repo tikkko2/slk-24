@@ -8,19 +8,30 @@
       <div
         class="input-search-container d-flex align-items-center justify-content-center flex-wrap flex-md-nowrap"
       >
-        <div class="search-text-ctg d-flex align-items-center">
+        <div
+          class="search-text-ctg d-flex align-items-center"
+
+        >
           <input
             type="text"
-            [placeholder]=" 'productname' | transloco"
+            [placeholder]="'productname' | transloco"
             formControlName="text"
+            [ngClass]="{
+              'error-place':
+                chatForm.get('text')?.invalid &&
+                (chatForm.get('text')?.touched ||
+                  chatForm.get('text')?.dirty ||
+                  notProductName)
+            }"
             class="flex-grow-1"
           />
-          <div class="px-2" [style]="!isSmallScreen ? 'width: 220px' : ''">
+          <div class="px-2 h-100" [style]="!isSmallScreen ? 'width: 220px' : ''">
             <mat-select
               [placeholder]="'description.category' | transloco"
               #singleSelect
               class="h-100"
               (selectionChange)="onCategorySelection($event)"
+              [ngClass]="{'ctg': notSelectedCategory}"
             >
               <mat-option>
                 <ngx-mat-select-search
@@ -44,7 +55,8 @@
             class="content-btn mx-auto d-flex gap-2 px-4"
             [title]="'send' | transloco"
           >
-            <span>{{ 'send' | transloco}}</span><i class="bi bi-send-fill"></i>
+            <span>{{ "send" | transloco }}</span
+            ><i class="bi bi-send-fill"></i>
           </button>
         </div>
       </div>

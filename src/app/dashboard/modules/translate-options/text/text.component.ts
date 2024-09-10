@@ -58,7 +58,7 @@ export class TextComponent implements OnInit, AfterViewInit {
   languageNotSelected = false;
   sourceLanguageNotSelected = false;
 
-  translatedText: string = 'Translation';
+  translatedText: string = '';
 
   sourceLanguages: Language[] = [];
   languages: Language[] = [];
@@ -101,6 +101,10 @@ export class TextComponent implements OnInit, AfterViewInit {
         }
       );
     }
+    this._transloco.langChanges$.subscribe((lang) => {
+      this.setTranslatedText(lang);
+    });
+    this.setTranslatedText(this._transloco.getActiveLang());
   }
 
   ngAfterViewInit() {
@@ -130,29 +134,27 @@ export class TextComponent implements OnInit, AfterViewInit {
   }
 
   sendText() {
-    if(this.selectedLanguage === '0') {
-      this.toastr.error('აირჩიეთ სამიზნე ენა')
-      this.languageNotSelected = true;
-      return;
-    } else if(this.selectedSourceLanguage === '0') {
-      this.toastr.error('აირჩიეთ დედანის ენა')
+    if(this.selectedSourceLanguage === '0') {
       this.sourceLanguageNotSelected = true;
+      return;
+    } else if(this.selectedLanguage === '0') {
+      this.languageNotSelected = true;
       return;
     }
     if (!this.chatForm.valid) {
-      this.toastr.error('ჩაწერეთ სათარგმნი ტექსტი');
+      this.toastr.error(this._transloco.translate('error-toastr.translate-text'));
       return;
     };
     if (
       this.apiService.hasExceededFreeRequests() &&
       !this.authService.IsLoggedIn()
     ) {
-      this.toastr.error('აუცილებელია რეგისტრაცია');
+      this.toastr.error(this._transloco.translate('error-toastr.registration'));
       this._router.navigate(['/sign-up'])
       return;
     }
     if (this.balance <= 0) {
-      this.toastr.error('არასაკმარისი ბალანსის გამო ვეღარ ისარგებლებთ სერვისებით, შეავსეთ!');
+      this.toastr.error(this._transloco.translate('error-toastr.balance'));
       return;
     }
     if (this.isLoading) return;
@@ -198,6 +200,14 @@ export class TextComponent implements OnInit, AfterViewInit {
 
   deleteById(id: any): void {
     this.languages = this.languages.filter((item: any) => item.id !== id);
+  }
+
+  setTranslatedText(lang: string) {
+    if (lang === 'en') {
+      this.translatedText = 'Translation';
+    } else {
+      this.translatedText = 'თარგმანი';
+    }
   }
 
   copyToClipboard() {

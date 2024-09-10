@@ -1,11 +1,10 @@
 <div class="content-component">
-  <div class="history-container mt-3">
-    <app-greeting></app-greeting>
-    <h2 class="mb-5 mt-3 text-center">თქვენი რიქვესთების ისტორია</h2>
+  <div class="history-container">
+    <h2 class="my-5 text-center">{{ 'history.title' | transloco }}</h2>
     <div class="mb-4 mt-3 text-center" *ngIf="isLoading">
       <div class="loader mx-auto"></div>
     </div>
-    <div class="requests-container pt-5">
+    <div class="requests-container pt-3">
       <div class="container">
         <div *ngFor="let request of requests; let index = index;">
           <div class="request d-flex justify-content-between align-items-center">
@@ -15,25 +14,25 @@
             </div>
             <div class="d-flex gap-5">
               <span>{{formatDate(request.createTime)}}</span>
-              <span class="check" (click)="showResponse(index)">Check</span>
+              <span class="check" (click)="showResponse(index)">{{ 'history.check' | transloco }}</span>
             </div>
           </div>
           <div class="request-response py-4 px-3" *ngIf="selectedRequestIndex === index">
             <div>
-              <h6>გაგზავნილი მოთხოვნა:</h6>
+              <h6>{{ 'history.send' | transloco }}</h6>
               <p [innerHTML]="(request.requestType == 1 || request.requestType == 3 || request.requestType == 4 ) ? getProductName(request.requestJson) : request.requestType == 2 ? getDescription(request.requestJson) : request.requestType == 5 ? getEmail(request.requestJson) : ''">
               </p>
             </div>
             <hr>
             <div>
-              <h6>მიღებული ტექსტი:</h6>
+              <h6>{{ 'history.rec' | transloco }}</h6>
               <p [innerHTML]="getResponseText(request.responseJson)">
               </p>
             </div>
           </div>
         </div>
         <div class="text-center mx-auto" *ngIf="requests.length === 0">
-          <p>ისტორია ცარიალია.</p>
+          <p>{{ 'history.empty' | transloco }}</p>
         </div>
       </div>
     </div>

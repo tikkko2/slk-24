@@ -9,31 +9,59 @@
       <div
         class="input-search-container d-flex align-items-center justify-content-center flex-wrap flex-lg-nowrap position-relative"
       >
-      <div class="d-flex align-items-center justify-content-start flex-grow-1 copyright-input">
-        <div class="photo-upload">
-          <label
-            for="file-upload"
-            class="custom-file-upload px-3"
-            title="Add an image (Format: png, jpeg, webp, gif)"
-          >
-            <i class="bi bi-file-earmark-arrow-up me-2"></i>
-            <span class="text-muted">Attach File</span>
-          </label>
+        <div
+          class="d-flex align-items-center justify-content-start flex-grow-1 copyright-input"
+        >
+          <div class="photo-upload">
+            <label
+              for="file-upload"
+              class="custom-file-upload px-3"
+              title="Add an image (Format: png, jpeg, webp, gif)"
+            >
+              <i
+                class="bi bi-file-earmark-arrow-up me-2"
+                [ngClass]="{
+                  'error-text':
+                    chatForm.get('file')?.invalid &&
+                    (chatForm.get('file')?.touched ||
+                      chatForm.get('file')?.dirty ||
+                      notUploadedFile)
+                }"
+              ></i>
+              <span
+                class="attach-file-text"
+                [ngClass]="{
+                  'error-text':
+                    chatForm.get('file')?.invalid &&
+                    (chatForm.get('file')?.touched ||
+                      chatForm.get('file')?.dirty ||
+                      notUploadedFile)
+                }"
+                >{{ "attach-file" | transloco }}</span
+              >
+            </label>
+            <input
+              type="file"
+              id="file-upload"
+              formControlName="file"
+              accept=".png, .jpeg, .webp, .gif"
+              (change)="onFileSelected($event)"
+            />
+          </div>
           <input
-            type="file"
-            id="file-upload"
-            formControlName="file"
-            accept=".png, .jpeg, .webp, .gif"
-            (change)="onFileSelected($event)"
+            type="text"
+            [placeholder]="'productname' | transloco"
+            formControlName="text"
+            class="flex-grow-1"
+            [ngClass]="{
+              'error-place':
+                chatForm.get('text')?.invalid &&
+                (chatForm.get('text')?.touched ||
+                  chatForm.get('text')?.dirty ||
+                  notUploadedFile)
+            }"
           />
         </div>
-        <input
-          type="text"
-          [placeholder]=" 'productname' | transloco"
-          formControlName="text"
-          class="flex-grow-1"
-        />
-      </div>
 
         <div class="ms-sm-2 text-center btn-mt-div">
           <button
@@ -41,7 +69,8 @@
             class="content-btn mx-auto d-flex gap-2 px-4"
             [title]="'send' | transloco"
           >
-            <span>{{ 'send' | transloco}}</span><i class="bi bi-send-fill"></i>
+            <span>{{ "send" | transloco }}</span
+            ><i class="bi bi-send-fill"></i>
           </button>
         </div>
       </div>

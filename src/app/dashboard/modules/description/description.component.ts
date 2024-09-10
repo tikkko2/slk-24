@@ -14,10 +14,10 @@ import { Category } from '../../../shared/interfaces/category.interface';
 import { map, Observable, of, startWith } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../shared/services/auth.service';
-import { MatDialog } from '@angular/material/dialog';
 import { BalanceService } from '../../../shared/services/balance.service';
 import { MatSelectChange } from '@angular/material/select';
 import { Router } from '@angular/router';
+import { TranslocoService } from '@ngneat/transloco';
 
 
 @Component({
@@ -47,6 +47,9 @@ export class DescriptionComponent {
   productCategoryList: Category[] = [];
   filterOptions: Observable<Category[]> = of([]);
 
+  notSelectedCategory = false;
+  notProductName = false;
+
   constructor(
     private authService: AuthService,
     private builder: FormBuilder,
@@ -55,6 +58,7 @@ export class DescriptionComponent {
     private toastr: ToastrService,
     private router: Router,
     private balanceService: BalanceService,
+    private _transloco: TranslocoService,
     private renderer: Renderer2
   ) {}
 
@@ -106,17 +110,26 @@ export class DescriptionComponent {
   }
 
   sendText() {
-    if (!this.chatForm.valid || this.selectedProductCategoryId == '') {
-      this.toastr.error('გთხოვთ შეავსეთ ყველა ველი, პროდუქტის სახელი და კატეგორია.');
+    if(!this.chatForm.valid && this.selectedProductCategoryId == '') {
+      this.notProductName = true;
+      this.notSelectedCategory = true;
+      return;
+    }
+    if(this.selectedProductCategoryId == '') {
+      this.notSelectedCategory = true;
+      return;
+    }
+    if (!this.chatForm.valid) {
+      this.notProductName = true;
       return;
     };
     if (this.apiService.hasExceededFreeRequests() && !this.authService.IsLoggedIn()) {
-      this.toastr.error('აუცილებელია რეგისტრაცია');
+      this.toastr.error(this._transloco.translate('error-toastr.registration'));
       this.router.navigate(['/sign-up']);
       return;
     }
     if(this.balance <= 0) {
-      this.toastr.error('შეავსეთ ბალანსი, ვეღარ ისარგებლებთ სერვისებით!');
+      this.toastr.error(this._transloco.translate('error-toastr.balance'));
       return;
     }
     this.isLoading = !this.isLoading;
