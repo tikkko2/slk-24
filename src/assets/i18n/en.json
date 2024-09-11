@@ -47,6 +47,7 @@
   "test-title1": "The site is working in test mode",
   "test-title2": "Test mode",
   "attach-file": "Attach File",
+  "tr-text-btn": "Text Translate",
   "translate": {
     "price": "1 Page - 10 Tetri",
     "title": "Translate",
@@ -59,7 +60,11 @@
     "language-options": "Target language",
     "text-to-be-translated": "Text to be translated",
     "translation": "Translation",
-    "translate": "Translate"
+    "translate": "Translate",
+    "format-img": "Supported image types: .JPEG, .PNG, .GIF, .WEBP",
+    "format-doc": "Supported file type: .PDF",
+    "empty-file": "No file chosen",
+    "empty-photo": "No image chosen"
   },
   "mailman": {
     "title": "Mailman",

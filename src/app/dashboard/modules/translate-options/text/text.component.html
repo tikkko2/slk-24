@@ -1,9 +1,9 @@
 <form [formGroup]="chatForm">
-  <h6 class="mb-5">ტექსტი</h6>
+  <h6 class="mb-5">{{ 'translate.text' | transloco }}</h6>
   <div class="translate-container row">
     <div class="col-12 col-lg-6">
       <div class="language-tr-div">
-        <p class="l-d">ენის დეტექტაცია</p>
+        <p class="l-d">{{ 'translate.language-detection' | transloco }}</p>
       </div>
       <!-- <select
         id="languageSourceSelect"
@@ -59,11 +59,15 @@
           [(ngModel)]="selectedLanguage"
           [ngModelOptions]="{ standalone: true }"
           [ngClass]="{
-            'select-error': languageNotSelected && selectedLanguage === '0'
+            'error-text': languageNotSelected && selectedLanguage === '0'
           }"
           required
         >
-          <option selected value="0" disabled>
+          <option
+            selected
+            value="0"
+            disabled
+          >
             {{ "translate.language-options" | transloco }}
           </option>
           <option *ngFor="let language of languages" [value]="language.id">

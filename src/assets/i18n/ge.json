@@ -47,6 +47,7 @@
   "test-title1": "საიტი მუშაობს სატესტო რეჟიმში",
   "test-title2": "სატესტო",
   "attach-file": "მიაბით ფაილი",
+  "tr-text-btn": "ტექსტის თარგმნა",
   "translate": {
     "price": "1 გვერდი - 10 თეთრი",
     "title": "თარგმნა",
@@ -59,7 +60,11 @@
     "language-options": "სამიზნე ენა",
     "text-to-be-translated": "სათარგმნი ტექსტი",
     "translation": "თარგმანი",
-    "translate": "თარგმნა"
+    "translate": "თარგმნა",
+    "format-img": "ფოტოს დასაშვები ფორმატები: .JPEG, .PNG, .GIF, .WEBP",
+    "format-doc": "ფაილის დასაშვები ფორმატი: .PDF",
+    "empty-file": "არ არის არჩეული ფაილი",
+    "empty-photo": "არ არის არჩეული ფოტო"
   },
   "mailman": {
     "title": "ფოსტალიონი",

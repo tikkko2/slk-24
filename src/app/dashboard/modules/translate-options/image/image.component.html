@@ -1,5 +1,5 @@
 <form [formGroup]="imageTranslateForm">
-  <h6 class="mb-5">ფოტო</h6>
+  <h6 class="mb-5">{{ 'translate.photo' | transloco }}</h6>
   <div
     class="d-flex align-items-center justify-content-between flex-wrap gap-3"
   >
@@ -84,9 +84,9 @@
         ></i>
       </div>
 
-      <p *ngIf="!files">No image chosen</p>
+      <p *ngIf="!files">{{ 'translate.empty-photo' | transloco }}</p>
       <small class="text-muted text-center"
-        >Supported image types: .jpeg, .png, .gif, .webp</small
+        >{{ 'translate.format-img' | transloco }}</small
       >
     </div>
     <div
@@ -118,7 +118,7 @@
       >
     </div>
   </div>
-  <span class="c-p slk-color" (click)="onText()">ტექსტის თარგმნა</span>
+  <span class="c-p slk-color" (click)="onText()">{{ 'tr-text-btn' | transloco }}</span>
   <div class="d-flex align-items-center justify-content-center gap-3">
     <div class="text-center">
       <div class="btn-group dropup-center dropup">
