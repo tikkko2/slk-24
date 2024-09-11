@@ -21,3 +21,26 @@
     background-position: left;
   }
 }
+
+.language-tr-div {
+  p {
+    margin: 0;
+    padding: 0.75rem 1rem;
+    background-color: rgb(243, 243, 243);
+    border-bottom: 2px solid blue;
+    display: inline-block;
+    cursor: pointer;
+  }
+  p.l-d {
+    margin-left: 10px;
+  }
+}
+
+#languageSelect {
+  padding: 0.75rem 1rem;
+  margin-right: 10px;
+  border-bottom: 2px solid blue !important;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+}

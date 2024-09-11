@@ -2,7 +2,10 @@
   <h6 class="mb-5">ტექსტი</h6>
   <div class="translate-container row">
     <div class="col-12 col-lg-6">
-      <select
+      <div class="language-tr-div">
+        <p class="l-d">ენის დეტექტაცია</p>
+      </div>
+      <!-- <select
         id="languageSourceSelect"
         (change)="onInput($event)"
         class="form-select product-selection c-p shadow-none my-3"
@@ -25,7 +28,7 @@
               : language.name
           }}
         </option>
-      </select>
+      </select> -->
       <div class="translate-content">
         <textarea
           #textareaElement
@@ -47,7 +50,7 @@
     </div>
 
     <div class="col-12 col-lg-6">
-      <div class="py-3">
+      <div>
         <select
           id="languageSelect"
           (change)="onInput($event)"
@@ -98,15 +101,19 @@
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-      <i class="bi bi-cloud-arrow-up"></i>
-      {{ 'attach-file' | transloco }}
+        <i class="bi bi-cloud-arrow-up"></i>
+        {{ "attach-file" | transloco }}
       </button>
       <ul class="dropdown-menu">
         <li (click)="onImage()">
-          <span class="dropdown-item c-p">{{ 'translate.photo' | transloco }}</span>
+          <span class="dropdown-item c-p">{{
+            "translate.photo" | transloco
+          }}</span>
         </li>
         <li (click)="onDoc()">
-          <span class="dropdown-item c-p">{{ 'translate.document' | transloco }}</span>
+          <span class="dropdown-item c-p">{{
+            "translate.document" | transloco
+          }}</span>
         </li>
       </ul>
     </div>

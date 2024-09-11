@@ -56,7 +56,7 @@ export class TextComponent implements OnInit, AfterViewInit {
 
   isLoading: boolean = false;
   selectedLanguage = '0';
-  selectedSourceLanguage = '0';
+  selectedSourceLanguage = '-1';
 
   languageNotSelected = false;
   sourceLanguageNotSelected = false;

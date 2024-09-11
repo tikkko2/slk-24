@@ -4,6 +4,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { ProductCategoryService } from '../../../shared/services/product-category.service';
 import { url } from '../../../shared/data/api';
 import { isPlatformBrowser } from '@angular/common';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-history',
@@ -22,7 +23,8 @@ export class HistoryComponent {
   constructor(
     private authService: AuthService,
     private historyService: ProductCategoryService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private _transloco: TranslocoService
   ) {}
 
   ngOnInit(): void {
@@ -62,15 +64,15 @@ export class HistoryComponent {
   transformRequestType(value: number): string {
     switch (value) {
       case 1:
-        return 'Content';
+        return this._transloco.translate('sidebar.description');
       case 2:
-        return 'Translate';
+        return this._transloco.translate('sidebar.translate');
       case 3:
-        return 'Copyright';
+        return this._transloco.translate('sidebar.copyright');
       case 4:
-        return 'Video Script';
+        return this._transloco.translate('sidebar.script');
       case 5:
-        return 'Email';
+        return this._transloco.translate('sidebar.mail');
       default:
         return 'Unknown';
     }
