@@ -1,53 +1,8 @@
 <div class="content-component">
   <div class="container pt-5">
     <h3>{{ "sidebar.translate" | transloco }}</h3>
-    <!-- <p class="text-muted">{{ 'translate.description' | transloco }} ({{ 'translate.price' | transloco }})</p> -->
-    <!-- <div class="translate-options d-flex overflow-x-scroll mb-5 mt-4">
-      <button
-        (click)="onText()"
-        [class.active-translate-item]="activeButton === 'text'"
-      >
-        <i class="bi bi-textarea-t"></i> {{ 'translate.text' | transloco }}
-      </button>
-      <button
-        (click)="onImage()"
-        [class.active-translate-item]="activeButton === 'image'"
-      >
-        <i class="bi bi-image"></i> {{ 'translate.photo' | transloco }}
-      </button>
-      <button
-        (click)="onDoc()"
-        [class.active-translate-item]="activeButton === 'doc'"
-      >
-        <i class="bi bi-file-earmark-pdf"></i> {{ 'translate.document' | transloco }}
-      </button>
-    </div> -->
     <div *ngIf="activeComponent" class="chat-container mt-3">
       <div class="ng-renderer" *ngComponentOutlet="activeComponent"></div>
     </div>
-
-    <div class="text-center py-5">
-      <div class="btn-group dropup-center dropup">
-        <button
-          type="button"
-          class="content-btn "
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Attach File
-        </button>
-        <ul class="dropdown-menu">
-          <li (click)="onImage()"><a class="dropdown-item">Image</a></li>
-          <li (click)="onDoc()"><a class="dropdown-item">Document</a></li>
-        </ul>
-      </div>
-    </div>
-
-<!--
-    <div class="text-center py-5" *ngIf="activeComponent != 'ImageComponent'">
-      <button class="button content-btn" >
-        <span class="button-content">{{ "Attach File" | transloco }}</span>
-      </button>
-    </div> -->
   </div>
 </div>

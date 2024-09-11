@@ -1,22 +1,29 @@
 <form [formGroup]="chatForm">
+  <h6 class="mb-5">ტექსტი</h6>
   <div class="translate-container row">
     <div class="col-12 col-lg-6">
-        <select
+      <select
         id="languageSourceSelect"
         (change)="onInput($event)"
         class="form-select product-selection c-p shadow-none my-3"
         aria-label="Large select example"
         [(ngModel)]="selectedSourceLanguage"
         [ngModelOptions]="{ standalone: true }"
-        [ngClass]="{'select-error': sourceLanguageNotSelected && selectedSourceLanguage === '0'}"
+        [ngClass]="{
+          'select-error':
+            sourceLanguageNotSelected && selectedSourceLanguage === '0'
+        }"
         required
       >
-      <option selected value="0" disabled>{{ 'translate.language-main' | transloco }}</option>
-        <option
-          *ngFor="let language of sourceLanguages"
-          [value]="language.id"
-        >
-        {{ this._transloco.getActiveLang() == 'ge' ? language.nameGeo : language.name }}
+        <option selected value="0" disabled>
+          {{ "translate.language-main" | transloco }}
+        </option>
+        <option *ngFor="let language of sourceLanguages" [value]="language.id">
+          {{
+            this._transloco.getActiveLang() == "ge"
+              ? language.nameGeo
+              : language.name
+          }}
         </option>
       </select>
       <div class="translate-content">
@@ -48,7 +55,9 @@
           aria-label="Large select example"
           [(ngModel)]="selectedLanguage"
           [ngModelOptions]="{ standalone: true }"
-          [ngClass]="{'select-error': languageNotSelected && selectedLanguage === '0'}"
+          [ngClass]="{
+            'select-error': languageNotSelected && selectedLanguage === '0'
+          }"
           required
         >
           <option selected value="0" disabled>
@@ -79,6 +88,27 @@
           (click)="copyToClipboard()"
         ></i>
       </div>
+    </div>
+  </div>
+  <div class="text-center py-5">
+    <div class="btn-group dropup-center dropup">
+      <button
+        type="button"
+        class="content-btn"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+      <i class="bi bi-cloud-arrow-up"></i>
+      {{ 'attach-file' | transloco }}
+      </button>
+      <ul class="dropdown-menu">
+        <li (click)="onImage()">
+          <span class="dropdown-item c-p">{{ 'translate.photo' | transloco }}</span>
+        </li>
+        <li (click)="onDoc()">
+          <span class="dropdown-item c-p">{{ 'translate.document' | transloco }}</span>
+        </li>
+      </ul>
     </div>
   </div>
   <!-- <div class="text-center py-5">

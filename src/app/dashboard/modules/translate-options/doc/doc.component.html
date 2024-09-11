@@ -1,4 +1,5 @@
 <form [formGroup]="docTranslateForm">
+  <h6 class="mb-5">დოკუმენტი</h6>
   <div
     class="d-flex align-items-center justify-content-between flex-wrap gap-3"
   >
@@ -115,11 +116,35 @@
       >
     </div>
   </div>
-  <div class="text-center pb-5">
-    <button class="button content-btn" (click)="sendDocs()">
-      <span class="button-content">{{
-        "translate.translate" | transloco
-      }}</span>
-    </button>
+  <span class="c-p slk-color" (click)="onText()">ტექსტის თარგმნა</span>
+  <div class="d-flex align-items-center justify-content-center gap-3">
+    <div class="text-center">
+      <div class="btn-group dropup-center dropup">
+        <button
+          type="button"
+          class="content-btn"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+        <i class="bi bi-cloud-arrow-up"></i>
+        {{ 'attach-file' | transloco }}
+        </button>
+        <ul class="dropdown-menu">
+          <li (click)="onImage()">
+            <span class="dropdown-item c-p">{{ 'translate.photo' | transloco }}</span>
+          </li>
+          <li (click)="onDoc()">
+            <span class="dropdown-item c-p">{{ 'translate.document' | transloco }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="text-center">
+      <button class="button content-btn" (click)="sendDocs()">
+        <span class="button-content">{{
+          "translate.translate" | transloco
+        }}</span>
+      </button>
+    </div>
   </div>
 </form>

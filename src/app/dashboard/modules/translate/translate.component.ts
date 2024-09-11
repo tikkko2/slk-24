@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TextComponent } from '../translate-options/text/text.component';
 import { ImageComponent } from '../translate-options/image/image.component';
 import { DocComponent } from '../translate-options/doc/doc.component';
+import { TranslateActiveService } from '../../../shared/services/translate-active.service';
 
 @Component({
   selector: 'app-translate',
@@ -11,6 +12,16 @@ import { DocComponent } from '../translate-options/doc/doc.component';
 export class TranslateComponent {
   activeComponent: any = TextComponent;
   activeButton: 'text' | 'image' | 'doc' | null = 'text';
+
+  constructor(
+    private _translateActive: TranslateActiveService
+  ) {}
+
+  ngOnInit() {
+    this._translateActive.activeComponent$.subscribe((component) => {
+      this.activeComponent = component;
+    });
+  }
 
   onText() {
     this.activeButton = 'text';

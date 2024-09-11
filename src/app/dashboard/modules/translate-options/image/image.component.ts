@@ -12,6 +12,9 @@ import gsap from 'gsap';
 import { ProductCategoryService } from '../../../../shared/services/product-category.service';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
+import { DocComponent } from '../doc/doc.component';
+import { TranslateActiveService } from '../../../../shared/services/translate-active.service';
+import { TextComponent } from '../text/text.component';
 
 @Component({
   selector: 'app-image',
@@ -73,7 +76,8 @@ export class ImageComponent {
     private renderer: Renderer2,
     private docxService: TextToWordService,
     private languageService: ProductCategoryService,
-    public _transloco: TranslocoService
+    public _transloco: TranslocoService,
+    private _translateActive: TranslateActiveService
   ) {}
 
   ngOnInit() {
@@ -100,6 +104,10 @@ export class ImageComponent {
         }
       );
     }
+    this._transloco.langChanges$.subscribe((lang) => {
+      this.setDropText(lang);
+    });
+    this.setDropText(this._transloco.getActiveLang());
   }
 
   imageTranslateForm = this.builder.group({
@@ -229,6 +237,26 @@ export class ImageComponent {
   changeBackLeave() {
     this.divStyle = '';
     this.text = `Drag and drop or <span class="text-primary c-p">Browse</span>`;
+  }
+
+  setDropText(lang: string) {
+    if (lang === 'en') {
+      this.text = 'Drag and drop or <span class="text-primary c-p">Browse</span> image(s)';
+    } else {
+      this.text = 'ჩააგდეთ ან <span class="text-primary c-p">ატვირთეთ</span> ფოტო/ფოტოები';
+    }
+  }
+
+  onImage() {
+    this._translateActive.setActiveComponent(ImageComponent);
+  }
+
+  onDoc() {
+    this._translateActive.setActiveComponent(DocComponent);
+  }
+
+  onText() {
+    this._translateActive.setActiveComponent(TextComponent);
   }
 
   copyToClipboard() {

@@ -20,6 +20,9 @@ import { FreeServiceService } from '../../../../shared/services/free-service.ser
 import { debounceTime, Subject, switchMap, timer } from 'rxjs';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
+import { TranslateActiveService } from '../../../../shared/services/translate-active.service';
+import { ImageComponent } from '../image/image.component';
+import { DocComponent } from '../doc/doc.component';
 
 
 @Component({
@@ -73,7 +76,8 @@ export class TextComponent implements OnInit, AfterViewInit {
     private languageService: ProductCategoryService,
     public _transloco: TranslocoService,
     private freeService: FreeServiceService,
-    private _router: Router
+    private _router: Router,
+    private _translateActive: TranslateActiveService
   ) {
     this.inputSubject.pipe(
       debounceTime(500) // Adjust the debounce time (in milliseconds) as needed
@@ -208,6 +212,14 @@ export class TextComponent implements OnInit, AfterViewInit {
     } else {
       this.translatedText = 'თარგმანი';
     }
+  }
+
+  onImage() {
+    this._translateActive.setActiveComponent(ImageComponent);
+  }
+
+  onDoc() {
+    this._translateActive.setActiveComponent(DocComponent);
   }
 
   copyToClipboard() {

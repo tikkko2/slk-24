@@ -18,6 +18,9 @@ import { TextToWordService } from '../../../../shared/services/text-to-word.serv
 import { ProductCategoryService } from '../../../../shared/services/product-category.service';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
+import { ImageComponent } from '../image/image.component';
+import { TranslateActiveService } from '../../../../shared/services/translate-active.service';
+import { TextComponent } from '../text/text.component';
 
 @Component({
   selector: 'app-doc',
@@ -79,6 +82,7 @@ export class DocComponent implements OnInit {
     private docxService: TextToWordService,
     private languageService: ProductCategoryService,
     public _transloco: TranslocoService,
+    private _translateActive: TranslateActiveService
   ) {}
 
   docTranslateForm = this.builder.group({
@@ -109,6 +113,10 @@ export class DocComponent implements OnInit {
         }
       );
     }
+    this._transloco.langChanges$.subscribe((lang) => {
+      this.setDropText(lang);
+    });
+    this.setDropText(this._transloco.getActiveLang());
   }
 
   sendDocs() {
@@ -239,7 +247,27 @@ export class DocComponent implements OnInit {
 
   changeBackLeave() {
     this.divStyle = '';
-    this.text = `Drag and drop or <span class="text-primary c-p">Browse</span>`;
+    this.text = `Drag and drop or <span class="text-primary c-p">Browse</span> file(s)`;
+  }
+
+  setDropText(lang: string) {
+    if (lang === 'en') {
+      this.text = 'Drag and drop or <span class="text-primary c-p">Browse</span> file(s)';
+    } else {
+      this.text = 'ჩააგდეთ ან <span class="text-primary c-p">ატვირთეთ</span> ფაილი/ფაილები';
+    }
+  }
+
+  onImage() {
+    this._translateActive.setActiveComponent(ImageComponent);
+  }
+
+  onDoc() {
+    this._translateActive.setActiveComponent(DocComponent);
+  }
+
+  onText() {
+    this._translateActive.setActiveComponent(TextComponent);
   }
 
   copyToClipboard() {
