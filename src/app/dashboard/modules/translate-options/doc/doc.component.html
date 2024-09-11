@@ -3,7 +3,10 @@
   <div
     class="d-flex align-items-center justify-content-between flex-wrap gap-3"
   >
-    <select
+  <div class="language-tr-div">
+    <p class="l-d auto-language">{{ 'translate.language-detection' | transloco }}</p>
+  </div>
+    <!-- <select
       id="languageSourceSelect"
       class="form-select product-selection c-p shadow-none"
       aria-label="Large select example"
@@ -21,28 +24,36 @@
             : language.name
         }}
       </option>
-    </select>
-    <select
-      id="languageSelect"
-      class="form-select product-selection c-p shadow-none"
-      aria-label="Large select example"
-      [(ngModel)]="selectedLanguage"
-      [ngModelOptions]="{ standalone: true }"
-      required
-    >
-      <option selected value="0" disabled>
-        {{ "translate.language-options" | transloco }}
-      </option>
-      <option *ngFor="let language of languages" [value]="language.id">
-        {{
-          this._transloco.getActiveLang() == "ge"
-            ? language.nameGeo
-            : language.name
-        }}
-      </option>
-    </select>
+    </select> -->
+    <div class="d-flex align-items-center justify-content-end">
+      <div class="language-tr-div">
+        <p>ქართული</p>
+      </div>
+      <div class="language-tr-div">
+        <p>ინგლისური</p>
+      </div>
+      <select
+        id="languageSelect"
+        class="form-select product-selection c-p shadow-none mx-w-15"
+        aria-label="Large select example"
+        [(ngModel)]="selectedLanguage"
+        [ngModelOptions]="{ standalone: true }"
+        required
+      >
+        <option selected value="0" disabled>
+          {{ "translate.language-options" | transloco }}
+        </option>
+        <option *ngFor="let language of languages" [value]="language.id">
+          {{
+            this._transloco.getActiveLang() == "ge"
+              ? language.nameGeo
+              : language.name
+          }}
+        </option>
+      </select>
+    </div>
   </div>
-  <div class="image-container mt-3 mb-5 d-flex">
+  <div class="image-container mb-5 d-flex">
     <div
       class="image-input"
       (dragover)="changeBack()"

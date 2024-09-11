@@ -1,48 +1,65 @@
 <form [formGroup]="imageTranslateForm">
-  <h6 class="mb-5">{{ 'translate.photo' | transloco }}</h6>
+  <h6 class="mb-5">{{ "translate.photo" | transloco }}</h6>
   <div
     class="d-flex align-items-center justify-content-between flex-wrap gap-3"
   >
-    <select
-      id="languageSourceSelect"
-      class="form-select product-selection c-p shadow-none"
-      aria-label="Large select example"
-      [(ngModel)]="selectedSourceLanguage"
-      [ngModelOptions]="{ standalone: true }"
-      required
-    >
-      <option selected value="0" disabled>
-        {{ "translate.language-main" | transloco }}
-      </option>
-      <option *ngFor="let language of languages" [value]="language.id">
-        {{
-          this._transloco.getActiveLang() == "ge"
-            ? language.nameGeo
-            : language.name
-        }}
-      </option>
-    </select>
-    <select
-      id="languageSelect"
-      class="form-select product-selection c-p shadow-none"
-      aria-label="Large select example"
-      [(ngModel)]="selectedLanguage"
-      [ngModelOptions]="{ standalone: true }"
-      required
-    >
-      <option selected value="0" disabled>
-        {{ "translate.language-options" | transloco }}
-      </option>
-      <option *ngFor="let language of languages" [value]="language.id">
-        {{
-          this._transloco.getActiveLang() == "ge"
-            ? language.nameGeo
-            : language.name
-        }}
-      </option>
-    </select>
+    <div class="d-flex align-items-center justify-content-start">
+      <select
+        id="languageSourceSelect"
+        class="form-select product-selection c-p shadow-none mx-w-15"
+        aria-label="Large select example"
+        [(ngModel)]="selectedSourceLanguage"
+        [ngModelOptions]="{ standalone: true }"
+        required
+      >
+        <option selected value="0" disabled>
+          {{ "translate.language-main" | transloco }}
+        </option>
+        <option *ngFor="let language of languages" [value]="language.id">
+          {{
+            this._transloco.getActiveLang() == "ge"
+              ? language.nameGeo
+              : language.name
+          }}
+        </option>
+      </select>
+      <div class="language-tr-div">
+        <p>ქართული</p>
+      </div>
+      <div class="language-tr-div">
+        <p>ინგლისური</p>
+      </div>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-end">
+      <div class="language-tr-div">
+        <p>ქართული</p>
+      </div>
+      <div class="language-tr-div">
+        <p>ინგლისური</p>
+      </div>
+      <select
+        id="languageSelect"
+        class="form-select product-selection c-p shadow-none mx-w-15"
+        aria-label="Large select example"
+        [(ngModel)]="selectedLanguage"
+        [ngModelOptions]="{ standalone: true }"
+        required
+      >
+        <option selected value="0" disabled>
+          {{ "translate.language-options" | transloco }}
+        </option>
+        <option *ngFor="let language of languages" [value]="language.id">
+          {{
+            this._transloco.getActiveLang() == "ge"
+              ? language.nameGeo
+              : language.name
+          }}
+        </option>
+      </select>
+    </div>
   </div>
-  <div class="image-container mt-3 mb-5 d-flex">
+  <div class="image-container mb-5 d-flex">
     <div
       class="image-input"
       (dragover)="changeBack()"
@@ -84,10 +101,10 @@
         ></i>
       </div>
 
-      <p *ngIf="!files">{{ 'translate.empty-photo' | transloco }}</p>
-      <small class="text-muted text-center"
-        >{{ 'translate.format-img' | transloco }}</small
-      >
+      <p *ngIf="!files">{{ "translate.empty-photo" | transloco }}</p>
+      <small class="text-muted text-center">{{
+        "translate.format-img" | transloco
+      }}</small>
     </div>
     <div
       class="image-preview d-flex align-items-center justify-content-center flex-column position-relative"
@@ -118,7 +135,9 @@
       >
     </div>
   </div>
-  <span class="c-p slk-color" (click)="onText()">{{ 'tr-text-btn' | transloco }}</span>
+  <span class="c-p slk-color" (click)="onText()">{{
+    "tr-text-btn" | transloco
+  }}</span>
   <div class="d-flex align-items-center justify-content-center gap-3">
     <div class="text-center">
       <div class="btn-group dropup-center dropup">
@@ -128,15 +147,19 @@
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-        <i class="bi bi-cloud-arrow-up"></i>
-          {{ 'attach-file' | transloco }}
+          <i class="bi bi-cloud-arrow-up"></i>
+          {{ "attach-file" | transloco }}
         </button>
         <ul class="dropdown-menu">
           <li (click)="onImage()">
-            <span class="dropdown-item c-p">{{ 'translate.photo' | transloco }}</span>
+            <span class="dropdown-item c-p">{{
+              "translate.photo" | transloco
+            }}</span>
           </li>
           <li (click)="onDoc()">
-            <span class="dropdown-item c-p">{{ 'translate.document' | transloco }}</span>
+            <span class="dropdown-item c-p">{{
+              "translate.document" | transloco
+            }}</span>
           </li>
         </ul>
       </div>

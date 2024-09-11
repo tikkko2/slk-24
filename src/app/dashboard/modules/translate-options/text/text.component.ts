@@ -61,9 +61,11 @@ export class TextComponent implements OnInit, AfterViewInit {
   languageNotSelected = false;
   sourceLanguageNotSelected = false;
 
+  selectedGEO = false;
+  selectedENG = false;
+
   translatedText: string = '';
 
-  sourceLanguages: Language[] = [];
   languages: Language[] = [];
 
   constructor(
@@ -80,9 +82,9 @@ export class TextComponent implements OnInit, AfterViewInit {
     private _translateActive: TranslateActiveService
   ) {
     this.inputSubject.pipe(
-      debounceTime(500) // Adjust the debounce time (in milliseconds) as needed
+      debounceTime(500)
     ).subscribe(() => {
-      this.sendText(); // Trigger sendText after debounce
+      this.sendText();
     });
   }
 
@@ -96,9 +98,7 @@ export class TextComponent implements OnInit, AfterViewInit {
     if(this.isLoggedIn) {
       this.languageService.getLanguage(url.language).subscribe(
         (response: any) => {
-          this.sourceLanguages = response;
           this.languages = response;
-          this.deleteById(10);
         },
         (error) => {
           console.error('Error fetching languages', error);
@@ -117,7 +117,6 @@ export class TextComponent implements OnInit, AfterViewInit {
         switchMap(() => this.languageService.getFreeLanguage(url.language))
       ).subscribe(
         (response: any) => {
-          this.sourceLanguages = response;
           this.languages = response;
           this.deleteById(10);
         },
@@ -134,7 +133,9 @@ export class TextComponent implements OnInit, AfterViewInit {
 
   onInput(event: any) {
     const inputValue = event.target.value;
-    this.inputSubject.next(inputValue); // Pass input value to the debounced Subject
+    this.inputSubject.next(inputValue);
+    this.selectedENG = false;
+    this.selectedGEO = false;
   }
 
   sendText() {
@@ -204,6 +205,18 @@ export class TextComponent implements OnInit, AfterViewInit {
 
   deleteById(id: any): void {
     this.languages = this.languages.filter((item: any) => item.id !== id);
+  }
+
+  chooseGe() {
+    this.selectedENG = false;
+    this.selectedLanguage = '1';
+    this.selectedGEO = true;
+  }
+
+  chooseEn() {
+    this.selectedGEO = false;
+    this.selectedLanguage = '2';
+    this.selectedENG = true;
   }
 
   setTranslatedText(lang: string) {

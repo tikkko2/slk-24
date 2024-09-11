@@ -1,9 +1,11 @@
 <form [formGroup]="chatForm">
-  <h6 class="mb-5">{{ 'translate.text' | transloco }}</h6>
+  <h6 class="mb-5">{{ "translate.text" | transloco }}</h6>
   <div class="translate-container row">
     <div class="col-12 col-lg-6">
       <div class="language-tr-div">
-        <p class="l-d">{{ 'translate.language-detection' | transloco }}</p>
+        <p class="l-d auto-language">
+          {{ "translate.language-detection" | transloco }}
+        </p>
       </div>
       <!-- <select
         id="languageSourceSelect"
@@ -50,24 +52,36 @@
     </div>
 
     <div class="col-12 col-lg-6">
-      <div>
+      <div class="d-flex align-items-center justify-content-end">
+        <div
+          class="language-tr-div"
+          (click)="chooseGe()"
+          [ngClass]="selectedGEO ? 'selected-lanp-active' : ''"
+        >
+          <p>ქართული</p>
+        </div>
+        <div
+          class="language-tr-div"
+          (click)="chooseEn()"
+          [ngClass]="selectedENG ? 'selected-lanp-active' : ''"
+        >
+          <p>ინგლისური</p>
+        </div>
         <select
           id="languageSelect"
           (change)="onInput($event)"
-          class="form-select product-selection c-p shadow-none ms-auto"
+          class="form-select product-selection c-p shadow-none mx-w-15"
           aria-label="Large select example"
           [(ngModel)]="selectedLanguage"
           [ngModelOptions]="{ standalone: true }"
           [ngClass]="{
-            'error-text': languageNotSelected && selectedLanguage === '0'
+            'error-text': languageNotSelected && selectedLanguage === '0',
+            'selected-language-active':
+              selectedLanguage && selectedLanguage !== '0'
           }"
           required
         >
-          <option
-            selected
-            value="0"
-            disabled
-          >
+          <option selected value="0" disabled>
             {{ "translate.language-options" | transloco }}
           </option>
           <option *ngFor="let language of languages" [value]="language.id">

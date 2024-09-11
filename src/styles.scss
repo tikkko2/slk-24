@@ -126,6 +126,11 @@ body {
 
 /////////// GENERAL CLASSES - REUSED ///////////
 
+.mx-w-15 {
+  max-width: 13rem;
+  min-width: 11rem !important;
+}
+
 .fs-14px {
   font-size: 14px;
 }
@@ -249,11 +254,6 @@ body {
 /////////// SIDEBAR ///////////
 
 /// translate component ///
-
-#languageSelect,
-#languageSourceSelect {
-  max-width: 15rem;
-}
 
 .translate-container {
   height: fit-content;
@@ -516,3 +516,40 @@ body {
   }
 }
 /////////// ERRORs /////////////
+
+
+.language-tr-div {
+  p {
+    margin: 0;
+    padding: 0.75rem 1rem;
+    border-bottom: 2px solid white;
+    display: inline-block;
+    cursor: pointer;
+    &:hover {
+      background-color: rgb(248, 248, 248);
+      border-bottom: 2px solid blue;
+    }
+  }
+  p.l-d {
+    margin-left: 10px;
+  }
+}
+
+#languageSelect, #languageSourceSelect {
+  padding: 0.75rem 1rem;
+  margin-right: 10px;
+  border-bottom: 2px solid rgb(255, 255, 255);
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.selected-lanp-active, .auto-language {
+  background-color: rgb(248, 248, 248);
+  border-bottom: 2px solid blue !important;
+}
+
+.selected-language-active {
+  border-bottom: 2px solid blue !important;
+  background-color: rgb(248, 248, 248) !important;
+}
