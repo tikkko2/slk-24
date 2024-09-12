@@ -64,7 +64,9 @@
     "format-img": "Supported image types: .JPEG, .PNG, .GIF, .WEBP",
     "format-doc": "Supported file type: .PDF",
     "empty-file": "No file chosen",
-    "empty-photo": "No image chosen"
+    "empty-photo": "No image chosen",
+    "upload-img": "Upload a photo(s)!",
+    "upload-file": "Upload a file(s)!"
   },
   "mailman": {
     "title": "Mailman",
@@ -137,5 +139,9 @@
     "email-text": "Write a received mail!",
     "balance": "Due to insufficient balance, you can no longer use the services. Please top up!",
     "registration": "Registration is required!"
+  },
+  "languages": {
+    "en": "English",
+    "ge": "Georgian"
   }
 }

@@ -24,7 +24,6 @@ import { TranslateActiveService } from '../../../../shared/services/translate-ac
 import { ImageComponent } from '../image/image.component';
 import { DocComponent } from '../doc/doc.component';
 
-
 @Component({
   selector: 'app-text',
   templateUrl: './text.component.html',
@@ -32,7 +31,8 @@ import { DocComponent } from '../doc/doc.component';
 })
 export class TextComponent implements OnInit, AfterViewInit {
   @ViewChild('textareaElement', { static: false }) textareaElement!: ElementRef;
-  @ViewChild('generatedResponse', { static: false }) generatedResponse!: ElementRef;
+  @ViewChild('generatedResponse', { static: false })
+  generatedResponse!: ElementRef;
 
   private inputSubject = new Subject<string>();
 
@@ -59,8 +59,6 @@ export class TextComponent implements OnInit, AfterViewInit {
   selectedSourceLanguage = '-1';
 
   languageNotSelected = false;
-  sourceLanguageNotSelected = false;
-
   selectedGEO = false;
   selectedENG = false;
 
@@ -81,9 +79,7 @@ export class TextComponent implements OnInit, AfterViewInit {
     private _router: Router,
     private _translateActive: TranslateActiveService
   ) {
-    this.inputSubject.pipe(
-      debounceTime(500)
-    ).subscribe(() => {
+    this.inputSubject.pipe(debounceTime(500)).subscribe(() => {
       this.sendText();
     });
   }
@@ -95,7 +91,7 @@ export class TextComponent implements OnInit, AfterViewInit {
       .getBalance()
       .subscribe((value) => (this.balance = value));
     this.adjustTextareaHeight();
-    if(this.isLoggedIn) {
+    if (this.isLoggedIn) {
       this.languageService.getLanguage(url.language).subscribe(
         (response: any) => {
           this.languages = response;
@@ -112,18 +108,19 @@ export class TextComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if(!this.isLoggedIn) {
-      timer(500).pipe(
-        switchMap(() => this.languageService.getFreeLanguage(url.language))
-      ).subscribe(
-        (response: any) => {
-          this.languages = response;
-          this.deleteById(10);
-        },
-        (error: any) => {
-          console.error('Error fetching languages', error);
-        }
-      );
+    if (!this.isLoggedIn) {
+      timer(500)
+        .pipe(
+          switchMap(() => this.languageService.getFreeLanguage(url.language))
+        )
+        .subscribe(
+          (response: any) => {
+            this.languages = response;
+          },
+          (error: any) => {
+            console.error('Error fetching languages', error);
+          }
+        );
     }
   }
 
@@ -134,35 +131,38 @@ export class TextComponent implements OnInit, AfterViewInit {
   onInput(event: any) {
     const inputValue = event.target.value;
     this.inputSubject.next(inputValue);
-    this.selectedENG = false;
-    this.selectedGEO = false;
+    if (this.selectedLanguage === '1') {
+      this.selectedENG = false;
+      this.selectedGEO = true;
+    } else if (this.selectedLanguage === '2') {
+      this.selectedENG = true;
+      this.selectedGEO = false;
+    } else {
+      this.selectedENG = false;
+      this.selectedGEO = false;
+    }
   }
 
   sendText() {
-    if(this.selectedSourceLanguage === '0') {
-      this.sourceLanguageNotSelected = true;
-      return;
-    } else if(this.selectedLanguage === '0') {
+    if (this.selectedLanguage === '0') {
       this.languageNotSelected = true;
       return;
     }
     if (!this.chatForm.valid) {
-      this.toastr.error(this._transloco.translate('error-toastr.translate-text'));
       return;
-    };
+    }
     if (
       this.apiService.hasExceededFreeRequests() &&
       !this.authService.IsLoggedIn()
     ) {
       this.toastr.error(this._transloco.translate('error-toastr.registration'));
-      this._router.navigate(['/sign-up'])
+      this._router.navigate(['/sign-up']);
       return;
     }
     if (this.balance <= 0) {
       this.toastr.error(this._transloco.translate('error-toastr.balance'));
       return;
     }
-    if (this.isLoading) return;
     this.isLoading = true;
 
     const userMessageText = this.chatForm.value.text ?? '';

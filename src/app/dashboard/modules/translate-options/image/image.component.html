@@ -6,10 +6,16 @@
     <div class="d-flex align-items-center justify-content-start">
       <select
         id="languageSourceSelect"
+        (change)="changeSourceLanguage()"
         class="form-select product-selection c-p shadow-none mx-w-15"
         aria-label="Large select example"
         [(ngModel)]="selectedSourceLanguage"
         [ngModelOptions]="{ standalone: true }"
+        [ngClass]="{
+          'error-text': sourceLanguageNotSelected && selectedSourceLanguage === '0',
+          'selected-language-active':
+            selectedSourceLanguage && (selectedSourceLanguage !== '0' && selectedSourceLanguage !== '1' && selectedSourceLanguage !== '2')
+        }"
         required
       >
         <option selected value="0" disabled>
@@ -23,27 +29,49 @@
           }}
         </option>
       </select>
-      <div class="language-tr-div">
-        <p>ქართული</p>
+      <div
+        class="language-tr-div"
+        (click)="chooseSourceGe()"
+        [ngClass]="selectedSourceGEO ? 'selected-lanp-active' : ''"
+      >
+        <p>{{ "languages.ge" | transloco }}</p>
       </div>
-      <div class="language-tr-div">
-        <p>ინგლისური</p>
+      <div
+        class="language-tr-div"
+        (click)="chooseSourceEn()"
+        [ngClass]="selectedSourceENG ? 'selected-lanp-active' : ''"
+      >
+        <p>{{ "languages.en" | transloco }}</p>
       </div>
     </div>
 
     <div class="d-flex align-items-center justify-content-end">
-      <div class="language-tr-div">
-        <p>ქართული</p>
+      <div
+        class="language-tr-div"
+        (click)="chooseGe()"
+        [ngClass]="selectedGEO ? 'selected-lanp-active' : ''"
+      >
+        <p>{{ "languages.ge" | transloco }}</p>
       </div>
-      <div class="language-tr-div">
-        <p>ინგლისური</p>
+      <div
+        class="language-tr-div"
+        (click)="chooseEn()"
+        [ngClass]="selectedENG ? 'selected-lanp-active' : ''"
+      >
+        <p>{{ "languages.en" | transloco }}</p>
       </div>
       <select
         id="languageSelect"
+        (change)="changeLanguage()"
         class="form-select product-selection c-p shadow-none mx-w-15"
         aria-label="Large select example"
         [(ngModel)]="selectedLanguage"
         [ngModelOptions]="{ standalone: true }"
+        [ngClass]="{
+          'error-text': languageNotSelected && selectedLanguage === '0',
+          'selected-language-active':
+            selectedLanguage && (selectedLanguage !== '0' && selectedLanguage !== '1' && selectedLanguage !== '2')
+        }"
         required
       >
         <option selected value="0" disabled>

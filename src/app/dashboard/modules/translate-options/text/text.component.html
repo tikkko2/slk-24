@@ -58,14 +58,14 @@
           (click)="chooseGe()"
           [ngClass]="selectedGEO ? 'selected-lanp-active' : ''"
         >
-          <p>ქართული</p>
+          <p>{{ "languages.ge" | transloco }}</p>
         </div>
         <div
           class="language-tr-div"
           (click)="chooseEn()"
           [ngClass]="selectedENG ? 'selected-lanp-active' : ''"
         >
-          <p>ინგლისური</p>
+          <p>{{ "languages.en" | transloco }}</p>
         </div>
         <select
           id="languageSelect"
@@ -77,7 +77,7 @@
           [ngClass]="{
             'error-text': languageNotSelected && selectedLanguage === '0',
             'selected-language-active':
-              selectedLanguage && selectedLanguage !== '0'
+              selectedLanguage && (selectedLanguage !== '0' && selectedLanguage !== '1' && selectedLanguage !== '2')
           }"
           required
         >

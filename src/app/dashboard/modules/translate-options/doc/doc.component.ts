@@ -61,13 +61,17 @@ export class DocComponent implements OnInit {
   files: any;
   isLoading: boolean = false;
   selectedLanguage = '0';
-  selectedSourceLanguage = '0';
+  selectedSourceLanguage = '-1';
 
   isPdf = 'true';
   description = '';
 
   copyBtn: boolean = false;
   translatedText!: string;
+
+  languageNotSelected = false;
+  selectedGEO = false;
+  selectedENG = false;
 
   languages: Language[] = [];
 
@@ -120,35 +124,24 @@ export class DocComponent implements OnInit {
   }
 
   sendDocs() {
-    switch (true) {
-      case this.selectedLanguage === '0' && this.selectedSourceLanguage === '0':
-        this.toastr.error('აირჩიეთ დედანისა და სამიზნე ენა');
-        return;
-      case this.selectedLanguage === '0':
-        this.toastr.error('აირჩიეთ სამიზნე ენა');
-        return;
-      case this.selectedSourceLanguage === '0':
-        this.toastr.error('აირჩიეთ დედანის ენა');
-        return;
-      default:
-        break;
+    if (this.selectedLanguage === '0') {
+      this.languageNotSelected = true;
+      return;
     }
     if (!this.docTranslateForm.valid) {
-      this.toastr.error('ატვირთეთ ფაილი/ფაილები!');
+      this.toastr.error(this._transloco.translate('translate.upload-file'));
       return;
     }
     if (
       this.apiService.hasExceededFreeRequests() &&
       !this.authService.IsLoggedIn()
     ) {
-      this.toastr.error('აუცილებელია რეგისტრაცია');
+      this.toastr.error(this._transloco.translate('error-toastr.registration'));
       this.router.navigate(['/sign-up']);
       return;
     }
     if (this.balance <= 0) {
-      this.toastr.error(
-        'არასაკმარისი ბალანსის გამო ვეღარ ისარგებლებთ სერვისებით, შეავსეთ!'
-      );
+      this.toastr.error(this._transloco.translate('error-toastr.balance'));
       return;
     }
     if (this.isLoading) return;
@@ -218,6 +211,19 @@ export class DocComponent implements OnInit {
     }
   }
 
+  onInput(event: any) {
+    if (this.selectedLanguage === '1') {
+      this.selectedENG = false;
+      this.selectedGEO = true;
+    } else if (this.selectedLanguage === '2') {
+      this.selectedENG = true;
+      this.selectedGEO = false;
+    } else {
+      this.selectedENG = false;
+      this.selectedGEO = false;
+    }
+  }
+
   downloadAsWord() {
     var textToCopy = this.generatedResponse.nativeElement.innerText;
     this.docxService.createDocument(textToCopy);
@@ -248,6 +254,18 @@ export class DocComponent implements OnInit {
   changeBackLeave() {
     this.divStyle = '';
     this.text = `Drag and drop or <span class="text-primary c-p">Browse</span> file(s)`;
+  }
+
+  chooseGe() {
+    this.selectedENG = false;
+    this.selectedLanguage = '1';
+    this.selectedGEO = true;
+  }
+
+  chooseEn() {
+    this.selectedGEO = false;
+    this.selectedLanguage = '2';
+    this.selectedENG = true;
   }
 
   setDropText(lang: string) {

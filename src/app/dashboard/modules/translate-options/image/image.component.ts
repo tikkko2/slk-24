@@ -4,7 +4,6 @@ import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HttpService } from '../../../../shared/services/http.service';
 import { AuthService } from '../../../../shared/services/auth.service';
-import { MatDialog } from '@angular/material/dialog';
 import { BalanceService } from '../../../../shared/services/balance.service';
 import { url } from '../../../../shared/data/api';
 import { TextToWordService } from '../../../../shared/services/text-to-word.service';
@@ -64,6 +63,13 @@ export class ImageComponent {
   copyBtn: boolean = false;
   translatedText: any;
 
+  languageNotSelected = false;
+  sourceLanguageNotSelected = false;
+  selectedGEO = false;
+  selectedENG = false;
+  selectedSourceGEO = false;
+  selectedSourceENG = false;
+
   languages: Language[] = [];
 
   constructor(
@@ -117,31 +123,30 @@ export class ImageComponent {
   sendImages() {
     switch (true) {
       case this.selectedLanguage === '0' && this.selectedSourceLanguage === '0':
-        this.toastr.error('აირჩიეთ დედანისა და სამიზნე ენა');
+        this.languageNotSelected = true;
+        this.sourceLanguageNotSelected = true;
         return;
       case this.selectedLanguage === '0':
-        this.toastr.error('აირჩიეთ სამიზნე ენა');
+        this.languageNotSelected = true;
         return;
       case this.selectedSourceLanguage === '0':
-        this.toastr.error('აირჩიეთ დედანის ენა');
+        this.sourceLanguageNotSelected = true;
         return;
       default:
         break;
     }
     if (!this.imageTranslateForm.valid) {
-      this.toastr.error('ატვირთეთ ფოტო/ფოტოები!');
+      this.toastr.error(this._transloco.translate('translate.upload-img'));
       return;
     } else if (
       this.apiService.hasExceededFreeRequests() &&
       !this.authService.IsLoggedIn()
     ) {
-      this.toastr.error('აუცილებელია რეგისტრაცია');
+      this.toastr.error(this._transloco.translate('error-toastr.registration'));
       this.router.navigate(['/sign-up']);
       return;
     } else if (this.balance <= 0) {
-      this.toastr.error(
-        'არასაკმარისი ბალანსის გამო ვეღარ ისარგებლებთ სერვისებით, შეავსეთ!'
-      );
+      this.toastr.error(this._transloco.translate('error-toastr.balance'));
       return;
     } else if (this.isLoading) return;
     this.isLoading = true;
@@ -244,6 +249,56 @@ export class ImageComponent {
       this.text = 'Drag and drop or <span class="text-primary c-p">Browse</span> image(s)';
     } else {
       this.text = 'ჩააგდეთ ან <span class="text-primary c-p">ატვირთეთ</span> ფოტო/ფოტოები';
+    }
+  }
+
+  chooseGe() {
+    this.selectedENG = false;
+    this.selectedLanguage = '1';
+    this.selectedGEO = true;
+  }
+
+  chooseEn() {
+    this.selectedGEO = false;
+    this.selectedLanguage = '2';
+    this.selectedENG = true;
+  }
+
+  chooseSourceGe() {
+    this.selectedSourceENG = false;
+    this.selectedSourceLanguage = '1';
+    this.selectedSourceGEO = true;
+  }
+
+  chooseSourceEn() {
+    this.selectedSourceGEO = false;
+    this.selectedSourceLanguage = '2';
+    this.selectedSourceENG = true;
+  }
+
+  changeLanguage() {
+    if (this.selectedLanguage === '1') {
+      this.selectedENG = false;
+      this.selectedGEO = true;
+    } else if (this.selectedLanguage === '2') {
+      this.selectedENG = true;
+      this.selectedGEO = false;
+    } else {
+      this.selectedENG = false;
+      this.selectedGEO = false;
+    }
+  }
+
+  changeSourceLanguage() {
+    if (this.selectedSourceLanguage === '1') {
+      this.selectedSourceENG = false;
+      this.selectedSourceGEO = true;
+    } else if (this.selectedSourceLanguage === '2') {
+      this.selectedSourceENG = true;
+      this.selectedSourceGEO = false;
+    } else {
+      this.selectedSourceENG = false;
+      this.selectedSourceGEO = false;
     }
   }
 
