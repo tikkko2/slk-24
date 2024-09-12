@@ -128,6 +128,7 @@ export class MailComponent implements OnInit {
     }
     if (this.balance <= 0) {
       this.toastr.error(this._transloco.translate('error-toastr.balance'));
+      this.router.navigate(['/services/balance']);
       return;
     }
     if (this.isLoading) return;

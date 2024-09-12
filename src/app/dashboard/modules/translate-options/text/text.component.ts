@@ -88,7 +88,7 @@ export class TextComponent implements OnInit, AfterViewInit {
     private _router: Router,
     private _translateActive: TranslateActiveService
   ) {
-    this.inputSubject.pipe(debounceTime(500)).subscribe(() => {
+    this.inputSubject.pipe(debounceTime(1000)).subscribe(() => {
       this.sendText();
     });
   }
@@ -170,6 +170,7 @@ export class TextComponent implements OnInit, AfterViewInit {
     }
     if (this.balance <= 0) {
       this.toastr.error(this._transloco.translate('error-toastr.balance'));
+      this._router.navigate(['/services/balance'])
       return;
     }
     this.isLoading = true;

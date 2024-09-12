@@ -156,6 +156,7 @@ export class ImageComponent {
       return;
     } else if (this.balance <= 0) {
       this.toastr.error(this._transloco.translate('error-toastr.balance'));
+      this.router.navigate(['/services/balance']);
       return;
     } else if (this.isLoading) return;
     this.isLoading = true;
