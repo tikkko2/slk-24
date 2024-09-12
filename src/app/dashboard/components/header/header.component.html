@@ -56,14 +56,11 @@
       </div>
     </div>
     <div class="dropdown-user" *ngIf="isLoggedIn">
-      <div
-        class="user-div"
-        (mouseenter)="showDropdown()"
-        (click)="toggleUserDropdown()"
-      >
+      <div class="user-div" (click)="toggleUserDropdown()">
         <i class="bi bi-person-lines-fill"></i>
       </div>
       <div
+        @fadeIn
         class="dropdown-menu"
         *ngIf="isDropdownVisible"
         (mouseleave)="hideDropdown()"

@@ -31,6 +31,9 @@ ul {
     margin-left: 5px;
     border-radius: 7px;
     cursor: pointer;
+    &:hover {
+    background-color: #0e33ed;
+    }
     i {
       color: white;
     }

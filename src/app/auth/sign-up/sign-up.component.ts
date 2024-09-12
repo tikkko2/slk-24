@@ -5,10 +5,19 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import { UserService } from '../services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('0.2s ease-in', style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
   styleUrl: './sign-up.component.scss'
 })
 export class SignUpComponent implements OnInit {

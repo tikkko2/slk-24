@@ -1,11 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth.service';
-import { FreeServiceService } from '../../../shared/services/free-service.service';
 import { BalanceService } from '../../../shared/services/balance.service';
 import { HttpService } from '../../../shared/services/http.service';
 import { url } from '../../../shared/data/api';
 import { ToastrService } from 'ngx-toastr';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-sidebar',

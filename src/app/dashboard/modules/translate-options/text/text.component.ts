@@ -23,10 +23,19 @@ import { TranslocoService } from '@ngneat/transloco';
 import { TranslateActiveService } from '../../../../shared/services/translate-active.service';
 import { ImageComponent } from '../image/image.component';
 import { DocComponent } from '../doc/doc.component';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-text',
   templateUrl: './text.component.html',
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('0.2s ease-in', style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
   styleUrl: './text.component.scss',
 })
 export class TextComponent implements OnInit, AfterViewInit {

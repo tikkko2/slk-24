@@ -11,7 +11,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../../shared/services/auth.service';
 import { BalanceService } from '../../../../shared/services/balance.service';
 import { HttpService } from '../../../../shared/services/http.service';
-import { MatDialog } from '@angular/material/dialog';
 import { url } from '../../../../shared/data/api';
 import gsap from 'gsap';
 import { TextToWordService } from '../../../../shared/services/text-to-word.service';
@@ -21,10 +20,19 @@ import { TranslocoService } from '@ngneat/transloco';
 import { ImageComponent } from '../image/image.component';
 import { TranslateActiveService } from '../../../../shared/services/translate-active.service';
 import { TextComponent } from '../text/text.component';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-doc',
   templateUrl: './doc.component.html',
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('0.2s ease-in', style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
   styleUrl: './doc.component.scss',
 })
 export class DocComponent implements OnInit {

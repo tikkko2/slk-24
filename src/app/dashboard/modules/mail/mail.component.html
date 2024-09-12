@@ -7,6 +7,7 @@
         <div class="col-12 col-lg-6">
           <select
             id="languageSourceSelect"
+            style="max-width: 15rem;"
             class="form-select product-selection c-p shadow-none mt-5 mb-4"
             aria-label="Large select example"
             [(ngModel)]="emailFormId"
@@ -46,7 +47,7 @@
             aria-label="Large select example"
             [(ngModel)]="selectedLanguage"
             [ngModelOptions]="{ standalone: true }"
-            [ngClass]="{'select-error': notSelectedLanguage && selectedLanguage == 0}"
+            [ngClass]="{'error-text': notSelectedLanguage && selectedLanguage == 0}"
             required
           >
             <option selected value="0" disabled>

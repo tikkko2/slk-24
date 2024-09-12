@@ -7,10 +7,19 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { BalanceService } from '../../../shared/services/balance.service';
 import { HttpService } from '../../../shared/services/http.service';
 import { url } from '../../../shared/data/api';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('0.2s ease-in', style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit {

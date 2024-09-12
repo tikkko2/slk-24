@@ -4,10 +4,19 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../services/user.service';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('0.2s ease-in', style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
   styleUrl: './sign-in.component.scss'
 })
 export class SignInComponent implements OnInit {

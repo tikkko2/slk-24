@@ -14,10 +14,19 @@ import { TranslocoService } from '@ngneat/transloco';
 import { DocComponent } from '../doc/doc.component';
 import { TranslateActiveService } from '../../../../shared/services/translate-active.service';
 import { TextComponent } from '../text/text.component';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-image',
   templateUrl: './image.component.html',
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('0.2s ease-in', style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
   styleUrl: './image.component.scss',
 })
 export class ImageComponent {
