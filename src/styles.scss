@@ -25,7 +25,7 @@
   }
 }
 
-@media screen and (max-width: 778px) {
+@media screen and (max-width: 777px) {
   app-sidebar {
     position: fixed;
     left: 0;
@@ -182,6 +182,19 @@ body {
   cursor: pointer;
   font-size: 1rem;
   color: #182fa1;
+}
+
+.sidenav-container {
+  overflow-x: hidden;
+  transition: all 500ms ease-in-out !important;
+}
+
+.nav-link span {
+  white-space: nowrap;
+}
+
+.loggedin-link {
+  height: 37px;
 }
 
 /////////// GENERAL CLASSES - REUSED ///////////

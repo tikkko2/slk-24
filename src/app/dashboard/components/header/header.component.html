@@ -1,7 +1,7 @@
 <div
   class="bg-white d-flex align-items-center justify-content-between px-2 py-2"
 >
-  <div class="ms-2 c-p">
+  <div class="ms-3 c-p">
     <svg
       (click)="onToggleSidebar()"
       fill="#4d4d4d"
@@ -26,9 +26,10 @@
       </g>
     </svg>
     <img
-      src="../../../../assets/images/SLK/Logo.svg"
-      width="30"
-      class="ms-3"
+      [src]="!isSmallScreen ? '../../../../assets/images/SLK/FullLogo.svg' : '../../../../assets/images/SLK/Logo.svg'"
+      [width]="!isSmallScreen ? 120 : 41"
+      class="ms-4 ps-1"
+      (click)="navigateToHome()"
       alt="SULIKO"
     />
   </div>

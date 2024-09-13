@@ -123,6 +123,10 @@ export class HeaderComponent implements OnInit {
     this.isDropdownVisible = false;
   }
 
+  navigateToHome() {
+    this._router.navigate(['']);
+  }
+
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
     if (isPlatformBrowser(this.platformId)) {

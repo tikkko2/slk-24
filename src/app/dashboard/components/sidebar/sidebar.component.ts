@@ -1,10 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Inject, Input, OnInit, Output, PLATFORM_ID, signal } from '@angular/core';
 import { AuthService } from '../../../shared/services/auth.service';
 import { BalanceService } from '../../../shared/services/balance.service';
 import { HttpService } from '../../../shared/services/http.service';
 import { url } from '../../../shared/data/api';
 import { ToastrService } from 'ngx-toastr';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,20 +14,25 @@ import { animate, style, transition, trigger } from '@angular/animations';
 })
 export class SidebarComponent implements OnInit {
   @Output() sidebarToggle = new EventEmitter<void>();
-  isLoggedIn: boolean = false;
+  @Input() set collapsed(val: boolean) {
+    this.sideNavCollapsed.set(val);
+  }
+  sideNavCollapsed = signal(false);
+  isSmallScreen: boolean = false;
 
   public fakeToken: any;
 
+  isLoggedIn: boolean = false;
   balance: any;
   userID: string = '';
-
   userInfo: any;
 
   constructor(
     private _auth: AuthService,
     private _api: HttpService,
     private _balance: BalanceService,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit() {
@@ -47,6 +53,9 @@ export class SidebarComponent implements OnInit {
         }
       );
     }
+    if (isPlatformBrowser(this.platformId)) {
+      this.checkScreenWidth();
+    }
   }
 
   onFinance() {
@@ -59,5 +68,16 @@ export class SidebarComponent implements OnInit {
 
   logout() {
     this._auth.ClearSession();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.checkScreenWidth();
+    }
+  }
+
+  private checkScreenWidth(): void {
+    this.isSmallScreen = window.innerWidth < 778;
   }
 }
