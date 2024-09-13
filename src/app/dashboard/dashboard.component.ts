@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, computed, HostListener, Inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { AuthService } from '../shared/services/auth.service';
 import { HttpService } from '../shared/services/http.service';
 import { url } from '../shared/data/api';
@@ -20,6 +20,9 @@ export class DashboardComponent implements OnInit {
   sidebarShown: boolean = false;
   private subscription!: Subscription;
   public fakeToken: any;
+
+  collapsed = signal(true);
+  sidenavWidth = computed(() => this.collapsed() ? '72px' : '250px');
 
   constructor(
     private _auth: AuthService,
@@ -68,7 +71,7 @@ export class DashboardComponent implements OnInit {
   }
 
   private checkScreenWidth(): void {
-    this.isSmallScreen = window.innerWidth < 778;
+    this.isSmallScreen = window.innerWidth <= 777;
   }
 
   // private toggleSidebarIfNeeded(): void {

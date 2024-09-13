@@ -3,24 +3,36 @@
   color: black !important;
 }
 
-.active::before, .nav-link:hover::before {
-  content: '';
-  background-color: #3b59f3;
-  border-radius: 0 1rem 1rem 0;
-  width: 5px;
-  position: absolute;
-  height: 45px;
-  z-index: 11;
-  transform: translateX(-2rem);
+// .active::before, .nav-link:hover::before {
+//   content: '';
+//   background-color: #3b59f3;
+//   border-radius: 0 1rem 1rem 0;
+//   width: 5px;
+//   position: absolute;
+//   height: 45px;
+//   z-index: 11;
+//   transform: translateX(-2rem);
+// }
+
+// .loggedin-link-active::before, .loggedin-link:hover::before {
+//   content: '';
+//   background-color: #3b5af328;
+//   border-radius: 0 1rem 1rem 0;
+//   width: 5px;
+//   position: absolute;
+//   height: 40px;
+//   z-index: 11;
+//   transform: translateX(-2rem);
+// }
+
+*::-webkit-scrollbar {
+  height: 50%;
+  width: 0.2rem !important;
+  background-color: #eeeeee !important; /* or add it to the track */
+  border-radius: 1rem;
 }
 
-.loggedin-link-active::before, .loggedin-link:hover::before {
-  content: '';
-  background-color: #3b5af328;
-  border-radius: 0 1rem 1rem 0;
-  width: 5px;
-  position: absolute;
-  height: 40px;
-  z-index: 11;
-  transform: translateX(-2rem);
+*::-webkit-scrollbar-thumb {
+  border-radius: 1rem;
+  background: #b4b4b4 !important;
 }
