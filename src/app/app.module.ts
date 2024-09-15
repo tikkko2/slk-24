@@ -3,7 +3,6 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardModule } from './dashboard/dashboard.module';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { HttpClientModule, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
@@ -15,6 +14,8 @@ import { CommonModule } from '@angular/common';
 import { TranslocoRootModule } from './transloco-root.module';
 import { authInterceptorInterceptor } from './shared/services/auth-interceptor.interceptor';
 import { PixelModule } from 'ngx-multi-pixel';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { HomeModule } from './home/home.module';
 
 @NgModule({
   declarations: [
@@ -26,14 +27,15 @@ import { PixelModule } from 'ngx-multi-pixel';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    DashboardModule,
     CommonModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
     PixelModule.forRoot({ enabled: true, pixelId: ["536291588920812"]}),
-    TranslocoRootModule
+    TranslocoRootModule,
+    DashboardModule,
+    HomeModule,
   ],
   providers: [
     provideClientHydration(),

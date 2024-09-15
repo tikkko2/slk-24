@@ -15,6 +15,9 @@ import { userGuard } from './guard/user.guard';
 import { BalanceComponent } from './dashboard/user/balance/balance.component';
 import { LawyerComponent } from './dashboard/chats/lawyer/lawyer.component';
 import { HistoryComponent } from './dashboard/user/history/history.component';
+import { MainComponent } from './home/main/main.component';
+import { HomeComponent } from './home/home.component';
+import { BlogComponent } from './home/blog/blog.component';
 
 const routes: Routes = [
   {
@@ -78,7 +81,26 @@ const routes: Routes = [
     component: SignInComponent,
     canActivate: [authGuard]
   },
+  {
+    path: 'home',
+    component: HomeComponent,
+    children: [
+      {
+        path: '',
+        component: MainComponent
+      },
+      {
+        path: 'main',
+        component: MainComponent,
+      },
+      {
+        path: 'blog',
+        component: BlogComponent,
+      }
+    ]
+  },
   { path: '**', component: ErrorComponent },
+
 ];
 
 @NgModule({
