@@ -1,4 +1,4 @@
-<div>
+<div class="dahsboard-main-bg">
   <app-header (sidebarToggle)="!isSmallScreen ? collapsed.set(!collapsed()) : toggleSidebar()"></app-header>
   <div class="d-flex">
     <div class="sidenav-container position-relative" [style.width]="!isSmallScreen ? sidenavWidth() : ''" [ngClass]="{ hidden: !sidebarShown && isSmallScreen }">

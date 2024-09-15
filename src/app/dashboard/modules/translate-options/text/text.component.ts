@@ -64,7 +64,7 @@ export class TextComponent implements OnInit, AfterViewInit {
   imageUrl: SafeUrl | null = null;
 
   isLoading: boolean = false;
-  selectedLanguage = '0';
+  selectedLanguage = '2';
   selectedSourceLanguage = '-1';
 
   languageNotSelected = false;
@@ -94,6 +94,7 @@ export class TextComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.selectedENG = true;
     this.isLoggedIn = this.authService.IsLoggedIn();
     this.freeService.getToken().subscribe((value) => (this.fakeToken = value));
     this.balanceService

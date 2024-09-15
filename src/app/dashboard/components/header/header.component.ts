@@ -124,7 +124,7 @@ export class HeaderComponent implements OnInit {
   }
 
   navigateToHome() {
-    this._router.navigate(['']);
+    this._router.navigate(['/home']);
   }
 
   @HostListener('window:resize', ['$event'])
