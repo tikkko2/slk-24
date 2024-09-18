@@ -174,7 +174,7 @@ export class ImageComponent {
 
     if (!this.authService.IsLoggedIn()) {
       this.apiService
-        .postFreeTranlate(url.fileTranslate, formData)
+        .postFreeTranslate(url.fileTranslate, formData)
         .subscribe(
           (response: any) => {
             this.translatedText = response.text;

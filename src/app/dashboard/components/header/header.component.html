@@ -56,9 +56,10 @@
         </ul>
       </div>
     </div>
-    <div class="dropdown-user" *ngIf="isLoggedIn">
-      <div class="user-div" (click)="toggleUserDropdown()">
-        <i class="bi bi-person-lines-fill"></i>
+    <div class="dropdown-user" >
+      <div class="user-div ms-2" (click)="isLoggedIn ? toggleUserDropdown() : navigateToLogin()">
+        <i class="bi bi-person-lines-fill" *ngIf="isLoggedIn"></i>
+        <span class="text-white px-2" *ngIf="!isLoggedIn">{{ "header.signin" | transloco }}</span>
       </div>
       <div
         @fadeIn
@@ -148,14 +149,6 @@
           </li>
         </ul>
       </div>
-    </div>
-    <div *ngIf="!isLoggedIn">
-      <button
-        class="gen-btn text-white py-2 px-3 border-0 ms-3 rounded"
-        (click)="navigateToLogin()"
-      >
-        {{ "header.signin" | transloco }}
-      </button>
     </div>
   </div>
 </div>

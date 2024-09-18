@@ -1,7 +1,7 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
-import Hotjar from '@hotjar/browser'
+import Hotjar from '@hotjar/browser';
 import { PixelService } from 'ngx-multi-pixel';
 @Component({
   selector: 'app-root',
@@ -21,32 +21,23 @@ export class AppComponent implements OnInit {
 
   constructor(
     private _translate: TranslocoService,
-    @Inject(DOCUMENT) private document: Document,
-    @Inject(PLATFORM_ID) private platformId: Object,
-    private pixel: PixelService,
-  ) {
-    this.isBrowser = isPlatformBrowser(this.platformId);
-  }
+    private pixel: PixelService
+  ) {}
 
   ngOnInit() {
-    if(this.isBrowser) {
-      this.initHotjar();
-      this.initPixel();
-    }
-    const localStorage = this.document.defaultView?.localStorage;
-    if (localStorage) {
-      this.savedLanguage = localStorage.getItem('selectedLanguage');
-      if (this.savedLanguage) {
-        this.selectedLanguage = { path: '', key: this.savedLanguage };
-        this._translate.setActiveLang(this.savedLanguage);
-        this.activeLang = this.savedLanguage;
-      } else {
-        this.selectedLanguage = {
-          path: '',
-          key: this._translate.getDefaultLang(),
-        };
-        this.activeLang = this._translate.getDefaultLang();
-      }
+    this.initHotjar();
+    this.initPixel();
+    this.savedLanguage = localStorage.getItem('selectedLanguage');
+    if (this.savedLanguage) {
+      this.selectedLanguage = { path: '', key: this.savedLanguage };
+      this._translate.setActiveLang(this.savedLanguage);
+      this.activeLang = this.savedLanguage;
+    } else {
+      this.selectedLanguage = {
+        path: '',
+        key: this._translate.getDefaultLang(),
+      };
+      this.activeLang = this._translate.getDefaultLang();
     }
   }
 

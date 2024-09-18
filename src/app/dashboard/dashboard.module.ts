@@ -23,6 +23,7 @@ import { GreetingComponent } from '../shared/components/greeting/greeting.compon
 import { MailComponent } from './modules/mail/mail.component';
 import { TranslateComponent } from './modules/translate/translate.component';
 import { HistoryComponent } from './user/history/history.component';
+import { AuthRequireComponent } from '../shared/components/auth-require/auth-require.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { HistoryComponent } from './user/history/history.component';
     TranslateComponent,
     GreetingComponent,
     HistoryComponent,
+    AuthRequireComponent
   ],
   imports: [
     ReactiveFormsModule,

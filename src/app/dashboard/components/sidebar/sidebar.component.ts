@@ -1,4 +1,14 @@
-import { Component, EventEmitter, HostListener, Inject, Input, OnInit, Output, PLATFORM_ID, signal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+  PLATFORM_ID,
+  signal,
+} from '@angular/core';
 import { AuthService } from '../../../shared/services/auth.service';
 import { BalanceService } from '../../../shared/services/balance.service';
 import { HttpService } from '../../../shared/services/http.service';
@@ -10,7 +20,7 @@ import { isPlatformBrowser } from '@angular/common';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss'
+  styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent implements OnInit {
   @Output() sidebarToggle = new EventEmitter<void>();
@@ -31,8 +41,7 @@ export class SidebarComponent implements OnInit {
     private _auth: AuthService,
     private _api: HttpService,
     private _balance: BalanceService,
-    private _toastr: ToastrService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    private _toastr: ToastrService
   ) {}
 
   ngOnInit() {
@@ -53,13 +62,11 @@ export class SidebarComponent implements OnInit {
         }
       );
     }
-    if (isPlatformBrowser(this.platformId)) {
-      this.checkScreenWidth();
-    }
+    this.checkScreenWidth();
   }
 
   onFinance() {
-    this._toastr.info('სერვისი მალე დაემატება', 'Coming Soon...')
+    this._toastr.info('სერვისი მალე დაემატება', 'Coming Soon...');
   }
 
   onToggleSidebar() {
@@ -72,9 +79,7 @@ export class SidebarComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.checkScreenWidth();
-    }
+    this.checkScreenWidth();
   }
 
   private checkScreenWidth(): void {

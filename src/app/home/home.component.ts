@@ -1,12 +1,22 @@
-import { AfterViewInit, Component, HostListener } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  HostListener,
+  Inject,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../shared/services/auth.service';
+import { HttpService } from '../shared/services/http.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements AfterViewInit, OnInit {
   private canvas!: HTMLCanvasElement;
   private ctx!: CanvasRenderingContext2D;
   private w = window.innerWidth;
@@ -21,9 +31,22 @@ export class HomeComponent implements AfterViewInit {
   private colors = ['#0000FF', '#ADD8E6', '#D3D3D3'];
   private mouse = { x: 0, y: 0 };
 
+  isLoggedIn: boolean = false;
+
   constructor(
     private _router: Router,
+    private _auth: AuthService,
+    private _api: HttpService
   ) {}
+
+  ngOnInit() {
+    this.w = window.innerWidth;
+    this.h = window.innerHeight;
+
+    if (this._auth.IsLoggedIn()) {
+      this.isLoggedIn = this._auth.IsLoggedIn();
+    }
+  }
 
   goToServices() {
     this._router.navigate(['/services']);
@@ -34,7 +57,9 @@ export class HomeComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.canvas = document.getElementById('particleCanvas') as HTMLCanvasElement;
+    this.canvas = document.getElementById(
+      'particleCanvas'
+    ) as HTMLCanvasElement;
     this.ctx = this.canvas.getContext('2d')!;
 
     this.canvas.width = this.w;
@@ -43,7 +68,6 @@ export class HomeComponent implements AfterViewInit {
     this.createParticles();
     this.animateParticles();
 
-    // Add mousemove event listener
     this.canvas.addEventListener('mousemove', this.mouseMove.bind(this), false);
   }
 
@@ -56,7 +80,7 @@ export class HomeComponent implements AfterViewInit {
         toX: Math.random() * 5 - 1,
         toY: Math.random() * 2 - 1,
         c: this.colors[Math.floor(Math.random() * this.colors.length)],
-        size: Math.random() * this.size
+        size: Math.random() * this.size,
       });
     }
   }
@@ -65,10 +89,20 @@ export class HomeComponent implements AfterViewInit {
     this.ctx.clearRect(0, 0, this.w, this.h);
     for (let i = 0; i < this.arc; i++) {
       const part = this.parts[i];
-      const distanceFactor = Math.max(Math.min(15 - (this.distanceBetween(this.mouse, part) / 10), 10), 1);
+      const distanceFactor = Math.max(
+        Math.min(15 - this.distanceBetween(this.mouse, part) / 10, 10),
+        1
+      );
 
       this.ctx.beginPath();
-      this.ctx.arc(part.x, part.y, part.size * distanceFactor, 0, Math.PI * 2, false);
+      this.ctx.arc(
+        part.x,
+        part.y,
+        part.size * distanceFactor,
+        0,
+        Math.PI * 2,
+        false
+      );
       this.ctx.fillStyle = part.c;
       this.ctx.strokeStyle = part.c;
 
@@ -111,6 +145,6 @@ export class HomeComponent implements AfterViewInit {
     this.h = window.innerHeight;
     this.canvas.width = this.w;
     this.canvas.height = this.h;
-    this.createParticles(); // Recreate particles on resize
+    this.createParticles();
   }
- }
+}

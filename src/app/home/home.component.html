@@ -4,12 +4,12 @@
     <nav class="navbar navbar-expand-lg home-nav">
       <a class="navbar-brand">
         <img
-        src="../../../assets/images/SLK/FullLogo.svg"
-        width="120"
-        class="c-p"
-        routerLink="/home"
-        alt="SULIKO"
-      />
+          src="../../../assets/images/SLK/FullLogo.svg"
+          width="120"
+          class="c-p"
+          routerLink="/home"
+          alt="SULIKO"
+        />
       </a>
       <button
         class="navbar-toggler"
@@ -29,27 +29,54 @@
           </li>
         </ul>
         <div>
-          <button class="content-btn out-bg me-3" (click)="goToServices()">Discover</button>
-          <button class="content-btn" (click)="goToSignIn()">Sign In</button>
+          <button
+            class="content-btn"
+            (click)="!isLoggedIn ? goToSignIn() : goToServices()"
+          >
+            {{ isLoggedIn ? "Dashboard" : "Sign In" }}
+          </button>
         </div>
       </div>
     </nav>
   </div>
-
-    <div>
-      <router-outlet></router-outlet>
-    </div>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
   <footer>
     <div class="container py-5">
       <div class="row py-4">
-        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0"><img src="img/logo.png" alt="" width="180" class="mb-3">
-          <p class="font-italic text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+          <img src="img/logo.png" alt="" width="180" class="mb-3" />
+          <p class="font-italic text-muted">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+            eiusmod tempor incididunt.
+          </p>
           <ul class="list-inline mt-4">
-            <li class="list-inline-item"><a href="#" target="_blank" title="twitter"><i class="bi bi-twitter"></i></a></li>
-            <li class="list-inline-item"><a href="#" target="_blank" title="facebook"><i class="bi bi-facebook"></i></a></li>
-            <li class="list-inline-item"><a href="#" target="_blank" title="instagram"><i class="bi bi-instagram"></i></a></li>
-            <li class="list-inline-item"><a href="#" target="_blank" title="pinterest"><i class="bi bi-pinterest"></i></a></li>
-            <li class="list-inline-item"><a href="#" target="_blank" title="vimeo"><i class="bi bi-vimeo"></i></a></li>
+            <li class="list-inline-item">
+              <a href="#" target="_blank" title="twitter"
+                ><i class="bi bi-twitter"></i
+              ></a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#" target="_blank" title="facebook"
+                ><i class="bi bi-facebook"></i
+              ></a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#" target="_blank" title="instagram"
+                ><i class="bi bi-instagram"></i
+              ></a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#" target="_blank" title="pinterest"
+                ><i class="bi bi-pinterest"></i
+              ></a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#" target="_blank" title="vimeo"
+                ><i class="bi bi-vimeo"></i
+              ></a>
+            </li>
           </ul>
         </div>
         <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
@@ -67,12 +94,17 @@
             <li class="mb-2"><a href="#" class="text-muted">Login</a></li>
             <li class="mb-2"><a href="#" class="text-muted">Register</a></li>
             <li class="mb-2"><a href="#" class="text-muted">Wishlist</a></li>
-            <li class="mb-2"><a href="#" class="text-muted">Our Products</a></li>
+            <li class="mb-2">
+              <a href="#" class="text-muted">Our Products</a>
+            </li>
           </ul>
         </div>
         <div class="col-lg-4 col-md-6 mb-lg-0">
           <h6 class="text-uppercase font-weight-bold mb-4">Contact us</h6>
-          <p class="text-muted mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque temporibus.</p>
+          <p class="text-muted mb-4">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque
+            temporibus.
+          </p>
           <h6></h6>
         </div>
       </div>

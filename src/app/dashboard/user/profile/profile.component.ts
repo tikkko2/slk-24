@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss'
+  styleUrl: './profile.component.scss',
 })
 export class ProfileComponent implements OnInit {
   isLoggedIn: boolean = false;
@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
     email: '',
     phone: '',
     role: '',
-  }
+  };
 
   passwordChange: boolean = false;
 
@@ -48,7 +48,9 @@ export class ProfileComponent implements OnInit {
       this._api.get(url.user, this.userDetails.id).subscribe(
         (res) => {
           this.userInfo = JSON.parse(res);
-          this.userDetails.name = `${this.userInfo.firstName + ' ' + this.userInfo.lastName}`
+          this.userDetails.name = `${
+            this.userInfo.firstName + ' ' + this.userInfo.lastName
+          }`;
           this.userDetails.role = this.userInfo.roleName;
           this.userDetails.email = this.userInfo.email;
           this.userDetails.phone = this.userInfo.phoneNUmber;
@@ -67,19 +69,19 @@ export class ProfileComponent implements OnInit {
   passwordForm = this.builder.group({
     oldPassword: this.builder.control('', Validators.required),
     newPassword: this.builder.control('', Validators.required),
-  })
+  });
 
   changePassword() {
-    if(this.isLoggedIn) {
-      if(this.passwordForm.invalid) {
+    if (this.isLoggedIn) {
+      if (this.passwordForm.invalid) {
         this.toastr.error('შეავსეთ ყველა ველი', 'Error');
       }
       this.isLoading = !this.isLoading;
       const data = {
         id: this.userDetails.id,
         currentPassword: this.passwordForm.value.oldPassword,
-        newPassword: this.passwordForm.value.newPassword
-      }
+        newPassword: this.passwordForm.value.newPassword,
+      };
       this._api.patchChangePassword(url.user, data).subscribe(
         (response) => {
           this.togglePassword();
@@ -89,12 +91,16 @@ export class ProfileComponent implements OnInit {
         },
         (error) => {
           console.error(error.error);
-          if(!this.passwordForm.invalid && error.error == 'Changing password has failed. Current Password is not correct') {
-            this.toastr.error(`ძველი პაროლი არასწორია!`)
+          if (
+            !this.passwordForm.invalid &&
+            error.error ==
+              'Changing password has failed. Current Password is not correct'
+          ) {
+            this.toastr.error(`ძველი პაროლი არასწორია!`);
           }
           this.isLoading = !this.isLoading;
         }
-      )
+      );
     }
   }
 
