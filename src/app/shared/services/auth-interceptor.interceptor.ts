@@ -3,14 +3,12 @@ import { inject } from '@angular/core';
 import { AuthService } from './auth.service';
 import { HttpService } from './http.service';
 import { catchError, from, of, switchMap, throwError } from 'rxjs';
-import { DOCUMENT } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
 export const authInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
   const userService = inject(AuthService);
   const apiService = inject(HttpService);
-  const document = inject(DOCUMENT);
   const toastr = inject(ToastrService);
   const router = inject(Router);
 
@@ -18,12 +16,9 @@ export const authInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
   let isLoggedIn = userService.IsLoggedIn();
 
   if (isLoggedIn) {
-    const localStorage = document.defaultView?.localStorage;
-    if (localStorage) {
-      const storedData = localStorage.getItem('authorize');
-      if (storedData != null) {
-        loggedUserData = JSON.parse(storedData);
-      }
+    const storedData = localStorage.getItem('authorize');
+    if (storedData != null) {
+      loggedUserData = JSON.parse(storedData);
     }
   }
 
@@ -66,7 +61,7 @@ export const authInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
           console.error('HTTP error:', err);
           router.navigate(['']);
           // userService.ClearSession();
-          if(err.error.errorText != undefined) {
+          if (err.error.errorText != undefined) {
             toastr.error(`${err.error.errorText}`);
           }
         }

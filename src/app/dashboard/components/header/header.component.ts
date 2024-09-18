@@ -1,4 +1,12 @@
-import { Component, EventEmitter, HostListener, Inject, OnInit, Output, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Inject,
+  OnInit,
+  Output,
+  PLATFORM_ID,
+} from '@angular/core';
 import { AuthService } from '../../../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
@@ -41,13 +49,10 @@ export class HeaderComponent implements OnInit {
     private _auth: AuthService,
     private _translate: TranslocoService,
     private _balance: BalanceService,
-    private _api: HttpService,
-    @Inject(DOCUMENT) private document: Document,
-    @Inject(PLATFORM_ID) private platformId: Object
+    private _api: HttpService
   ) {}
 
   ngOnInit() {
-    const localStorage = this.document.defaultView?.localStorage;
     this.activeLang = this._translate.getActiveLang();
     this.availableLangs = this._translate.getAvailableLangs();
     this.isLoggedIn = this._auth.IsLoggedIn();
@@ -71,14 +76,10 @@ export class HeaderComponent implements OnInit {
         }
       );
     }
-    if (localStorage) {
-      if (localStorage.getItem('selectedLanguage') == 'en') {
-        this.selectedLanguage = this.languages[1];
-      }
+    if (localStorage.getItem('selectedLanguage') == 'en') {
+      this.selectedLanguage = this.languages[1];
     }
-    if (isPlatformBrowser(this.platformId)) {
-      this.checkScreenWidth();
-    }
+    this.checkScreenWidth();
   }
 
   languages: { path: string; key: string }[] = language;
@@ -129,9 +130,7 @@ export class HeaderComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.checkScreenWidth();
-    }
+    this.checkScreenWidth();
   }
 
   private checkScreenWidth(): void {

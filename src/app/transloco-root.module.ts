@@ -13,7 +13,6 @@ import { environment } from '../environments/environment.development';
         config: {
           availableLangs: ['en', 'ge'],
           defaultLang: 'ge',
-          // Remove this option if your application doesn't support changing language in runtime.
           reRenderOnLangChange: true,
           prodMode: environment.production,
         },

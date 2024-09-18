@@ -154,6 +154,7 @@ export class TextComponent implements OnInit, AfterViewInit {
   }
 
   sendText() {
+    this.copyBtn = false;
     if (this.selectedLanguage === '0') {
       this.languageNotSelected = true;
       return;
@@ -184,34 +185,48 @@ export class TextComponent implements OnInit, AfterViewInit {
     formData.append('files', '[]');
     formData.append('isPdf', 'false');
 
-    this.apiService.postTranslate(url.translate, formData).subscribe(
-      (response: any) => {
-        this.translatedText = response.text.replace(/<br\s*\/?>/gi, '');
-        this.isLoading = false;
-        this.copyBtn = !this.copyBtn;
+    if(this.isLoggedIn) {
+      this.apiService.postTranslate(url.translate, formData).subscribe(
+        (response: any) => {
+          this.translatedText = response.text.replace(/<br\s*\/?>/gi, '');
+          this.isLoading = false;
+          this.copyBtn = !this.copyBtn;
 
-        var user = this.authService.GetUserInfo();
-        if (this.isLoggedIn) {
-          this.userID = user.UserId;
-          this.apiService.get(url.user, this.userID).subscribe(
-            (res) => {
-              this.userInfoUpdate = JSON.parse(res);
-              this.balanceService.setBalance(this.userInfoUpdate.balance);
-              this.apiService
-                .updateUserInfo('/api/User', this.userInfoUpdate)
-                .subscribe();
-            },
-            (err) => {
-              console.log(err);
-            }
-          );
+          var user = this.authService.GetUserInfo();
+          if (this.isLoggedIn) {
+            this.userID = user.UserId;
+            this.apiService.get(url.user, this.userID).subscribe(
+              (res) => {
+                this.userInfoUpdate = JSON.parse(res);
+                this.balanceService.setBalance(this.userInfoUpdate.balance);
+                this.apiService
+                  .updateUserInfo('/api/User', this.userInfoUpdate)
+                  .subscribe();
+              },
+              (err) => {
+                console.log(err);
+              }
+            );
+          }
+        },
+        (error) => {
+          console.error('Error:', error);
+          this.isLoading = false;
         }
-      },
-      (error) => {
-        console.error('Error:', error);
-        this.isLoading = false;
-      }
-    );
+      );
+    } else {
+      this.apiService.postFreeTranslate(url.translate, formData).subscribe(
+        (response: any) => {
+          this.translatedText = response.text.replace(/<br\s*\/?>/gi, '');
+          this.isLoading = false;
+          this.copyBtn = !this.copyBtn;
+        },
+        (error) => {
+          console.error('Error:', error);
+          this.isLoading = false;
+        }
+      );
+    }
   }
 
   deleteById(id: any): void {

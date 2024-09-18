@@ -38,7 +38,6 @@ import { HomeModule } from './home/home.module';
     HomeModule,
   ],
   providers: [
-    provideClientHydration(),
     provideAnimationsAsync(),
     provideHttpClient(withFetch(), withInterceptors([authInterceptorInterceptor])),
   ],

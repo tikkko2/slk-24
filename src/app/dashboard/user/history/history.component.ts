@@ -23,28 +23,25 @@ export class HistoryComponent {
   constructor(
     private authService: AuthService,
     private historyService: ProductCategoryService,
-    @Inject(PLATFORM_ID) private platformId: Object,
     private _transloco: TranslocoService
   ) {}
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.isLoggedIn = this.authService.IsLoggedIn();
-      const user = this.authService.GetUserInfo();
-      if (this.isLoggedIn) {
-        this.userID = user.UserId;
-        this.historyService.getHistory(url.history, this.userID).subscribe(
-          (res) => {
-            this.isLoading = false;
-            this.requests = res;
-            this.sortRequestsByDate();
-          },
-          (error) => {
-            console.error(error);
-            this.isLoading = false;
-          }
-        );
-      }
+    this.isLoggedIn = this.authService.IsLoggedIn();
+    const user = this.authService.GetUserInfo();
+    if (this.isLoggedIn) {
+      this.userID = user.UserId;
+      this.historyService.getHistory(url.history, this.userID).subscribe(
+        (res) => {
+          this.isLoading = false;
+          this.requests = res;
+          this.sortRequestsByDate();
+        },
+        (error) => {
+          console.error(error);
+          this.isLoading = false;
+        }
+      );
     }
   }
 

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '../../../shared/services/http.service';
 import { ToastrService } from 'ngx-toastr';
@@ -9,13 +9,14 @@ import { ChatWithPhotoModel } from '../../../shared/models/chat-with-photo.model
 import { url } from '../../../shared/data/api';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-copyright',
   templateUrl: './copyright.component.html',
   styleUrl: './copyright.component.scss',
 })
-export class CopyrightComponent {
+export class CopyrightComponent implements OnInit {
   @ViewChild('generatedResponse', { static: false })
   generatedResponse!: ElementRef;
 
@@ -179,5 +180,13 @@ export class CopyrightComponent {
 
     this.renderer.removeChild(document.body, textarea);
     this.toastr.success('Copied to clipboard');
+  }
+
+  canDeactivate(): boolean | Observable<boolean> {
+    if (this.isLoading) {
+      // Warn user only if waiting for the API response
+      return confirm('The API is still processing. Are you sure you want to leave? Any unsaved progress will be lost.');
+    }
+    return true;  // Allow navigation if no API call is pending
   }
 }

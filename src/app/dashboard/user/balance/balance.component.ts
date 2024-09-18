@@ -1,12 +1,52 @@
-import { Component, ElementRef, HostListener } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Inject,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import { BalanceService } from '../../../shared/services/balance.service';
+import { AuthService } from '../../../shared/services/auth.service';
+import { HttpService } from '../../../shared/services/http.service';
+import { url } from '../../../shared/data/api';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-balance',
   templateUrl: './balance.component.html',
   styleUrl: './balance.component.scss',
 })
-export class BalanceComponent {
+export class BalanceComponent implements OnInit {
   amount: string = '';
+  balance: any;
+  userID: string = '';
+  userInfo: any;
+
+  constructor(
+    private _balance: BalanceService,
+    private _auth: AuthService,
+    private _api: HttpService
+  ) {}
+
+  ngOnInit() {
+    if (this._auth.IsLoggedIn()) {
+      const user = this._auth.GetUserInfo();
+      this.userID = user.UserId;
+      this._api.get(url.user, this.userID).subscribe(
+        (res) => {
+          this.userInfo = JSON.parse(res);
+          this._balance.setBalance(this.userInfo.balance);
+          this._balance
+            .getBalance()
+            .subscribe((value) => (this.balance = value));
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    }
+  }
 
   clickToBuy() {}
 

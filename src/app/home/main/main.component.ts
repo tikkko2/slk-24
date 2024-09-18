@@ -1,15 +1,27 @@
-import { Component, HostListener } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, HostListener, Inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrl: './main.component.scss'
+  styleUrl: './main.component.scss',
 })
 export class MainComponent {
   card1Active = false;
   card2Active = false;
   card3Active = false;
+
+  servicesCount = 0;
+  activeUsersCount = 0;
+  partnersCount = 0;
+
+  private servicesTarget = 6;
+  private activeUsersTarget = 48;
+  private partnersTarget = 9;
+  private hasAnimated = false;
+
+  constructor(private _router: Router) {}
 
   toggleCard(cardNumber: number) {
     switch (cardNumber) {
@@ -26,15 +38,6 @@ export class MainComponent {
         break;
     }
   }
-
-  servicesCount = 0;
-  activeUsersCount = 0;
-  partnersCount = 0;
-
-  private servicesTarget = 6;
-  private activeUsersTarget = 48;
-  private partnersTarget = 9;
-  private hasAnimated = false;
 
   @HostListener('window:scroll', [])
   onScroll(): void {
@@ -56,7 +59,10 @@ export class MainComponent {
     this.animateCounter('partnersCount', this.partnersTarget);
   }
 
-  animateCounter(property: 'servicesCount' | 'activeUsersCount' | 'partnersCount', target: number): void {
+  animateCounter(
+    property: 'servicesCount' | 'activeUsersCount' | 'partnersCount',
+    target: number
+  ): void {
     const interval = setInterval(() => {
       if (this[property] < target) {
         this[property]++;
@@ -64,5 +70,9 @@ export class MainComponent {
         clearInterval(interval);
       }
     }, 20);
+  }
+
+  goToServices() {
+    this._router.navigate(['/services']);
   }
 }

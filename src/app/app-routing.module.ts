@@ -18,6 +18,7 @@ import { HistoryComponent } from './dashboard/user/history/history.component';
 import { MainComponent } from './home/main/main.component';
 import { HomeComponent } from './home/home.component';
 import { BlogComponent } from './home/blog/blog.component';
+import { confirmExitGuard } from './guard/confirm-exit.guard';
 
 const routes: Routes = [
   {

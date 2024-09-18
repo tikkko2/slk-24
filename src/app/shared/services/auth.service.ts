@@ -14,8 +14,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private _router: Router,
-    private jwt_decode: JwtDecodeService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    private jwt_decode: JwtDecodeService
   ) {}
 
   Get(apiurl: string) {
@@ -30,10 +29,7 @@ export class AuthService {
   }
 
   IsLoggedIn() {
-    if (isPlatformBrowser(this.platformId)) {
-      return localStorage.getItem('authorize') != null;
-    }
-    return false;
+    return localStorage.getItem('authorize') != null;
   }
 
   JWTtoSession(data: any): void {
@@ -42,18 +38,14 @@ export class AuthService {
       accessToken: data.token,
       refreshToken: data.refreshToken,
     };
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('authorize', JSON.stringify(jwtMetadata));
-    }
+    localStorage.setItem('authorize', JSON.stringify(jwtMetadata));
   }
 
   ClearSession(): void {
     if (this.logoutInProgress) return;
 
     this.logoutInProgress = true;
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.removeItem('authorize');
-    }
+    localStorage.removeItem('authorize');
 
     this._router.navigate(['/services']).then(() => {
       this.logoutInProgress = false;
@@ -62,11 +54,9 @@ export class AuthService {
   }
 
   GetUserInfo() {
-    if (isPlatformBrowser(this.platformId)) {
-      const storedData = localStorage.getItem('authorize');
-      if (storedData == null) return null;
-      const metadata = this.jwt_decode.decodeToken(storedData);
-      return metadata;
-    }
+    const storedData = localStorage.getItem('authorize');
+    if (storedData == null) return null;
+    const metadata = this.jwt_decode.decodeToken(storedData);
+    return metadata;
   }
 }
