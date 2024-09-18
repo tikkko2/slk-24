@@ -1,4 +1,6 @@
 {
+  "auth-require": "Please log in or create your account before receiving the translation",
+  "back": "Back",
   "header": {
     "user": "User",
     "admin": "Admin",
@@ -143,5 +145,63 @@
   "languages": {
     "en": "English",
     "ge": "Georgian"
+  },
+  "home": {
+    "navbar": {
+      "blog": "Blog",
+      "dashboard": "Dashboard",
+      "sign-in": "Sign in"
+    },
+    "start": {
+      "h1": "Unlock the Power of Language with Suliko AI",
+      "p": "Welcome to Suliko AI, where we provide high-quality language services to help you communicate effectively.",
+      "d-m": "Discover More"
+    },
+    "services": {
+      "h1": "Our Services",
+      "p": "It provides several services aimed at enhancing efficiency, such as text and document translation, automated email response generation, creation of advertisement and video scripts, and generation of product descriptions.",
+      "s1": {
+        "p": "Quickly translate text, images, and documents in just seconds.",
+        "b1-title": "Text: ",
+        "b1": "Translate written content quickly and accurately across multiple languages.",
+        "b2-title": "Image: ",
+        "b2": "Extract and translate text from images using advanced OCR technology.",
+        "b3-title": "Document: ",
+        "b3": "Convert and translate entire documents, including PDFs, while preserving formatting."
+      },
+      "s2": {
+        "p": "Automates the creation of product descriptions.",
+        "b1-title": "Product Descriptions: ",
+        "b1": "Automatically generate detailed and engaging descriptions for products."
+      },
+      "s3": {
+        "p": "Creates effective ad text that grabs attention and helps promote products.",
+        "b1-title": "Video Scripts: ",
+        "b1": "Create compelling scripts for videos, customized to fit different formats and themes.",
+        "b2-title": "Advertisements: ",
+        "b2": "Develop persuasive and relevant ad copy for various marketing channels and product promotions."
+      },
+      "try": "Try"
+    },
+    "l-m": "Learn More",
+    "about-us": "About Us",
+    "about-text-1": "SULIKO is a productivity tool designed to assist office workers with various tasks, helping streamline and simplify their daily workflows. It provides several services aimed at enhancing efficiency, such as text and document translation, automated email response generation, creation of advertisement and video scripts, and generation of product descriptions.",
+    "about-text-2": "The platform is designed to cater to a range of professional needs, allowing users to quickly accomplish tasks that would otherwise be time-consuming.",
+    "our-blogs": "Our Blogs",
+    "our-blogs-p": "Stay tuned! Our latest blogs will be available soon.",
+    "count": {
+      "s": "Services",
+      "p": "Partners",
+      "au": "Active Users"
+    },
+    "footer": {
+      "title": "Please review our social media page.",
+      "contact": {
+        "title": "Contact Us",
+        "p": "Contact us for detailed information",
+        "address": "Chubinashvili 50, Tbilisi, Georgia"
+      },
+      "copyright": "Copyright 2024 Suliko AI. All rights reserved."
+    }
   }
 }

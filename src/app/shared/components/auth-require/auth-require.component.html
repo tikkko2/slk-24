@@ -1,7 +1,7 @@
-<div class="p-4" style="max-width: 400px;">
-  <p>თარგმნის მიღებამდე თუ ხართ რეგისტრირებული გაიარეთ ავტორიზაცია ან შექმენით თქვენი ექაუნთი.</p>
+<div class="p-4 text-center" style="max-width: 400px;">
+  <p class="py-3">{{ 'auth-require' | transloco }}</p>
   <div class="text-center">
-    <button>Sign in</button>
-    <button>Sign up</button>
+    <button class="content-btn mx-1" (click)="goToSignIn()">{{ 'header.signin' | transloco }}</button>
+    <button class="content-btn mx-1" (click)="goToSignUp()">{{ 'sign-up.sign-up-btn' | transloco }}</button>
   </div>
 </div>

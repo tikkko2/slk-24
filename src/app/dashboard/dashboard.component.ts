@@ -26,6 +26,8 @@ import { AuthRequireComponent } from '../shared/components/auth-require/auth-req
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
+  private dialogShownKey = 'dialogShown';
+
   isLoggedIn: boolean = false;
   isSmallScreen: boolean = false;
   sidebarShown: boolean = false;
@@ -46,7 +48,11 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn = this._auth.IsLoggedIn();
     if (!this.isLoggedIn) {
-      // this._dialog.open(AuthRequireComponent);
+      const isDialogShown = sessionStorage.getItem(this.dialogShownKey);
+      if (!isDialogShown) {
+        this._dialog.open(AuthRequireComponent);
+        sessionStorage.setItem(this.dialogShownKey, 'true');
+      }
       const data = {
         username: 'free@gmail.com',
         password: '123',
@@ -72,20 +78,11 @@ export class DashboardComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
     this.checkScreenWidth();
-    // this.toggleSidebarIfNeeded();
   }
 
   private checkScreenWidth(): void {
     this.isSmallScreen = window.innerWidth <= 777;
   }
-
-  // private toggleSidebarIfNeeded(): void {
-  //   if (this.isSmallScreen && this.sidebarShown) {
-  //     this.sidebarShown = false;
-  //   } else if (!this.isSmallScreen && !this.sidebarShown) {
-  //     this.sidebarShown = true;
-  //   }
-  // }
 
   toggleSidebar(): void {
     this.sidebarShown = !this.sidebarShown;

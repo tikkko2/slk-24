@@ -167,6 +167,7 @@ body {
 }
 .content-btn {
   border: none;
+  outline: none;
   padding: 0.5rem 2rem;
   border-radius: 25px;
   background-color: #3b59f3;
@@ -571,14 +572,14 @@ body {
 }
 
 // HOME COMPONENT //
-.home-nav {
-  z-index: 999;
+.home-nav, .z-999 {
+  z-index: 999 !important;
 }
 
 canvas {
   display: block;
   position: absolute;
-  z-index: -1;
+  // z-index: 0;
   top: 0;
   left: 0;
   width: 100%;

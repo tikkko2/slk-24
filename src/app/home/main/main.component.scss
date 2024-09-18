@@ -5,10 +5,10 @@
   min-height: 80vh;
   h1 {
     font-size: calc(3vw + 1rem);
-    max-width: 800px;
+    max-width: 1000px;
   }
   p {
-    max-width: 600px;
+    max-width: 800px;
     font-size: calc(1vw + 0.25rem);
   }
 }
@@ -96,9 +96,6 @@
 
   // Front of card
   .front {
-    h2 {
-      font-size: calc(1vw + 0.25rem);
-    }
     .img {
       background-color: hsla(223, 13%, 87%, 1);
       background-position: center;
@@ -109,15 +106,15 @@
     }
 
     .img1 {
-      background-image: url(http://i.imgur.com/1aE1nMA.jpg);
+      background-image: url('../../../assets/images/home/translate-photo.png');
     }
 
     .img2 {
-      background-image: url(http://i.imgur.com/2p9VXAn.jpg);
+      background-image: url('../../../assets/images/home/pr-des.png');
     }
 
     .img3 {
-      background-image: url(http://i.imgur.com/I5ABT2v.jpg);
+      background-image: url('../../../assets/images/home/ads.png');
     }
   }
 
@@ -198,6 +195,8 @@
   background-color: #3b59f3;
   img {
     max-width: 600px;
+    min-width: 100%;
+    margin: auto;
     border-radius: 5px;
   }
 }

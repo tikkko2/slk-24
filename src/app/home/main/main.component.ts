@@ -1,6 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, HostListener, Inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-main',
@@ -8,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrl: './main.component.scss',
 })
 export class MainComponent {
+  isLoggedIn!: boolean;
   card1Active = false;
   card2Active = false;
   card3Active = false;
@@ -21,7 +23,14 @@ export class MainComponent {
   private partnersTarget = 9;
   private hasAnimated = false;
 
-  constructor(private _router: Router) {}
+  constructor(
+    private _router: Router,
+    private _auth: AuthService
+  ) {}
+
+  ngOnInit() {
+    this.isLoggedIn = this._auth.IsLoggedIn();
+  }
 
   toggleCard(cardNumber: number) {
     switch (cardNumber) {
@@ -74,5 +83,21 @@ export class MainComponent {
 
   goToServices() {
     this._router.navigate(['/services']);
+  }
+
+  goToSignUp() {
+    this._router.navigate(['/sign-up']);
+  }
+
+  goToTranslate() {
+    this._router.navigate(['/services/translate']);
+  }
+
+  goToDesc() {
+    this._router.navigate(['/services/description']);
+  }
+
+  goToAds() {
+    this._router.navigate(['/services/copyright']);
   }
 }

@@ -1,23 +1,21 @@
 <div class="container">
   <div class="st-page">
-    <h1>Unlock the Power of Language with Suliko AI</h1>
-    <p>
-      Welcome to Suliko AI, where we provide high-quality language services to
-      help you communicate effectively.
+    <h1 class="z-999">{{ "home.start.h1" | transloco }}</h1>
+    <p class="z-999">
+      {{ "home.start.p" | transloco }}
     </p>
-    <div>
-      <button type="button" class="content-btn" (click)="goToServices()">Discover More</button>
+    <div class="z-999">
+      <button type="button" class="content-btn" (click)="goToServices()">
+        {{ "home.start.d-m" | transloco }}
+      </button>
     </div>
   </div>
   <div class="service-container-hm mb-5">
-    <div class="services-title text-center">
+    <div class="services-title text-center position-relative">
       <small class="fw-bold">SULIKO AI</small>
-      <h3>Our Services</h3>
+      <h3>{{ "home.services.h1" | transloco }}</h3>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus
-        aliquam fuga laudantium quia eum, modi quos repudiandae ipsa, vel
-        temporibus corrupti sit tempore error? Alias vitae doloribus doloremque
-        assumenda itaque.
+        {{ "home.services.p" | transloco }}
       </p>
     </div>
     <div
@@ -32,30 +30,32 @@
           <div class="side front">
             <div class="img img1"></div>
             <div class="info">
-              <h2>Translation</h2>
+              <h2>{{ "sidebar.translate" | transloco }}</h2>
               <p>
-                A stand-on with an exceptional compact stance. Great for tight
-                spaces and trailering.
+                {{ "home.services.s1.p" | transloco }}
               </p>
             </div>
           </div>
           <div class="side back">
             <div class="info">
-              <h2>At a glance</h2>
+              <h2>{{ "sidebar.translate" | transloco }}</h2>
               <ul>
                 <li>
-                  Manage backyard gates with ease with the 36" deck option
+                  <strong> {{ "home.services.s1.b1-title" | transloco }}</strong
+                  >{{ "home.services.s1.b1" | transloco }}
                 </li>
                 <li>
-                  Your choice of deck sizes ranging from 36", 48", 52" and 60"
+                  <strong>{{ "home.services.s1.b2-title" | transloco }}</strong
+                  >{{ "home.services.s1.b2" | transloco }}
                 </li>
+
                 <li>
-                  Updated hip bolstering offers superior operator comfort and
-                  positioning
+                  <strong>{{ "home.services.s1.b3-title" | transloco }}</strong
+                  >{{ "home.services.s1.b3" | transloco }}
                 </li>
               </ul>
-              <div class="btn">
-                <h4>Try</h4>
+              <div class="btn" (click)="goToTranslate()">
+                <h4>{{ "home.services.try" | transloco }}</h4>
                 <svg
                   fill="#333"
                   height="24"
@@ -80,26 +80,21 @@
           <div class="side front">
             <div class="img img2"></div>
             <div class="info">
-              <h2>Product Description</h2>
-              <p>
-                A high-performance zero-turn with unsurpassed strength, speed
-                &amp; reliability with a warranty to match.
-              </p>
+              <h2>{{ "sidebar.description" | transloco }}</h2>
+              <p>{{ "home.services.s2.p" | transloco }}</p>
             </div>
           </div>
           <div class="side back">
             <div class="info">
-              <h2>At a glance</h2>
+              <h2>{{ "sidebar.description" | transloco }}</h2>
               <ul>
-                <li>Your choice of VX4 decks ranging from 60 to 72 inches</li>
                 <li>
-                  The 37hp Vanguard BigBlock EFI makes short work out of big
-                  jobs enabling speeds up to 16mph
+                  <strong>{{ "home.services.s2.b1-title" | transloco }}</strong
+                  >{{ "home.services.s2.b1" | transloco }}
                 </li>
-                <li>Massive 24" drive tires and 13" front caster tires</li>
               </ul>
-              <div class="btn">
-                <h4>Try</h4>
+              <div class="btn" (click)="goToDesc()">
+                <h4>{{ "home.services.try" | transloco }}</h4>
                 <svg
                   fill="#333"
                   height="24"
@@ -124,29 +119,27 @@
           <div class="side front">
             <div class="img img3"></div>
             <div class="info">
-              <h2>Ad Copywriting</h2>
+              <h2>{{ "sidebar.copyright" | transloco }}</h2>
               <p>
-                If you need a tough, commercial grade engine that makes you more
-                productive, look to Vanguard.
+                {{ "home.services.s3.p" | transloco }}
               </p>
             </div>
           </div>
           <div class="side back">
             <div class="info">
-              <h2>At a glance</h2>
+              <h2>{{ "sidebar.copyright" | transloco }}</h2>
               <ul>
                 <li>
-                  V-Twin OHV Technology provides superior balance, low
-                  vibration, lower emissions, better fuel economy and higher
-                  HP/Weight
+                  <strong>{{ "home.services.s3.b1-title" | transloco }}</strong
+                  >{{ "home.services.s3.b1" | transloco }}
                 </li>
                 <li>
-                  Advanced Debris Management keeps engine clean and cool for
-                  enhanced durability and performance
+                  <strong>{{ "home.services.s3.b2-title" | transloco }}</strong
+                  >{{ "home.services.s3.b2" | transloco }}
                 </li>
               </ul>
-              <div class="btn">
-                <h4>Try</h4>
+              <div class="btn" (click)="goToAds()">
+                <h4>{{ "home.services.try" | transloco }}</h4>
                 <svg
                   fill="#333"
                   height="24"
@@ -164,45 +157,49 @@
       </div>
     </div>
     <div class="text-center">
-      <button type="button" class="content-btn">Learn More</button>
-      <span class="c-p slk-color ms-3">Sign up &#10095;</span>
+      <button type="button" class="content-btn" (click)="goToServices()">
+        {{ "home.l-m" | transloco }}
+      </button>
+      <span
+        class="c-p slk-color ms-3"
+        (click)="goToSignUp()"
+        *ngIf="!isLoggedIn"
+        >{{ "sign-up.sign-up-btn" | transloco }} &#10095;</span
+      >
     </div>
   </div>
 </div>
 <div class="info-main-container my-5 py-5">
   <div class="container">
-    <div class="d-flex gap-4">
+    <div
+      class="d-flex gap-4 justify-content-center align-items-center flex-xl-nowrap flex-wrap"
+    >
       <div class="flex-shrink">
         <img
           src="../../../assets/images/home/translate.gif"
           alt="Translate GIF"
         />
       </div>
-      <div class="flex-grow-1 text-end text-white">
-        <h1>About us</h1>
+      <div class="flex-grow-1 text-xl-end text-center text-white">
+        <h1>{{ "home.about-us" | transloco }}</h1>
         <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore sint
-          doloribus iure? Dicta aut similique vel eaque recusandae! Ratione
-          saepe in nesciunt officiis cupiditate unde corporis veniam corrupti
-          blanditiis asperiores?
+          {{ "home.about-text-1" | transloco }}
+        </p>
+        <p>
+          {{ "home.about-text-2" | transloco }}
         </p>
       </div>
     </div>
   </div>
 </div>
 <div class="container">
-  <div class="slider-main-container">
+  <div class="slider-main-container my-5">
     <div class="services-title text-center">
       <small class="fw-bold">SULIKO AI</small>
-      <h3>Our Blogs</h3>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus
-        aliquam fuga laudantium quia eum, modi quos repudiandae ipsa, vel
-        temporibus corrupti sit tempore error? Alias vitae doloribus doloremque
-        assumenda itaque.
-      </p>
+      <h3>{{ "home.our-blogs" | transloco }}</h3>
+      <p>{{ "home.our-blogs-p" | transloco }}</p>
     </div>
-    <div class="my-5 pb-5">
+    <!-- <div class="my-5 pb-5">
       <div id="carouselExampleCaptions" class="carousel slide w-50 mx-auto">
         <div class="carousel-indicators">
           <button
@@ -286,7 +283,7 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 <div class="counter-container py-3" id="counter-section">
@@ -354,7 +351,7 @@
           <h3 class="m-0 p-0">{{ servicesCount }}</h3>
         </div>
 
-        <p class="fw-bolder fs-6 p-0 m-0">Services</p>
+        <p class="fw-bolder fs-6 p-0 m-0">{{ "home.count.s" | transloco }}</p>
       </div>
       <div class="col-md-3 col-sm-4 col-12">
         <div
@@ -388,7 +385,7 @@
           <h3 class="m-0 p-0">{{ partnersCount }}</h3>
         </div>
 
-        <p class="fw-bolder fs-6 p-0 m-0">Partners</p>
+        <p class="fw-bolder fs-6 p-0 m-0">{{ "home.count.p" | transloco }}</p>
       </div>
       <div class="col-md-3 col-sm-4 col-12">
         <div
@@ -420,7 +417,7 @@
           <h3 class="m-0 p-0">{{ activeUsersCount }}</h3>
         </div>
 
-        <p class="fw-bolder fs-6 p-0 m-0">Active Users</p>
+        <p class="fw-bolder fs-6 p-0 m-0">{{ "home.count.au" | transloco }}</p>
       </div>
     </div>
   </div>

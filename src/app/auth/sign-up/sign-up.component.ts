@@ -6,6 +6,7 @@ import { AuthService } from '../../shared/services/auth.service';
 import { UserService } from '../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-sign-up',
@@ -31,7 +32,8 @@ export class SignUpComponent implements OnInit {
     private _builder: FormBuilder,
     private authService: AuthService,
     private userService: UserService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -104,5 +106,9 @@ export class SignUpComponent implements OnInit {
 
   navigateToServices() {
     this._router.navigate(['/services']);
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

@@ -25,7 +25,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-3">
           <li class="nav-item">
-            <a class="nav-link" routerLink="blog">Blog</a>
+            <a class="nav-link">{{ 'home.navbar.blog' | transloco }}</a>
           </li>
         </ul>
         <div>
@@ -33,7 +33,12 @@
             class="content-btn"
             (click)="!isLoggedIn ? goToSignIn() : goToServices()"
           >
-            {{ isLoggedIn ? "Dashboard" : "Sign In" }}
+          <span *ngIf="isLoggedIn; else signIn">
+            {{ 'home.navbar.dashboard' | transloco }}
+          </span>
+          <ng-template #signIn>
+            {{ 'home.navbar.sign-in' | transloco }}
+          </ng-template>
           </button>
         </div>
       </div>
@@ -44,67 +49,61 @@
   </div>
   <footer>
     <div class="container py-5">
-      <div class="row py-4">
+      <div class="row">
         <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-          <img src="img/logo.png" alt="" width="180" class="mb-3" />
+          <img
+            src="../../assets/images/SLK/FullLogo.svg"
+            alt=""
+            width="180"
+            class="mb-3"
+          />
           <p class="font-italic text-muted">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt.
+            {{ 'home.footer.title' | transloco }}
           </p>
           <ul class="list-inline mt-4">
             <li class="list-inline-item">
-              <a href="#" target="_blank" title="twitter"
-                ><i class="bi bi-twitter"></i
-              ></a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#" target="_blank" title="facebook"
+              <a href="https://www.facebook.com/profile.php?id=61564358761003" target="_blank" title="facebook"
                 ><i class="bi bi-facebook"></i
               ></a>
             </li>
-            <li class="list-inline-item">
-              <a href="#" target="_blank" title="instagram"
-                ><i class="bi bi-instagram"></i
-              ></a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#" target="_blank" title="pinterest"
-                ><i class="bi bi-pinterest"></i
-              ></a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#" target="_blank" title="vimeo"
-                ><i class="bi bi-vimeo"></i
-              ></a>
-            </li>
           </ul>
         </div>
         <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
-          <h6 class="text-uppercase font-weight-bold mb-4">Shop</h6>
+          <h6 class="text-uppercase font-weight-bold mb-4">{{ 'home.count.s' | transloco }}</h6>
           <ul class="list-unstyled mb-0">
-            <li class="mb-2"><a href="#" class="text-muted">For Women</a></li>
-            <li class="mb-2"><a href="#" class="text-muted">For Men</a></li>
-            <li class="mb-2"><a href="#" class="text-muted">Stores</a></li>
-            <li class="mb-2"><a href="#" class="text-muted">Our Blog</a></li>
-          </ul>
-        </div>
-        <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
-          <h6 class="text-uppercase font-weight-bold mb-4">Company</h6>
-          <ul class="list-unstyled mb-0">
-            <li class="mb-2"><a href="#" class="text-muted">Login</a></li>
-            <li class="mb-2"><a href="#" class="text-muted">Register</a></li>
-            <li class="mb-2"><a href="#" class="text-muted">Wishlist</a></li>
+            <li class="mb-2"><a href="#" class="text-muted">{{
+              "sidebar.translate" | transloco
+            }}</a></li>
             <li class="mb-2">
-              <a href="#" class="text-muted">Our Products</a>
+              <a href="#" class="text-muted">{{
+                "sidebar.description" | transloco
+              }}</a>
             </li>
+            <li class="mb-2">
+              <a href="#" class="text-muted">{{
+                "sidebar.copyright" | transloco
+              }}</a>
+            </li>
+            <li class="mb-2"><a href="#" class="text-muted">{{
+              "sidebar.mail" | transloco
+            }}</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+          <h6 class="text-uppercase font-weight-bold mb-4">{{
+            "header.user" | transloco
+          }}</h6>
+          <ul class="list-unstyled mb-0">
+            <li class="mb-2"><a href="#" class="text-muted">{{ "header.signin" | transloco }}</a></li>
+            <li class="mb-2"><a href="#" class="text-muted">{{ 'sign-up.sign-up-btn' | transloco }}</a></li>
           </ul>
         </div>
         <div class="col-lg-4 col-md-6 mb-lg-0">
-          <h6 class="text-uppercase font-weight-bold mb-4">Contact us</h6>
-          <p class="text-muted mb-4">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque
-            temporibus.
-          </p>
+          <h6 class="text-uppercase font-weight-bold mb-4">{{ 'home.footer.contact.title' | transloco }}</h6>
+          <p class="text-muted mb-2">{{ 'home.footer.contact.p' | transloco }}</p>
+          <p class="text-muted mb-2">{{ 'home.footer.contact.address' | transloco }}</p>
+          <p class="text-muted mb-2">579 73 77 37</p>
+          <p class="text-muted mb-4">misha&#64;api24.ge</p>
           <h6></h6>
         </div>
       </div>
@@ -113,7 +112,7 @@
     <!-- Copyrights -->
     <div class="py-3">
       <div class="container text-center">
-        <p class="text-muted mb-0 py-2">© 2024 API24 All rights reserved.</p>
+        <p class="text-muted mb-0 py-2">&#169; {{ 'home.footer.copyright' | transloco }}</p>
       </div>
     </div>
   </footer>
