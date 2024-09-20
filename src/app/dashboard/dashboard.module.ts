@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -54,7 +57,10 @@ import { AuthRequireComponent } from '../shared/components/auth-require/auth-req
     TranslocoRootModule,
     MatSelectModule,
     MatFormFieldModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule
   ],
 })
 export class DashboardModule {}

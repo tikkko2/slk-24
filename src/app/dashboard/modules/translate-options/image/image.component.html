@@ -1,12 +1,12 @@
 <form [formGroup]="imageTranslateForm" @fadeIn>
-  <h6 class="mb-5">{{ "translate.photo" | transloco }}</h6>
+  <!-- <h6 class="mb-5">{{ "translate.photo" | transloco }}</h6> -->
   <div
     class="d-flex align-items-center justify-content-between flex-wrap gap-3"
   >
     <div class="d-flex align-items-center justify-content-start">
-      <select
+      <!-- <select
         id="languageSourceSelect"
-        (change)="changeSourceLanguage()"
+        (change)="selectSourceLanguage()"
         class="form-select product-selection c-p shadow-none mx-w-15"
         aria-label="Large select example"
         [(ngModel)]="selectedSourceLanguage"
@@ -28,11 +28,45 @@
               : language.name
           }}
         </option>
-      </select>
+      </select> -->
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="smenu"
+        aria-label="Example icon-button with a menu"
+        class="position-relative"
+      >
+        <mat-icon class="mb-1">expand_more</mat-icon>
+      </button>
+      <mat-menu class="max-height-6" #smenu="matMenu" xPosition="after">
+        <button
+          mat-menu-item
+          *ngFor="let language of languages"
+          [value]="language.id"
+          (click)="selectSourceLanguage(language)"
+        >
+          <span>{{
+            this._transloco.getActiveLang() == "ge"
+              ? language.nameGeo
+              : language.name
+          }}</span>
+        </button>
+      </mat-menu>
+      <div
+        @fadeIn
+        *ngIf="selectedSourceOther"
+        class="language-tr-div"
+        [ngClass]="{
+          'selected-language-active':
+            selectedSourceLanguageID && (selectedSourceLanguageID !== '0' && selectedSourceLanguageID !== '1' && selectedSourceLanguageID !== '2'),
+          'selected-lanp-active': selectedSourceOther
+        }"
+      >
+        <p>{{ this.selectedSourceLanguage.nameGeo }}</p>
+      </div>
       <div
         class="language-tr-div"
         (click)="chooseSourceGe()"
-        [ngClass]="selectedSourceGEO ? 'selected-lanp-active' : ''"
+        [ngClass]="[selectedSourceGEO ? 'selected-lanp-active' : '']"
       >
         <p>{{ "languages.ge" | transloco }}</p>
       </div>
@@ -60,31 +94,36 @@
       >
         <p>{{ "languages.en" | transloco }}</p>
       </div>
-      <select
-        id="languageSelect"
-        (change)="changeLanguage()"
-        class="form-select product-selection c-p shadow-none mx-w-15"
-        aria-label="Large select example"
-        [(ngModel)]="selectedLanguage"
-        [ngModelOptions]="{ standalone: true }"
-        [ngClass]="{
-          'error-text': languageNotSelected && selectedLanguage === '0',
-          'selected-language-active':
-            selectedLanguage && (selectedLanguage !== '0' && selectedLanguage !== '1' && selectedLanguage !== '2')
-        }"
-        required
+      <div
+        @fadeIn
+        *ngIf="selectedOther"
+        class="language-tr-div"
+        [ngClass]="selectedOther ? 'selected-lanp-active' : ''"
       >
-        <option selected value="0" disabled>
-          {{ "translate.language-options" | transloco }}
-        </option>
-        <option *ngFor="let language of languages" [value]="language.id">
-          {{
+        <p>{{ this.selectedLanguage.nameGeo }}</p>
+      </div>
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        aria-label="Example icon-button with a menu"
+        class="position-relative"
+      >
+        <mat-icon class="mb-1">expand_more</mat-icon>
+      </button>
+      <mat-menu class="max-height-6" #menu="matMenu" xPosition="before">
+        <button
+          mat-menu-item
+          *ngFor="let language of languages"
+          [value]="language.id"
+          (click)="selectLanguage(language)"
+        >
+          <span>{{
             this._transloco.getActiveLang() == "ge"
               ? language.nameGeo
               : language.name
-          }}
-        </option>
-      </select>
+          }}</span>
+        </button>
+      </mat-menu>
     </div>
   </div>
   <div class="image-container mb-5 d-flex">
@@ -163,11 +202,11 @@
       >
     </div>
   </div>
-  <span class="c-p slk-color" (click)="onText()">{{
+  <!-- <span class="c-p slk-color" (click)="onText()">{{
     "tr-text-btn" | transloco
-  }}</span>
-  <div class="d-flex align-items-center justify-content-center gap-3">
-    <div class="text-center">
+  }}</span> -->
+  <!-- <div class="d-flex align-items-center justify-content-center gap-3"> -->
+  <!-- <div class="text-center">
       <div class="btn-group dropup-center dropup">
         <button
           type="button"
@@ -191,13 +230,13 @@
           </li>
         </ul>
       </div>
-    </div>
-    <div class="text-center">
-      <button class="button content-btn" (click)="sendImages()">
-        <span class="button-content">{{
-          "translate.translate" | transloco
-        }}</span>
-      </button>
-    </div>
+    </div> -->
+  <div class="text-center">
+    <button class="button content-btn" (click)="sendImages()">
+      <span class="button-content">{{
+        "translate.translate" | transloco
+      }}</span>
+    </button>
   </div>
+  <!-- </div> -->
 </form>

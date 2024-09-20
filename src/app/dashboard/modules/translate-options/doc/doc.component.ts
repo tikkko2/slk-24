@@ -68,7 +68,8 @@ export class DocComponent implements OnInit {
 
   files: any;
   isLoading: boolean = false;
-  selectedLanguage = '0';
+  selectedLanguage: any;
+  selectedLanguageID = '0';
   selectedSourceLanguage = '-1';
 
   isPdf = 'true';
@@ -80,6 +81,8 @@ export class DocComponent implements OnInit {
   languageNotSelected = false;
   selectedGEO = false;
   selectedENG = false;
+  selectedOther = false;
+  isNotUpload = false;
 
   languages: Language[] = [];
 
@@ -106,7 +109,7 @@ export class DocComponent implements OnInit {
     this.balanceService
       .getBalance()
       .subscribe((value) => (this.balance = value));
-    if(this.isLoggedIn) {
+    if (this.isLoggedIn) {
       this.languageService.getLanguage(url.language).subscribe(
         (response: any) => {
           this.languages = response;
@@ -132,12 +135,14 @@ export class DocComponent implements OnInit {
   }
 
   sendDocs() {
-    if (this.selectedLanguage === '0') {
+    console.log(this.selectedLanguageID);
+    if (this.selectedLanguageID === '0') {
       this.languageNotSelected = true;
       return;
     }
     if (!this.docTranslateForm.valid) {
-      this.toastr.error(this._transloco.translate('translate.upload-file'));
+      // this.toastr.error(this._transloco.translate('translate.upload-file'));
+      this.isNotUpload = true;
       return;
     }
     if (
@@ -160,7 +165,7 @@ export class DocComponent implements OnInit {
 
     var formData = new FormData();
     formData.append('description', this.description);
-    formData.append('languageId', this.selectedLanguage);
+    formData.append('languageId', this.selectedLanguageID);
     formData.append('sourceLanguageId', this.selectedSourceLanguage);
     [...this.files].forEach((file) => {
       formData.append('files', file, file.name);
@@ -168,21 +173,19 @@ export class DocComponent implements OnInit {
     formData.append('isPdf', this.isPdf);
 
     if (!this.authService.IsLoggedIn()) {
-      this.apiService
-        .postFreeTranslate(url.fileTranslate, formData)
-        .subscribe(
-          (response: any) => {
-            this.translatedText = response.text;
-            this.isLoading = !this.isLoading;
-            this.stopProgressBarAnimation();
-          },
-          (error) => {
-            this.toastr.error(`${error.error.errorText}`);
-            this.isLoading = !this.isLoading;
-            this.divStyle = '';
-            console.log(error);
-          }
-        );
+      this.apiService.postFreeTranslate(url.fileTranslate, formData).subscribe(
+        (response: any) => {
+          this.translatedText = response.text;
+          this.isLoading = !this.isLoading;
+          this.stopProgressBarAnimation();
+        },
+        (error) => {
+          this.toastr.error(`${error.error.errorText}`);
+          this.isLoading = !this.isLoading;
+          this.divStyle = '';
+          console.log(error);
+        }
+      );
     } else {
       this.apiService.postTranslate(url.fileTranslate, formData).subscribe(
         (response: any) => {
@@ -220,19 +223,6 @@ export class DocComponent implements OnInit {
     }
   }
 
-  onInput(event: any) {
-    if (this.selectedLanguage === '1') {
-      this.selectedENG = false;
-      this.selectedGEO = true;
-    } else if (this.selectedLanguage === '2') {
-      this.selectedENG = true;
-      this.selectedGEO = false;
-    } else {
-      this.selectedENG = false;
-      this.selectedGEO = false;
-    }
-  }
-
   downloadAsWord() {
     var textToCopy = this.generatedResponse.nativeElement.innerText;
     this.docxService.createDocument(textToCopy);
@@ -243,9 +233,10 @@ export class DocComponent implements OnInit {
     const file: FileList = event.target.files;
     if (file) {
       this.files = Array.from(file);
-      this.changeBackLeave();
+      // this.changeBackLeave();
+      this.isNotUpload = false;
     }
-    this.changeBackLeave();
+    // this.changeBackLeave();
     fileInput.value = '';
   }
 
@@ -265,23 +256,45 @@ export class DocComponent implements OnInit {
     this.text = `Drag and drop or <span class="text-primary c-p">Browse</span> file(s)`;
   }
 
+  selectLanguage(lang: any) {
+    this.selectedLanguage = lang;
+    this.selectedLanguageID = lang.id.toString();
+    if (this.selectedLanguageID === '1') {
+      this.selectedENG = false;
+      this.selectedGEO = true;
+      this.selectedOther = false;
+    } else if (this.selectedLanguageID === '2') {
+      this.selectedENG = true;
+      this.selectedGEO = false;
+      this.selectedOther = false;
+    } else {
+      this.selectedENG = false;
+      this.selectedGEO = false;
+      this.selectedOther = true;
+    }
+  }
+
   chooseGe() {
     this.selectedENG = false;
-    this.selectedLanguage = '1';
+    this.selectedLanguageID = '1';
     this.selectedGEO = true;
+    this.selectedOther = false;
   }
 
   chooseEn() {
     this.selectedGEO = false;
-    this.selectedLanguage = '2';
+    this.selectedLanguageID = '2';
     this.selectedENG = true;
+    this.selectedOther = false;
   }
 
   setDropText(lang: string) {
     if (lang === 'en') {
-      this.text = 'Drag and drop or <span class="text-primary c-p">Browse</span> file(s)';
+      this.text =
+        'Drag and drop or <span class="text-primary c-p">Browse</span> file(s)';
     } else {
-      this.text = 'ჩააგდეთ ან <span class="text-primary c-p">ატვირთეთ</span> ფაილი/ფაილები';
+      this.text =
+        'ჩააგდეთ ან <span class="slk-color c-p">ატვირთეთ</span> ფაილი/ფაილები';
     }
   }
 

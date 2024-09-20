@@ -64,12 +64,14 @@ export class TextComponent implements OnInit, AfterViewInit {
   imageUrl: SafeUrl | null = null;
 
   isLoading: boolean = false;
-  selectedLanguage = '2';
+  selectedLanguage: any;
+  selectedLanguageID = '2';
   selectedSourceLanguage = '-1';
 
   languageNotSelected = false;
   selectedGEO = false;
   selectedENG = false;
+  selectedOther = false;
 
   translatedText: string = '';
 
@@ -141,21 +143,11 @@ export class TextComponent implements OnInit, AfterViewInit {
   onInput(event: any) {
     const inputValue = event.target.value;
     this.inputSubject.next(inputValue);
-    if (this.selectedLanguage === '1') {
-      this.selectedENG = false;
-      this.selectedGEO = true;
-    } else if (this.selectedLanguage === '2') {
-      this.selectedENG = true;
-      this.selectedGEO = false;
-    } else {
-      this.selectedENG = false;
-      this.selectedGEO = false;
-    }
   }
 
   sendText() {
     this.copyBtn = false;
-    if (this.selectedLanguage === '0') {
+    if (this.selectedLanguageID === '0') {
       this.languageNotSelected = true;
       return;
     }
@@ -180,7 +172,7 @@ export class TextComponent implements OnInit, AfterViewInit {
     const userMessageText = this.chatForm.value.text ?? '';
     var formData = new FormData();
     formData.append('description', userMessageText);
-    formData.append('languageId', this.selectedLanguage);
+    formData.append('languageId', this.selectedLanguageID);
     formData.append('sourceLanguageId', this.selectedSourceLanguage);
     formData.append('files', '[]');
     formData.append('isPdf', 'false');
@@ -233,16 +225,41 @@ export class TextComponent implements OnInit, AfterViewInit {
     this.languages = this.languages.filter((item: any) => item.id !== id);
   }
 
+  selectLanguage(lang: any) {
+    this.selectedLanguage = lang;
+    this.selectedLanguageID = lang.id.toString();
+    if (this.selectedLanguageID === '1') {
+      this.selectedENG = false;
+      this.selectedGEO = true;
+      this.selectedOther = false;
+    } else if (this.selectedLanguageID === '2') {
+      this.selectedENG = true;
+      this.selectedGEO = false;
+      this.selectedOther = false;
+    } else {
+      this.selectedENG = false;
+      this.selectedGEO = false;
+      this.selectedOther = true;
+    }
+    this.sendText();
+  }
+
   chooseGe() {
     this.selectedENG = false;
-    this.selectedLanguage = '1';
+    this.selectedLanguageID = '1';
     this.selectedGEO = true;
+    this.selectedOther = false;
+    console.log(this.selectedLanguageID);
+    this.sendText();
   }
 
   chooseEn() {
     this.selectedGEO = false;
-    this.selectedLanguage = '2';
+    this.selectedLanguageID = '2';
     this.selectedENG = true;
+    this.selectedOther = false;
+    console.log(this.selectedLanguageID);
+    this.sendText();
   }
 
   setTranslatedText(lang: string) {

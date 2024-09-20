@@ -1,5 +1,5 @@
 <form [formGroup]="chatForm" @fadeIn>
-  <h6 class="mb-5">{{ "translate.text" | transloco }}</h6>
+  <!-- <h6 class="mb-5">{{ "translate.text" | transloco }}</h6> -->
   <div class="translate-container row">
     <div class="col-12 col-lg-6">
       <div class="language-tr-div">
@@ -7,30 +7,6 @@
           {{ "translate.language-detection" | transloco }}
         </p>
       </div>
-      <!-- <select
-        id="languageSourceSelect"
-        (change)="onInput($event)"
-        class="form-select product-selection c-p shadow-none my-3"
-        aria-label="Large select example"
-        [(ngModel)]="selectedSourceLanguage"
-        [ngModelOptions]="{ standalone: true }"
-        [ngClass]="{
-          'select-error':
-            sourceLanguageNotSelected && selectedSourceLanguage === '0'
-        }"
-        required
-      >
-        <option selected value="0" disabled>
-          {{ "translate.language-main" | transloco }}
-        </option>
-        <option *ngFor="let language of sourceLanguages" [value]="language.id">
-          {{
-            this._transloco.getActiveLang() == "ge"
-              ? language.nameGeo
-              : language.name
-          }}
-        </option>
-      </select> -->
       <div class="translate-content">
         <textarea
           #textareaElement
@@ -53,21 +29,7 @@
 
     <div class="col-12 col-lg-6">
       <div class="d-flex align-items-center justify-content-end">
-        <div
-          class="language-tr-div"
-          (click)="chooseGe()"
-          [ngClass]="selectedGEO ? 'selected-lanp-active' : ''"
-        >
-          <p>{{ "languages.ge" | transloco }}</p>
-        </div>
-        <div
-          class="language-tr-div"
-          (click)="chooseEn()"
-          [ngClass]="selectedENG ? 'selected-lanp-active' : ''"
-        >
-          <p>{{ "languages.en" | transloco }}</p>
-        </div>
-        <select
+        <!-- <select
           id="languageSelect"
           (change)="onInput($event)"
           class="form-select product-selection c-p shadow-none mx-w-15"
@@ -91,7 +53,51 @@
                 : language.name
             }}
           </option>
-        </select>
+        </select> -->
+        <div
+          class="language-tr-div"
+          (click)="chooseGe()"
+          [ngClass]="selectedGEO ? 'selected-lanp-active' : ''"
+        >
+          <p>{{ "languages.ge" | transloco }}</p>
+        </div>
+        <div
+          class="language-tr-div"
+          (click)="chooseEn()"
+          [ngClass]="selectedENG ? 'selected-lanp-active' : ''"
+        >
+          <p>{{ "languages.en" | transloco }}</p>
+        </div>
+        <div
+          @fadeIn
+          *ngIf="selectedOther"
+          class="language-tr-div"
+          [ngClass]="selectedOther ? 'selected-lanp-active' : ''"
+        >
+          <p>{{ this.selectedLanguage.nameGeo }}</p>
+        </div>
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+          class="position-relative"
+        >
+          <mat-icon class="mb-1">expand_more</mat-icon>
+        </button>
+        <mat-menu class="max-height-6" #menu="matMenu" xPosition="before">
+          <button
+            mat-menu-item
+            *ngFor="let language of languages"
+            [value]="language.id"
+            (click)="selectLanguage(language)"
+          >
+            <span>{{
+              this._transloco.getActiveLang() == "ge"
+                ? language.nameGeo
+                : language.name
+            }}</span>
+          </button>
+        </mat-menu>
       </div>
       <div class="translated-content p-2">
         <div class="translated-div">
@@ -99,7 +105,7 @@
           <p
             *ngIf="!isLoading"
             [innerHTML]="translatedText"
-            class="pe-3"
+            class="pe-3 text-break"
             #generatedResponse
           ></p>
         </div>
@@ -111,7 +117,7 @@
       </div>
     </div>
   </div>
-  <div class="text-center py-5">
+  <!-- <div class="text-center py-5">
     <div class="btn-group dropup-center dropup">
       <button
         type="button"
@@ -135,7 +141,7 @@
         </li>
       </ul>
     </div>
-  </div>
+  </div> -->
   <!-- <div class="text-center py-5">
     <button class="button content-btn" (click)="sendText()">
       <span class="button-content">{{

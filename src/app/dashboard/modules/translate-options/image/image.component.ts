@@ -52,7 +52,7 @@ export class ImageComponent {
   ];
 
   divStyle = '';
-  text = `Drag and drop or <span class="text-primary c-p">Browse</span>`;
+  text = `Drag and drop or <span class="slk-color c-p">Browse</span>`;
 
   isLoggedIn: boolean = false;
   userID: string = '';
@@ -62,8 +62,13 @@ export class ImageComponent {
 
   files: any;
   isLoading: boolean = false;
-  selectedLanguage = '0';
-  selectedSourceLanguage = '0';
+
+  selectedLanguage: any;
+  selectedLanguageID: any = '0';
+
+  selectedSourceLanguage: any;
+  selectedSourceLanguageID: any = '0';
+
   uniqueKey = '00a48775-c474-49d4-9705-46c9c67e512a';
 
   isPdf = 'false';
@@ -74,10 +79,14 @@ export class ImageComponent {
 
   languageNotSelected = false;
   sourceLanguageNotSelected = false;
+
   selectedGEO = false;
   selectedENG = false;
+  selectedOther = false;
+
   selectedSourceGEO = false;
   selectedSourceENG = false;
+  selectedSourceOther = false;
 
   languages: Language[] = [];
 
@@ -131,14 +140,14 @@ export class ImageComponent {
 
   sendImages() {
     switch (true) {
-      case this.selectedLanguage === '0' && this.selectedSourceLanguage === '0':
+      case this.selectedLanguageID === '0' && this.selectedSourceLanguageID === '0':
         this.languageNotSelected = true;
         this.sourceLanguageNotSelected = true;
         return;
-      case this.selectedLanguage === '0':
+      case this.selectedLanguageID === '0':
         this.languageNotSelected = true;
         return;
-      case this.selectedSourceLanguage === '0':
+      case this.selectedSourceLanguageID === '0':
         this.sourceLanguageNotSelected = true;
         return;
       default:
@@ -173,21 +182,19 @@ export class ImageComponent {
     formData.append('isPdf', this.isPdf);
 
     if (!this.authService.IsLoggedIn()) {
-      this.apiService
-        .postFreeTranslate(url.fileTranslate, formData)
-        .subscribe(
-          (response: any) => {
-            this.translatedText = response.text;
-            this.isLoading = !this.isLoading;
-            this.stopProgressBarAnimation();
-          },
-          (error) => {
-            this.toastr.error(`${error.error.errorText}`);
-            this.isLoading = !this.isLoading;
-            this.stopProgressBarAnimation();
-            console.log(error);
-          }
-        );
+      this.apiService.postFreeTranslate(url.fileTranslate, formData).subscribe(
+        (response: any) => {
+          this.translatedText = response.text;
+          this.isLoading = !this.isLoading;
+          this.stopProgressBarAnimation();
+        },
+        (error) => {
+          this.toastr.error(`${error.error.errorText}`);
+          this.isLoading = !this.isLoading;
+          this.stopProgressBarAnimation();
+          console.log(error);
+        }
+      );
     } else {
       this.apiService.postTranslate(url.fileTranslate, formData).subscribe(
         (response: any) => {
@@ -227,9 +234,9 @@ export class ImageComponent {
     const file: FileList = event.target.files;
     if (file) {
       this.files = Array.from(file);
-      this.changeBackLeave();
+      // this.changeBackLeave();
     }
-    this.changeBackLeave();
+    // this.changeBackLeave();
     fileInput.value = '';
   }
 
@@ -251,65 +258,81 @@ export class ImageComponent {
 
   changeBackLeave() {
     this.divStyle = '';
-    this.text = `Drag and drop or <span class="text-primary c-p">Browse</span>`;
+    this.text = `Drag and drop or <span class="slk-color c-p">Browse</span>`;
   }
 
   setDropText(lang: string) {
     if (lang === 'en') {
-      this.text = 'Drag and drop or <span class="text-primary c-p">Browse</span> image(s)';
+      this.text =
+        'Drag and drop or <span class="slk-color c-p">Browse</span> image(s)';
     } else {
-      this.text = 'ჩააგდეთ ან <span class="text-primary c-p">ატვირთეთ</span> ფოტო/ფოტოები';
+      this.text =
+        'ჩააგდეთ ან <span class="slk-color c-p">ატვირთეთ</span> ფოტო/ფოტოები';
+    }
+  }
+
+  selectLanguage(lang: any) {
+    this.selectedLanguage = lang;
+    this.selectedLanguageID = lang.id.toString();
+    if (this.selectedLanguageID === '1') {
+      this.selectedENG = false;
+      this.selectedGEO = true;
+      this.selectedOther = false;
+    } else if (this.selectedLanguageID === '2') {
+      this.selectedENG = true;
+      this.selectedGEO = false;
+      this.selectedOther = false;
+    } else {
+      this.selectedENG = false;
+      this.selectedGEO = false;
+      this.selectedOther = true;
     }
   }
 
   chooseGe() {
     this.selectedENG = false;
-    this.selectedLanguage = '1';
+    this.selectedLanguageID = '1';
     this.selectedGEO = true;
+    this.selectedOther = false;
   }
 
   chooseEn() {
     this.selectedGEO = false;
-    this.selectedLanguage = '2';
+    this.selectedLanguageID = '2';
     this.selectedENG = true;
+    this.selectedOther = false;
+  }
+
+  selectSourceLanguage(lang: any) {
+    this.selectedSourceLanguage = lang;
+    this.selectedSourceLanguageID = lang.id.toString();
+    if (this.selectedSourceLanguageID === '1') {
+      this.selectedSourceENG = false;
+      this.selectedSourceGEO = true;
+      this.selectedSourceOther = false;
+    } else if (this.selectedSourceLanguageID === '2') {
+      this.selectedSourceENG = true;
+      this.selectedSourceGEO = false;
+      this.selectedSourceOther = false;
+    } else {
+      this.selectedSourceENG = false;
+      this.selectedSourceGEO = false;
+      this.selectedSourceOther = true;
+    }
   }
 
   chooseSourceGe() {
     this.selectedSourceENG = false;
-    this.selectedSourceLanguage = '1';
+    this.selectedSourceLanguageID = '1';
     this.selectedSourceGEO = true;
+    this.selectedSourceOther = false;
   }
 
   chooseSourceEn() {
     this.selectedSourceGEO = false;
-    this.selectedSourceLanguage = '2';
+    this.selectedSourceLanguageID = '2';
     this.selectedSourceENG = true;
-  }
-
-  changeLanguage() {
-    if (this.selectedLanguage === '1') {
-      this.selectedENG = false;
-      this.selectedGEO = true;
-    } else if (this.selectedLanguage === '2') {
-      this.selectedENG = true;
-      this.selectedGEO = false;
-    } else {
-      this.selectedENG = false;
-      this.selectedGEO = false;
-    }
-  }
-
-  changeSourceLanguage() {
-    if (this.selectedSourceLanguage === '1') {
-      this.selectedSourceENG = false;
-      this.selectedSourceGEO = true;
-    } else if (this.selectedSourceLanguage === '2') {
-      this.selectedSourceENG = true;
-      this.selectedSourceGEO = false;
-    } else {
-      this.selectedSourceENG = false;
-      this.selectedSourceGEO = false;
-    }
+    this.selectedSourceOther = false;
   }
 
   onImage() {

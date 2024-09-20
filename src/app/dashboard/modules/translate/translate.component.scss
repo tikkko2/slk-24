@@ -15,26 +15,27 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
-    margin-top: 1rem;
-    margin-right: 10px;
+    margin: 1rem 20px 0 0;
     background-color: white;
     border-radius: 10px;
-    padding: 10px 30px;
-    border: 1px solid rgba(128, 128, 128, 0.5);
-    font-weight: 600;
+    // padding: 10px 30px;
+    // border: 1px solid rgba(128, 128, 128, 0.5);
+    border: none;
     color: #3c3d42;
     .bi {
       font-size: 16px;
     }
     &:hover {
-      background-color: rgba(128, 128, 128, 0.05);
+      color: #0b29be !important;
+
     }
   }
 
 }
 
 .active-translate-item {
-  background-color: #3b59f3 !important;
-  color: white !important;
+  // background-color: #3b59f3 !important;
+  color: #3b59f3 !important;
+  font-weight: 600;
+
 }
