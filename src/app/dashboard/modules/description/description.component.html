@@ -44,7 +44,7 @@
                 [value]="category.id"
                 class="px-2"
               >
-                {{ category.name }}
+                {{ this._transloco.getActiveLang() == "ge" ? category.name : category.nameEng }}
               </mat-option>
             </mat-select>
           </div>

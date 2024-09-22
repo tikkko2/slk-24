@@ -58,7 +58,7 @@ export class DescriptionComponent {
     private toastr: ToastrService,
     private router: Router,
     private balanceService: BalanceService,
-    private _transloco: TranslocoService,
+    public _transloco: TranslocoService,
     private renderer: Renderer2
   ) {}
 
