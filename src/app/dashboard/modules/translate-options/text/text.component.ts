@@ -249,7 +249,6 @@ export class TextComponent implements OnInit, AfterViewInit {
     this.selectedLanguageID = '1';
     this.selectedGEO = true;
     this.selectedOther = false;
-    console.log(this.selectedLanguageID);
     this.sendText();
   }
 
@@ -258,7 +257,6 @@ export class TextComponent implements OnInit, AfterViewInit {
     this.selectedLanguageID = '2';
     this.selectedENG = true;
     this.selectedOther = false;
-    console.log(this.selectedLanguageID);
     this.sendText();
   }
 

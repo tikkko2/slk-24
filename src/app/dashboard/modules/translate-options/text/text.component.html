@@ -99,11 +99,10 @@
           </button>
         </mat-menu>
       </div>
-      <div class="translated-content p-2">
+      <div class="translated-content p-2" [ngClass]="isLoading ? 'box' : ''">
         <div class="translated-div">
-          <div class="loader" *ngIf="isLoading"></div>
+          <!-- <div class="loader" *ngIf="isLoading"></div> -->
           <p
-            *ngIf="!isLoading"
             [innerHTML]="translatedText"
             class="pe-3 text-break"
             #generatedResponse

@@ -1,24 +1,75 @@
-.loader {
-  width: fit-content;
-  font-weight: 500;
-  font-size: 16px;
-  background: radial-gradient(circle closest-side, #3d3a4e 94%, #0000)
-    right/calc(200% - 1em) 100%;
-  animation: l24 1s infinite alternate linear;
-}
-.loader::before {
-  content: "სულიკო თარგმნის...";
-  line-height: 1em;
-  color: #0000;
-  background: inherit;
-  background-image: radial-gradient(circle closest-side, #fff 94%, #3b59f3);
-  -webkit-background-clip: text;
-  background-clip: text;
-}
+// .loader {
+//   width: fit-content;
+//   font-weight: 500;
+//   font-size: 16px;
+//   background: radial-gradient(circle closest-side, #3d3a4e 94%, #0000)
+//     right/calc(200% - 1em) 100%;
+//   animation: l24 1s infinite alternate linear;
+// }
+// .loader::before {
+//   content: "სულიკო თარგმნის...";
+//   line-height: 1em;
+//   color: #0000;
+//   background: inherit;
+//   background-image: radial-gradient(circle closest-side, #fff 94%, #3b59f3);
+//   -webkit-background-clip: text;
+//   background-clip: text;
+// }
 
-@keyframes l24 {
-  100% {
-    background-position: left;
+// @keyframes l24 {
+//   100% {
+//     background-position: left;
+//   }
+// }
+
+
+.box {
+  padding: 0 !important;
+  &::after {
+    position: absolute;
+    content: "...";
+    top: calc(-1 * 2px);
+    left: calc(-1 * 2px);
+    z-index: 0;
+    width: calc(100% + 2px * 2);
+    height: calc(100% + 2px * 2);
+    background: linear-gradient(
+      60deg,
+      hsl(224, 85%, 66%),
+      hsl(269, 85%, 66%),
+      hsl(314, 85%, 66%),
+      hsl(359, 85%, 66%),
+      hsl(44, 85%, 66%),
+      hsl(89, 85%, 66%),
+      hsl(134, 85%, 66%),
+      hsl(179, 85%, 66%)
+    );
+    background-size: 300% 300%;
+    background-position: 0 50%;
+    border-radius: 10px;
+    animation: moveGradient 4s alternate infinite;
+  }
+  .translated-div {
+    z-index: 11;
+    position: relative;
+    background-color: white;
+    min-height: 232px;
+    border-radius: 10px;
+    padding: 8px;
   }
 }
 
+.translated-div {
+  z-index: 11;
+  position: relative;
+  background-color: white;
+  border-radius: 10px;
+  color: black;
+}
+
+
+@keyframes moveGradient {
+  50% {
+    background-position: 100% 50%;
+  }
+}
