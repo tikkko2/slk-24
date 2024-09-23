@@ -198,7 +198,14 @@ export class DescriptionComponent {
 
   private _FILTER(value: string): Category[] {
     const searchValue = value.toLowerCase();
-    return this.productCategoryList.filter(category => category.name.toLowerCase().includes(searchValue));
+    const activeLang = this._transloco.getActiveLang();
+    return this.productCategoryList.filter(category => {
+      if (activeLang === 'ge') {
+        return category.name.toLowerCase().includes(searchValue);
+      } else {
+        return category.nameEng.toLowerCase().includes(searchValue);
+      }
+    });
   }
 
   onCategorySelection(event: MatSelectChange) {

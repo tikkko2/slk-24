@@ -74,7 +74,11 @@
           class="language-tr-div"
           [ngClass]="selectedOther ? 'selected-lanp-active' : ''"
         >
-          <p>{{ this.selectedLanguage.nameGeo }}</p>
+          <p>{{
+            this._transloco.getActiveLang() == "ge"
+              ? this.selectedLanguage.nameGeo
+              : this.selectedLanguage.name
+          }}</p>
         </div>
         <button
           mat-icon-button
