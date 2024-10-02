@@ -19,6 +19,8 @@ import { MainComponent } from './home/main/main.component';
 import { HomeComponent } from './home/home.component';
 import { BlogComponent } from './home/blog/blog.component';
 import { confirmExitGuard } from './guard/confirm-exit.guard';
+import { PrivacyPolicyComponent } from './home/privacy-policy/privacy-policy.component';
+import { TermsComponent } from './home/terms/terms.component';
 
 const routes: Routes = [
   {
@@ -97,6 +99,14 @@ const routes: Routes = [
       {
         path: 'blog',
         component: BlogComponent,
+      },
+      {
+        path: 'privacy',
+        component: PrivacyPolicyComponent
+      },
+      {
+        path: 'terms',
+        component: TermsComponent
       }
     ]
   },

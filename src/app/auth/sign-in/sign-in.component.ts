@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
@@ -6,6 +6,10 @@ import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../services/user.service';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Location } from '@angular/common';
+import { url } from '../../shared/data/api';
+import { HttpService } from '../../shared/services/http.service';
+
+declare const FB: any;
 
 @Component({
   selector: 'app-sign-in',
@@ -29,9 +33,11 @@ export class SignInComponent implements OnInit {
     private _router: Router,
     private _builder: FormBuilder,
     private authService: AuthService,
+    private _http: HttpService,
     private userService: UserService,
     private toastr: ToastrService,
-    private location: Location
+    private location: Location,
+    private _ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -68,6 +74,23 @@ export class SignInComponent implements OnInit {
     } else {
       this.toastr.error('შეავსეთ ყველა ველი');
     }
+  }
+
+  async loginWithFB() {
+    debugger
+    FB.login(async (result: any) => {
+      debugger
+      await this._http.loginWithFacebook(url.loginFB, result.authService.accessToken).subscribe(
+        (res: any) => {
+          this._ngZone.run(() => {
+            this._router.navigate(['/services']);
+          })
+        },
+        (err: any) => {
+          console.log(err);
+        }
+      )
+    }, { scope: 'email' })
   }
 
   navigateToSignUp() {

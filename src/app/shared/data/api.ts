@@ -5,6 +5,7 @@ export const url = {
   videoScript: '/api/UserContent/video-script',
   productCategory: '/api/ProductCategory',
   login: '/api/auth/login',
+  loginFB: '/api/Auth/login-with-fb',
   register: '/api/Auth/register',
   refresh: '/api/Auth/refresh-token',
   user: '/api/User',

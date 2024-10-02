@@ -27,6 +27,7 @@ import { MailComponent } from './modules/mail/mail.component';
 import { TranslateComponent } from './modules/translate/translate.component';
 import { HistoryComponent } from './user/history/history.component';
 import { AuthRequireComponent } from '../shared/components/auth-require/auth-require.component';
+import { AccountDeleteComponent } from './user/account-delete/account-delete.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { AuthRequireComponent } from '../shared/components/auth-require/auth-req
     TranslateComponent,
     GreetingComponent,
     HistoryComponent,
-    AuthRequireComponent
+    AuthRequireComponent,
+    AccountDeleteComponent
   ],
   imports: [
     ReactiveFormsModule,

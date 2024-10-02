@@ -604,3 +604,48 @@ canvas {
 .mat-mdc-menu-content {
   max-height: 300px !important;
 }
+
+.acc-del-container {
+  .bi-x-lg {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: red;
+  }
+}
+
+.acc-del {
+  padding: 5px 15px;
+  border-radius: 1rem;
+  transition: all .25s ease-in-out;
+  color: red;
+  &:hover {
+    background-color: rgba(255, 0, 0, 0.5);
+    color: white;
+  }
+}
+
+.del-acc-btn, .close-dialog-delacc {
+  padding: 5px 15px;
+  border-radius: 1rem;
+  transition: all .25s ease-in-out;
+  border: none;
+  outline: none;
+}
+
+.del-acc-btn {
+  background-color: transparent;
+  color: red;
+  &:hover {
+    background-color: rgba(255, 0, 0, 1);
+    color: white;
+  }
+}
+
+.close-dialog-delacc {
+  background-color: transparent;
+  &:hover {
+    background-color: #3b59f3;
+    color: white;
+  }
+}

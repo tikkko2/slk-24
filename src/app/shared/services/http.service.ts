@@ -32,6 +32,13 @@ export class HttpService {
     });
   }
 
+  loginWithFacebook(apiurl: any, data: any) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this._http.post(`${this.host}${apiurl}`, JSON.stringify(data), { headers, withCredentials: true })
+  }
+
   getRefreshToken(): Observable<any> {
     let loggedUserData: any;
     if (this.authService.IsLoggedIn()) {
@@ -107,6 +114,21 @@ export class HttpService {
     });
     return this._http.post(`${this.host}${apiUrl}`, JSON.stringify(data), {
       headers,
+    });
+  }
+
+  deleteAcc(apiurl: string, data: any) {
+    const auth: any = localStorage.getItem('authorize');
+    const newToken = JSON.parse(auth);
+    const token: string = newToken.accessToken;
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+    return this._http.delete(`${this.host}${apiurl}`, {
+      headers,
+      params: data,
     });
   }
 

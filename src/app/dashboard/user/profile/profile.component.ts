@@ -7,6 +7,8 @@ import { HttpService } from '../../../shared/services/http.service';
 import { url } from '../../../shared/data/api';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
+import { AccountDeleteComponent } from '../account-delete/account-delete.component';
 
 @Component({
   selector: 'app-profile',
@@ -37,7 +39,7 @@ export class ProfileComponent implements OnInit {
     private _balance: BalanceService,
     private builder: FormBuilder,
     private toastr: ToastrService,
-    private _free: FreeServiceService
+    private _dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -102,6 +104,10 @@ export class ProfileComponent implements OnInit {
         }
       );
     }
+  }
+
+  accDelete() {
+    this._dialog.open(AccountDeleteComponent);
   }
 
   togglePassword() {

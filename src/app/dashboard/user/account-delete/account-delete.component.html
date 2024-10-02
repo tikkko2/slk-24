@@ -1,0 +1,8 @@
+<div class="acc-del-container p-4 position-relative" style="max-width: 400px;">
+  <p>{{ 'profile.acc-del-popup1' | transloco }} <span class="text-danger fw-bold">{{ 'profile.acc-del-popup2' | transloco }}</span>{{ 'profile.acc-del-popup3' | transloco }}</p>
+  <div class="d-flex justify-content-end align-items-end gap-2 mt-5">
+    <button type="button" (click)="close()" class="close-dialog-delacc">{{ 'profile.close-btn' | transloco }}</button>
+    <button type="button" (click)="deleteAcc()" class="del-acc-btn">{{ 'profile.acc-del-btn' | transloco }}</button>
+  </div>
+  <i class="bi bi-x-lg c-p" (click)="close()"></i>
+</div>

@@ -4,11 +4,16 @@
     <p class="text-white mt-3" (click)="goBack()">&#10094; {{ 'back' | transloco }}</p>
   </div>
   <div class="auth-container auth-sign-in" @fadeIn>
-    <div class="text-center mb-5">
+    <div class="text-center">
       <h3>{{ 'sign-in.h3' | transloco }}</h3>
       <p>{{ 'sign-in.p' | transloco }}</p>
     </div>
     <form [formGroup]="loginForm" (ngSubmit)="proceedLogin()">
+      <ul class="list-inline text-center">
+        <li class="list-inline-item">
+          <i class="bi bi-facebook fs-3 c-p slk-color" (click)="loginWithFB()"></i>
+        </li>
+      </ul>
       <div class="input-field">
         <label for="email">{{ 'sign-in.email' | transloco }}</label>
         <input type="email" formControlName="username" placeholder="suliko@suliko.com" id="email" autocomplete="email"/>

@@ -59,4 +59,5 @@ export class AuthService {
     const metadata = this.jwt_decode.decodeToken(storedData);
     return metadata;
   }
+
 }

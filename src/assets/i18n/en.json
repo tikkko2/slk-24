@@ -115,7 +115,13 @@
     "c-pass": "Current Password",
     "n-pass": "New Password",
     "ch-label": "Password length must be at least 3",
-    "btn3": "Update"
+    "btn3": "Update",
+    "acc-del": "Account deactivation",
+    "acc-del-popup1": "Are you sure that you want to",
+    "acc-del-popup2": "deactivate ",
+    "acc-del-popup3": "your account?",
+    "acc-del-btn": "Deactivate",
+    "close-btn": "Cancel"
   },
   "history": {
     "title": "Your history",
