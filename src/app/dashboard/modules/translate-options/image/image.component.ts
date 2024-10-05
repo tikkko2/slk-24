@@ -174,8 +174,8 @@ export class ImageComponent {
 
     var formData = new FormData();
     formData.append('description', this.description);
-    formData.append('languageId', this.selectedLanguage);
-    formData.append('sourceLanguageId', this.selectedSourceLanguage);
+    formData.append('languageId', this.selectedLanguageID);
+    formData.append('sourceLanguageId', this.selectedSourceLanguageID);
     [...this.files].forEach((file) => {
       formData.append('files', file, file.name);
     });
