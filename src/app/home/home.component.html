@@ -48,7 +48,7 @@
     <router-outlet></router-outlet>
   </div>
   <footer>
-    <div class="container py-5">
+    <div class="container py-5 position-relative">
       <div class="row">
         <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
           <img
@@ -94,8 +94,8 @@
             "header.user" | transloco
           }}</h6>
           <ul class="list-unstyled mb-0">
-            <li class="mb-2"><a href="#" class="text-muted">{{ "header.signin" | transloco }}</a></li>
-            <li class="mb-2"><a href="#" class="text-muted">{{ 'sign-up.sign-up-btn' | transloco }}</a></li>
+            <li class="mb-2"><a routerLink="/home/privacy" class="text-muted">Privacy</a></li>
+            <li class="mb-2"><a routerLink="/home/terms" class="text-muted">Terms</a></li>
           </ul>
         </div>
         <div class="col-lg-4 col-md-6 mb-lg-0">
