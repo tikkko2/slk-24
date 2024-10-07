@@ -88,6 +88,7 @@ export class SignInComponent implements OnInit {
         await this._http.loginWithFacebook(url.loginFB, accessToken).subscribe(
           (res: any) => {
             this._ngZone.run(() => {
+              this.authService.JWTtoSession(res);
               this._router.navigate(['/services']);
             });
           },
