@@ -36,7 +36,7 @@ export class HttpService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this._http.post(`${this.host}${apiurl}`, JSON.stringify(data), { headers, withCredentials: true })
+    return this._http.post(`${this.host}${apiurl}`, data, { headers, withCredentials: true })
   }
 
   getRefreshToken(): Observable<any> {
