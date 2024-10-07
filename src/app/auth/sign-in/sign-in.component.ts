@@ -77,20 +77,28 @@ export class SignInComponent implements OnInit {
   }
 
   async loginWithFB() {
-    debugger
+    debugger;
     FB.login(async (result: any) => {
-      debugger
-      await this._http.loginWithFacebook(url.loginFB, result.authService.accessToken).subscribe(
-        (res: any) => {
-          this._ngZone.run(() => {
-            this._router.navigate(['/services']);
-          })
-        },
-        (err: any) => {
-          console.log(err);
-        }
-      )
-    }, { scope: 'email' })
+      debugger;
+      if (result.authResponse) {
+        // Correct way to access accessToken
+        const accessToken = result.authResponse.accessToken;
+
+        // Call your API to log in using the Facebook access token
+        await this._http.loginWithFacebook(url.loginFB, accessToken).subscribe(
+          (res: any) => {
+            this._ngZone.run(() => {
+              this._router.navigate(['/services']);
+            });
+          },
+          (err: any) => {
+            console.log(err);
+          }
+        );
+      } else {
+        console.log('User cancelled login or did not fully authorize.');
+      }
+    }, { scope: 'email' });
   }
 
   navigateToSignUp() {
