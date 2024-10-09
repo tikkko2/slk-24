@@ -147,7 +147,8 @@
     "translate-text": "Write the text to be translated!",
     "email-text": "Write a received mail!",
     "balance": "Due to insufficient balance, you can no longer use the services. Please top up!",
-    "registration": "Registration is required!"
+    "registration": "Registration is required!",
+    "valid-word": "Please write a valid word!"
   },
   "languages": {
     "en": "English",

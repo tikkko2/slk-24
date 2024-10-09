@@ -58,11 +58,11 @@ export const authInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
           console.error('Unauthorized request:', err);
           userService.ClearSession();
         } else {
-          console.error('HTTP error:', err);
+          // console.error('HTTP error:', err);
           router.navigate(['']);
           // userService.ClearSession();
           if (err.error.errorText != undefined) {
-            toastr.error(`${err.error.errorText}`);
+            // toastr.error(`${err.error.errorText}`);
           }
         }
       } else {

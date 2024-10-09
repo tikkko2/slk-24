@@ -24,6 +24,7 @@ import { TranslateActiveService } from '../../../../shared/services/translate-ac
 import { ImageComponent } from '../image/image.component';
 import { DocComponent } from '../doc/doc.component';
 import { animate, style, transition, trigger } from '@angular/animations';
+import e from 'express';
 
 @Component({
   selector: 'app-text',
@@ -65,7 +66,7 @@ export class TextComponent implements OnInit, AfterViewInit {
 
   isLoading: boolean = false;
   selectedLanguage: any;
-  selectedLanguageID = '2';
+  selectedLanguageID = '1';
   selectedSourceLanguage = '-1';
 
   languageNotSelected = false;
@@ -96,7 +97,7 @@ export class TextComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.selectedENG = true;
+    this.selectedGEO = true;
     this.isLoggedIn = this.authService.IsLoggedIn();
     this.freeService.getToken().subscribe((value) => (this.fakeToken = value));
     this.balanceService
@@ -144,6 +145,10 @@ export class TextComponent implements OnInit, AfterViewInit {
     const inputValue = event.target.value;
     this.inputSubject.next(inputValue);
   }
+  isGeorgian(text: string): boolean {
+    const georgianRegex = /[\u10A0-\u10FF\u2D00-\u2D2F]/;
+    return georgianRegex.test(text);
+  }
 
   sendText() {
     this.copyBtn = false;
@@ -166,6 +171,11 @@ export class TextComponent implements OnInit, AfterViewInit {
       this.toastr.error(this._transloco.translate('error-toastr.balance'));
       this._router.navigate(['/services/balance'])
       return;
+    }
+    if (this.isGeorgian(this.chatForm.value.text ?? '')) {
+      this.selectedLanguageID = '2'
+      this.selectedENG = true;
+      this.selectedGEO = false;
     }
     this.isLoading = true;
 
@@ -202,7 +212,7 @@ export class TextComponent implements OnInit, AfterViewInit {
           }
         },
         (error) => {
-          console.error('Error:', error);
+          this.toastr.error(this._transloco.translate('error-toastr.valid-word'));
           this.isLoading = false;
         }
       );
@@ -214,7 +224,7 @@ export class TextComponent implements OnInit, AfterViewInit {
           this.copyBtn = !this.copyBtn;
         },
         (error) => {
-          console.error('Error:', error);
+          this.toastr.error(this._transloco.translate('error-toastr.valid-word'));
           this.isLoading = false;
         }
       );
