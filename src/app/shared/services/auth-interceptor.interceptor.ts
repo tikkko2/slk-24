@@ -31,14 +31,34 @@ export const authInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
             const refreshedData = localStorage.getItem('authorize');
             if (refreshedData) {
               loggedUserData = JSON.parse(refreshedData);
-              req = req.clone({
-                setHeaders: {
-                  Authorization: `Bearer ${loggedUserData.accessToken}`,
-                },
-              });
+              if(loggedUserData.accessToken && loggedUserData.refreshToken) {
+                req = req.clone({
+                  setHeaders: {
+                    Authorization: `Bearer ${loggedUserData.accessToken}`,
+                  },
+                });
+              }
             }
             apiService.refreshInProgress = false;
             return next(req);
+          }),
+          catchError((err: any) => {
+            if (err instanceof HttpErrorResponse) {
+              if (err.status === 401) {
+                console.error('Unauthorized request:', err);
+                userService.ClearSession();
+              } else {
+                // console.error('HTTP error:', err);
+                router.navigate(['']);
+                // userService.ClearSession();
+                if (err.error.errorText != undefined) {
+                  // toastr.error(`${err.error.errorText}`);
+                }
+              }
+            } else {
+              console.error('An error occurred:', err);
+            }
+            return throwError(() => err);
           })
         );
       } else {
