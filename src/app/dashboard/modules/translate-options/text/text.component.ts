@@ -98,7 +98,7 @@ export class TextComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.selectedGEO = true;
-    this.isLoggedIn = this.authService.IsLoggedIn();
+
     this.freeService.getToken().subscribe((value) => (this.fakeToken = value));
     this.balanceService
       .getBalance()
@@ -160,8 +160,7 @@ export class TextComponent implements OnInit, AfterViewInit {
       return;
     }
     if (
-      this.apiService.hasExceededFreeRequests() &&
-      !this.authService.IsLoggedIn()
+      this.apiService.hasExceededFreeRequests()
     ) {
       this.toastr.error(this._transloco.translate('error-toastr.registration'));
       this._router.navigate(['/sign-up']);
@@ -194,7 +193,7 @@ export class TextComponent implements OnInit, AfterViewInit {
           this.isLoading = false;
           this.copyBtn = !this.copyBtn;
 
-          var user = this.authService.GetUserInfo();
+          var user = this.authService.userInfo();
           if (this.isLoggedIn) {
             this.userID = user.UserId;
             this.apiService.get(url.user, this.userID).subscribe(

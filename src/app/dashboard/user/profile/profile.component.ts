@@ -43,9 +43,9 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.isLoggedIn = this._auth.IsLoggedIn();
+    this.isLoggedIn = this._auth.isAuthenticated();
     if (this.isLoggedIn) {
-      const user = this._auth.GetUserInfo();
+      const user = this._auth.userInfo();
       this.userDetails.id = user.UserId;
       this._api.get(url.user, this.userDetails.id).subscribe(
         (res) => {

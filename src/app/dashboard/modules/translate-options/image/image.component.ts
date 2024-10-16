@@ -105,7 +105,7 @@ export class ImageComponent {
   ) {}
 
   ngOnInit() {
-    this.isLoggedIn = this.authService.IsLoggedIn();
+
     this.balanceService
       .getBalance()
       .subscribe((value) => (this.balance = value));
@@ -157,8 +157,7 @@ export class ImageComponent {
       this.toastr.error(this._transloco.translate('translate.upload-img'));
       return;
     } else if (
-      this.apiService.hasExceededFreeRequests() &&
-      !this.authService.IsLoggedIn()
+      this.apiService.hasExceededFreeRequests()
     ) {
       this.toastr.error(this._transloco.translate('error-toastr.registration'));
       this.router.navigate(['/sign-up']);
@@ -181,7 +180,7 @@ export class ImageComponent {
     });
     formData.append('isPdf', this.isPdf);
 
-    if (!this.authService.IsLoggedIn()) {
+    if (!this.authService.isAuthenticated()) {
       this.apiService.postFreeTranslate(url.fileTranslate, formData).subscribe(
         (response: any) => {
           this.translatedText = response.text;
@@ -202,7 +201,7 @@ export class ImageComponent {
           this.isLoading = !this.isLoading;
           this.stopProgressBarAnimation();
 
-          var user = this.authService.GetUserInfo();
+          var user = this.authService.userInfo();
           if (this.isLoggedIn) {
             this.userID = user.UserId;
             this.apiService.get(url.user, this.userID).subscribe(

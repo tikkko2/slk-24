@@ -73,7 +73,7 @@ export class MailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.isLoggedIn = this.authService.IsLoggedIn();
+
     this.balanceService
       .getBalance()
       .subscribe((value) => (this.balance = value));
@@ -119,8 +119,7 @@ export class MailComponent implements OnInit {
       return;
     };
     if (
-      this.apiService.hasExceededFreeRequests() &&
-      !this.authService.IsLoggedIn()
+      this.apiService.hasExceededFreeRequests()
     ) {
       this.toastr.error(this._transloco.translate('error-toastr.registration'));
       this.router.navigate(['/sign-up']);
@@ -143,7 +142,7 @@ export class MailComponent implements OnInit {
       Number(this.emailFormId)
     );
 
-    if(!this.authService.IsLoggedIn()) {
+    if(!this.authService.isAuthenticated()) {
       this.apiService.postFreeEmail(url.email, model).subscribe(
         (response: any) => {
           this.translatedText = response.text;
@@ -162,7 +161,7 @@ export class MailComponent implements OnInit {
           this.isLoading = false;
           this.copyBtn = !this.copyBtn;
 
-          var user = this.authService.GetUserInfo();
+          var user = this.authService.userInfo();
           if (this.isLoggedIn) {
             this.userID = user.UserId;
             this.apiService.get(url.user, this.userID).subscribe(

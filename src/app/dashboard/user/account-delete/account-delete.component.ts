@@ -30,8 +30,8 @@ export class AccountDeleteComponent {
   ) {}
 
   ngOnInit() {
-    if (this._auth.IsLoggedIn()) {
-      const user = this._auth.GetUserInfo();
+    if (this._auth.isAuthenticated()) {
+      const user = this._auth.userInfo();
       this.userDetails.id = user.UserId;
     }
   }
@@ -40,7 +40,7 @@ export class AccountDeleteComponent {
     this._http.deleteAcc(`${url.user}/${this.userDetails.id}`, this.userDetails.id).subscribe(
       (response) => {
         this._router.navigate(['/services']);
-        this._auth.ClearSession();
+        // this._auth.ClearSession();
       },
       (error) => {
         console.error(error);

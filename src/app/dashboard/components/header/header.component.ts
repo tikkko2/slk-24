@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private _auth: AuthService,
+    public _auth: AuthService,
     private _translate: TranslocoService,
     private _balance: BalanceService,
     private _api: HttpService
@@ -55,9 +55,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.activeLang = this._translate.getActiveLang();
     this.availableLangs = this._translate.getAvailableLangs();
-    this.isLoggedIn = this._auth.IsLoggedIn();
-    if (this.isLoggedIn) {
-      this.userInfo = this._auth.GetUserInfo();
+    if (this._auth.isAuthenticated()) {
+      this.userInfo = this._auth.userInfo();
       this.username = this.userInfo.email;
       const usernameSplit = this.username.split('@')[0];
       // const usernameInitial = this.username.charAt(0);
@@ -138,6 +137,6 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this._auth.ClearSession();
+    this._auth.logOut();
   }
 }

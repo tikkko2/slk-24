@@ -1,94 +1,85 @@
-import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { HttpService } from './http.service';
-import { catchError, from, of, switchMap, throwError } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
+import { BehaviorSubject, catchError, concatMap, filter, finalize, from, Observable, switchMap, take, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 
-export const authInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
-  const userService = inject(AuthService);
-  const apiService = inject(HttpService);
-  const toastr = inject(ToastrService);
-  const router = inject(Router);
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+  private isRefreshing = false;
+  private refreshTokenSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
+  private cachedRequests: HttpRequest<any>[] = [];
 
-  let loggedUserData: any;
-  let isLoggedIn = userService.IsLoggedIn();
+  constructor(
+    private _authService: AuthService,
+    private _router: Router
+  ) {}
 
-  if (isLoggedIn) {
-    const storedData = localStorage.getItem('authorize');
-    if (storedData != null) {
-      loggedUserData = JSON.parse(storedData);
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const token = this._authService.accessToken();
+    let authReq = req;
+
+    if(token) {
+      authReq = this.addTokenHeader(req, token);
     }
+
+    return next.handle(authReq).pipe(
+      catchError((err) => {
+        if (err.status === 401 && err instanceof HttpErrorResponse && !req.url.includes('refresh-token')) {
+          return this.handle401Error(authReq, next);
+        } else {
+          return throwError(() => err);
+        }
+      })
+    )
   }
 
-  return from(isLoggedIn ? apiService.isTokenExpired() : of(false)).pipe(
-    switchMap((isExpired) => {
-      if (isLoggedIn && isExpired && !apiService.refreshInProgress) {
-        apiService.refreshInProgress = true;
-        return apiService.getRefreshToken().pipe(
-          switchMap(() => {
-            const refreshedData = localStorage.getItem('authorize');
-            if (refreshedData) {
-              loggedUserData = JSON.parse(refreshedData);
-              if(loggedUserData.accessToken && loggedUserData.refreshToken) {
-                req = req.clone({
-                  setHeaders: {
-                    Authorization: `Bearer ${loggedUserData.accessToken}`,
-                  },
-                });
-              }
-            }
-            apiService.refreshInProgress = false;
-            return next(req);
-          }),
-          catchError((err: any) => {
-            if (err instanceof HttpErrorResponse) {
-              if (err.status === 401) {
-                console.error('Unauthorized request:', err);
-                userService.ClearSession();
-              } else {
-                // console.error('HTTP error:', err);
-                router.navigate(['']);
-                // userService.ClearSession();
-                if (err.error.errorText != undefined) {
-                  // toastr.error(`${err.error.errorText}`);
-                }
-              }
-            } else {
-              console.error('An error occurred:', err);
-            }
-            return throwError(() => err);
-          })
-        );
-      } else {
-        if (loggedUserData) {
-          req = req.clone({
-            setHeaders: {
-              Authorization: `Bearer ${loggedUserData.accessToken}`,
-            },
-          });
-        }
-        return next(req);
-      }
-    }),
-    catchError((err: any) => {
-      if (err instanceof HttpErrorResponse) {
-        if (err.status === 401) {
-          console.error('Unauthorized request:', err);
-          userService.ClearSession();
-        } else {
-          // console.error('HTTP error:', err);
-          router.navigate(['']);
-          // userService.ClearSession();
-          if (err.error.errorText != undefined) {
-            // toastr.error(`${err.error.errorText}`);
+  private addTokenHeader(request: HttpRequest<any>, token: string) {
+    return request.clone({headers: request.headers.set('Authorization', 'Bearer ' + token)})
+  }
+
+  private handle401Error(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if(!this.isRefreshing) {
+      this.isRefreshing = true;
+      this.refreshTokenSubject.next(null);
+      this.cachedRequests.push(req);
+      return this._authService.refreshAccessToken().pipe(
+        switchMap((response: any) => {
+          this.isRefreshing = false;
+          const newToken = response.token;
+          const newRefreshToken = response.refreshToken;
+          if(newToken) {
+            this._authService.setTokens(newToken, newRefreshToken);
+            this.refreshTokenSubject.next(newToken);
+            return from(this.cachedRequests).pipe(
+              concatMap((request) => next.handle(this.addTokenHeader(request, newToken))),
+              finalize(() => {this.cachedRequests = []})
+            )
+          } else {
+            this._authService.logOut();
+            this._router.navigate(['/services']);
+            return throwError(() => new Error('No token returned.'))
           }
-        }
-      } else {
-        console.error('An error occurred:', err);
-      }
-      return throwError(() => err);
-    })
-  );
-};
+        }),
+        catchError((err) => {
+          this.isRefreshing = false;
+          if(err.status === 401 || err.status === 400) {
+            this._authService.logOut();
+            this._router.navigate(['/services']);
+          }
+          return throwError(() => err)
+        }),
+        finalize(() => {this.isRefreshing = false;})
+      )
+    } else {
+      this.cachedRequests.push(req)
+      return this.refreshTokenSubject.pipe(
+        filter((token) => token !== null),
+        take(1),
+        switchMap((token) => {
+          return next.handle(this.addTokenHeader(req, token as string));
+        })
+      )
+    }
+  }
+}

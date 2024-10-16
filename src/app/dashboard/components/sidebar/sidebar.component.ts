@@ -38,16 +38,16 @@ export class SidebarComponent implements OnInit {
   userInfo: any;
 
   constructor(
-    private _auth: AuthService,
+    public _auth: AuthService,
     private _api: HttpService,
     private _balance: BalanceService,
     private _toastr: ToastrService
   ) {}
 
   ngOnInit() {
-    this.isLoggedIn = this._auth.IsLoggedIn();
-    if (this.isLoggedIn) {
-      const user = this._auth.GetUserInfo();
+    // this.isLoggedIn = this._auth.isAuthenticated();
+    if (this._auth.isAuthenticated()) {
+      const user = this._auth.userInfo();
       this.userID = user.UserId;
       this._api.get(url.user, this.userID).subscribe(
         (res) => {
@@ -74,7 +74,7 @@ export class SidebarComponent implements OnInit {
   }
 
   logout() {
-    this._auth.ClearSession();
+    this._auth.logOut();
   }
 
   @HostListener('window:resize', ['$event'])

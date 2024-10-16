@@ -30,8 +30,8 @@ export class BalanceComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this._auth.IsLoggedIn()) {
-      const user = this._auth.GetUserInfo();
+    if (this._auth.isAuthenticated()) {
+      const user = this._auth.userInfo();
       this.userID = user.UserId;
       this._api.get(url.user, this.userID).subscribe(
         (res) => {

@@ -46,8 +46,8 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.isLoggedIn = this._auth.IsLoggedIn();
-    if (!this.isLoggedIn) {
+    // this.isLoggedIn = this._auth.isAuthenticated();
+    if (!this._auth.isAuthenticated()) {
       const isDialogShown = sessionStorage.getItem(this.dialogShownKey);
       if (!isDialogShown) {
         this._dialog.open(AuthRequireComponent);

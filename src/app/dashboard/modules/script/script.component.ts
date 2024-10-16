@@ -71,8 +71,7 @@ export class ScriptComponent {
       return;
     }
     if (
-      this.apiService.hasExceededFreeRequests() &&
-      !this.authService.IsLoggedIn()
+      this.apiService.hasExceededFreeRequests()
     ) {
       this.toastr.error(this._transloco.translate('error-toastr.registration'));
       this.router.navigate(['/sign-up']);
@@ -94,13 +93,13 @@ export class ScriptComponent {
     formData.append('file', this.file);
 
     this.chatForm.reset();
-    if (this.authService.IsLoggedIn()) {
+    if (this.authService.isAuthenticated()) {
       this.apiService.postWriter(url.videoScript, formData).subscribe(
         (response: any) => {
           this.responseText = response.text;
           this.isLoading = false;
 
-          var user = this.authService.GetUserInfo();
+          var user = this.authService.userInfo();
           if (this.isLoggedIn) {
             this.userID = user.UserId;
             this.apiService.get(url.user, this.userID).subscribe(

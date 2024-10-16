@@ -43,8 +43,8 @@ export class HomeComponent implements AfterViewInit, OnInit {
     this.w = window.innerWidth;
     this.h = window.innerHeight;
 
-    if (this._auth.IsLoggedIn()) {
-      this.isLoggedIn = this._auth.IsLoggedIn();
+    if (this._auth.isAuthenticated()) {
+      this.isLoggedIn = this._auth.isAuthenticated();
     }
   }
 

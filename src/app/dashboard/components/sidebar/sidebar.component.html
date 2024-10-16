@@ -68,7 +68,7 @@
     </div>
   </div>
 
-  <div *ngIf="isLoggedIn" class="mt-auto">
+  <div *ngIf="this._auth.isAuthenticated()" class="mt-auto">
     <hr />
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">

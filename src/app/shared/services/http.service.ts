@@ -27,9 +27,6 @@ export class HttpService {
     private jwt_decode: JwtDecodeService
   ) {
     this.host = environment.apiUrl;
-    this.$refreshToken.subscribe((res: any) => {
-      this.getRefreshToken();
-    });
   }
 
   loginWithFacebook(apiurl: any, data: any) {
@@ -39,73 +36,14 @@ export class HttpService {
     return this._http.post(`${this.host}${apiurl}`, data, { headers, withCredentials: true })
   }
 
-  getRefreshToken(): Observable<any> {
-    let loggedUserData: any;
-    if (this.authService.IsLoggedIn()) {
-      const auth = localStorage.getItem('authorize');
-      if (auth != null) {
-        loggedUserData = JSON.parse(auth);
-      }
-      const obj = {
-        accessToken: loggedUserData.accessToken,
-        refreshToken: loggedUserData.refreshToken,
-      };
-      return this._http.post(`${this.host}${url.refresh}`, obj).pipe(
-        tap((res: any) => {
-          const jwtMetadata = {
-            accessToken: res.token,
-            refreshToken: res.refreshToken,
-          };
-          localStorage.setItem('authorize', JSON.stringify(jwtMetadata));
-          this.refreshInProgress = false;
-        }),
-        catchError((error: any) => {
-          console.error(error);
-          this.refreshInProgress = false;
-          return throwError(() => error);
-        })
-      );
-    }
-    return of();
-  }
-
-  isTokenExpired(): Observable<boolean> {
-    const auth = localStorage.getItem('authorize');
-    if (auth != null) {
-      const loggedUserData = JSON.parse(auth);
-      const decodedToken = this.jwt_decode.decodeToken(
-        loggedUserData.accessToken
-      );
-      const isExpired =
-        decodedToken.exp < Math.floor(Date.now() / 1000) + 60 * 4;
-      return of(isExpired);
-    }
-    return of(true); // Assume token is expired if not found
-  }
-
   get(apiUrl: string, user_id: string) {
-    const auth: any = localStorage.getItem('authorize');
-    const newToken = JSON.parse(auth);
-    const token: string = newToken.accessToken;
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
     return this._http.get(`${this.host}${apiUrl}/${user_id}`, {
-      headers,
       responseType: 'text',
     });
   }
 
   updateUserInfo(apiUrl: string, data: any) {
-    const auth: any = localStorage.getItem('authorize');
-    const newToken = JSON.parse(auth);
-    const token: string = newToken.accessToken;
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    return this._http.put(`${this.host}${apiUrl}`, data, { headers });
+    return this._http.put(`${this.host}${apiUrl}`, data);
   }
 
   postAuth(apiUrl: string, data: any) {
@@ -118,45 +56,19 @@ export class HttpService {
   }
 
   deleteAcc(apiurl: string, data: any) {
-    const auth: any = localStorage.getItem('authorize');
-    const newToken = JSON.parse(auth);
-    const token: string = newToken.accessToken;
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    });
     return this._http.delete(`${this.host}${apiurl}`, {
-      headers,
       params: data,
     });
   }
 
   patchChangePassword(apiUrl: string, data: any) {
-    const auth: any = localStorage.getItem('authorize');
-    const newToken = JSON.parse(auth);
-    const token: string = newToken.accessToken;
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    });
-    return this._http.patch(`${this.host}${apiUrl}`, JSON.stringify(data), {
-      headers,
-    });
+    return this._http.patch(`${this.host}${apiUrl}`, JSON.stringify(data));
   }
 
   postTranslate(apiUrl: string, data: any) {
-    const auth: any = localStorage.getItem('authorize');
-    const newToken = JSON.parse(auth);
-    const token: string = newToken.accessToken;
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
     this.requestCount++;
     sessionStorage.setItem('requestCount', this.requestCount.toString());
-    return this._http.post(`${this.host}${apiUrl}`, data, { headers });
+    return this._http.post(`${this.host}${apiUrl}`, data);
   }
 
   postFreeTranslate(apiUrl: string, data: any) {
@@ -183,14 +95,9 @@ export class HttpService {
   }
 
   postContent(apiUrl: string, data: any) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
     this.requestCount++;
     sessionStorage.setItem('requestCount', this.requestCount.toString());
-    return this._http.post(`${this.host}${apiUrl}`, JSON.stringify(data), {
-      headers,
-    });
+    return this._http.post(`${this.host}${apiUrl}`, JSON.stringify(data));
   }
 
   postFreeWriter(apiUrl: string, data: any) {
@@ -211,19 +118,9 @@ export class HttpService {
   }
 
   postEmail(apiUrl: string, data: any) {
-    const auth: any = localStorage.getItem('authorize');
-    const newToken = JSON.parse(auth);
-    const token: string = newToken.accessToken;
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    });
     this.requestCount++;
     sessionStorage.setItem('requestCount', this.requestCount.toString());
-    return this._http.post(`${this.host}${apiUrl}`, JSON.stringify(data), {
-      headers,
-    });
+    return this._http.post(`${this.host}${apiUrl}`, JSON.stringify(data));
   }
 
   postFreeEmail(apiUrl: string, data: any) {
@@ -240,14 +137,9 @@ export class HttpService {
   }
 
   postLawyer(apiUrl: string, data: any) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
     this.requestCount++;
     sessionStorage.setItem('requestCount', this.requestCount.toString());
-    return this._http.post(`${this.host}${apiUrl}`, JSON.stringify(data), {
-      headers,
-    });
+    return this._http.post(`${this.host}${apiUrl}`, JSON.stringify(data));
   }
 
   hasExceededFreeRequests(): boolean {

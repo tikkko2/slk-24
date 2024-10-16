@@ -77,7 +77,7 @@ export class SignUpComponent implements OnInit {
           }
           this.userService.authorize(loginData).subscribe(
             (res) => {
-              this.authService.JWTtoSession(res);
+              // this.authService.JWTtoSession(res);
               this.isLoading = !this.isLoading;
               this._router.navigate(['/services']);
             },

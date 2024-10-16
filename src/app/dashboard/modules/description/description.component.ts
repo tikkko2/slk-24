@@ -68,8 +68,8 @@ export class DescriptionComponent {
   });
 
   ngOnInit(): void {
-    this.isLoggedIn = this.authService.IsLoggedIn();
-    var user = this.authService.GetUserInfo();
+
+    var user = this.authService.userInfo();
 
     this.initializeFilterOptions();
     this.checkScreenWidth();
@@ -123,7 +123,7 @@ export class DescriptionComponent {
       this.notProductName = true;
       return;
     };
-    if (this.apiService.hasExceededFreeRequests() && !this.authService.IsLoggedIn()) {
+    if (this.apiService.hasExceededFreeRequests() && !this.authService.isAuthenticated()) {
       this.toastr.error(this._transloco.translate('error-toastr.registration'));
       this.router.navigate(['/sign-up']);
       return;
@@ -147,14 +147,14 @@ export class DescriptionComponent {
       []
     );
 
-    if(this.authService.IsLoggedIn()) {
+    if(this.authService.isAuthenticated()) {
       this.apiService.postContent(url.content, model).subscribe(
         (response: any) => {
           this.sent = !this.sent;
           this.responseText = response.text.replace(/<br\s*\/?>/gi, '');
           this.isLoading = false;
 
-          var user = this.authService.GetUserInfo();
+          var user = this.authService.userInfo();
           if(this.isLoggedIn) {
             this.userID = user.UserId;
             this.apiService.get(url.user, this.userID).subscribe(

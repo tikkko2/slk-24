@@ -54,7 +54,7 @@ export class LawyerComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    var user = this.authService.GetUserInfo();
+    var user = this.authService.userInfo();
     this.balanceService
       .getBalance()
       .subscribe((value) => (this.balance = value));
@@ -83,8 +83,7 @@ export class LawyerComponent implements OnInit {
       return;
     }
     if (
-      this.apiService.hasExceededFreeRequests() &&
-      !this.authService.IsLoggedIn()
+      this.apiService.hasExceededFreeRequests()
     ) {
       this.toastr.error('აუცილებელია რეგისტრაცია');
       this.router.navigate(['/sign-up']);
@@ -113,7 +112,7 @@ export class LawyerComponent implements OnInit {
         this.chats.push(chatMessage);
         this.isLoading = false;
 
-        var user = this.authService.GetUserInfo();
+        var user = this.authService.userInfo();
         if (this.isLoggedIn) {
           this.userID = user.UserId;
           this.apiService.get(url.user, this.userID).subscribe(

@@ -54,18 +54,12 @@ export class SignInComponent implements OnInit {
   proceedLogin(){
     if (this.loginForm.valid) {
       this.isLoading = !this.isLoading;
-      const data = {
-        username: this.loginForm.value.username,
-        password: this.loginForm.value.password,
-      };
-      this.userService.authorize(data).subscribe(
+      this.authService.signIn(this.loginForm.value.username, this.loginForm.value.password).subscribe(
         (res) => {
-          this.authService.JWTtoSession(res);
           this.isLoading = !this.isLoading;
           this._router.navigate(['/services']);
         },
         (err) => {
-          console.log(err);
           this.loginForm.setErrors({ ...this.loginForm.errors, 'incorrect': true });
           this.isLoading = !this.isLoading;
           this.incorrect = !this.incorrect;
@@ -89,7 +83,7 @@ export class SignInComponent implements OnInit {
           (res: any) => {
             this._ngZone.run(() => {
               console.log(res);
-              this.authService.JWTtoSession(res);
+              // this.authService.JWTtoSession(res);
               this._router.navigate(['/services']);
             });
           },

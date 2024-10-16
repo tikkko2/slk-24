@@ -29,7 +29,7 @@ export class MainComponent {
   ) {}
 
   ngOnInit() {
-    this.isLoggedIn = this._auth.IsLoggedIn();
+    this.isLoggedIn = this._auth.isAuthenticated();
   }
 
   toggleCard(cardNumber: number) {

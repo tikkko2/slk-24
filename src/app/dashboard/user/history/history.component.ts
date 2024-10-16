@@ -27,8 +27,8 @@ export class HistoryComponent {
   ) {}
 
   ngOnInit(): void {
-    this.isLoggedIn = this.authService.IsLoggedIn();
-    const user = this.authService.GetUserInfo();
+
+    const user = this.authService.userInfo();
     if (this.isLoggedIn) {
       this.userID = user.UserId;
       this.historyService.getHistory(url.history, this.userID).subscribe(
