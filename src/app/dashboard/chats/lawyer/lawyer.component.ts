@@ -83,7 +83,7 @@ export class LawyerComponent implements OnInit {
       return;
     }
     if (
-      this.apiService.hasExceededFreeRequests()
+      this.apiService.hasExceededFreeRequests() && !this.authService.isAuthenticated()
     ) {
       this.toastr.error('აუცილებელია რეგისტრაცია');
       this.router.navigate(['/sign-up']);

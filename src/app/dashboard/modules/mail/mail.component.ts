@@ -119,7 +119,7 @@ export class MailComponent implements OnInit {
       return;
     };
     if (
-      this.apiService.hasExceededFreeRequests()
+      this.apiService.hasExceededFreeRequests() && !this.authService.isAuthenticated()
     ) {
       this.toastr.error(this._transloco.translate('error-toastr.registration'));
       this.router.navigate(['/sign-up']);
