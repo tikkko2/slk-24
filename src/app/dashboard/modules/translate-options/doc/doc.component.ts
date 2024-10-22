@@ -135,7 +135,6 @@ export class DocComponent implements OnInit {
   }
 
   sendDocs() {
-    console.log(this.selectedLanguageID);
     if (this.selectedLanguageID === '0') {
       this.languageNotSelected = true;
       return;
@@ -146,7 +145,7 @@ export class DocComponent implements OnInit {
       return;
     }
     if (
-      this.apiService.hasExceededFreeRequests()
+      this.apiService.hasExceededFreeRequests() && !this.authService.isAuthenticated()
     ) {
       this.toastr.error(this._transloco.translate('error-toastr.registration'));
       this.router.navigate(['/sign-up']);

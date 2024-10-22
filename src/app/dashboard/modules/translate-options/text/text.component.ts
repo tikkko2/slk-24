@@ -160,7 +160,7 @@ export class TextComponent implements OnInit, AfterViewInit {
       return;
     }
     if (
-      this.apiService.hasExceededFreeRequests()
+      this.apiService.hasExceededFreeRequests() && !this.authService.isAuthenticated()
     ) {
       this.toastr.error(this._transloco.translate('error-toastr.registration'));
       this._router.navigate(['/sign-up']);

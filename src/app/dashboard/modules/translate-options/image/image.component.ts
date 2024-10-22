@@ -157,7 +157,7 @@ export class ImageComponent {
       this.toastr.error(this._transloco.translate('translate.upload-img'));
       return;
     } else if (
-      this.apiService.hasExceededFreeRequests()
+      this.apiService.hasExceededFreeRequests() && !this.authService.isAuthenticated()
     ) {
       this.toastr.error(this._transloco.translate('error-toastr.registration'));
       this.router.navigate(['/sign-up']);
