@@ -139,7 +139,12 @@ export class HttpService {
   postLawyer(apiUrl: string, data: any) {
     this.requestCount++;
     sessionStorage.setItem('requestCount', this.requestCount.toString());
-    return this._http.post(`${this.host}${apiUrl}`, JSON.stringify(data));
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    return this._http.post(`${this.host}${apiUrl}`, JSON.stringify(data), {
+      headers,
+    });
   }
 
   hasExceededFreeRequests(): boolean {
