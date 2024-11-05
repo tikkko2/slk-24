@@ -1,11 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { computed, Inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { computed, Injectable, signal } from '@angular/core';
 import { JwtDecodeService } from './jwt-decode.service';
-import { isPlatformBrowser } from '@angular/common';
-import { Router } from '@angular/router';
 import { Observable, of, tap, throwError } from 'rxjs';
 import { url } from '../data/api';
-import { error } from 'console';
 import { environment } from '../../../environments/environment';
 
 @Injectable({

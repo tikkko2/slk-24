@@ -71,7 +71,7 @@
       </div>
     </div>
     <div class="input-footer">
-      <form [formGroup]="chatForm">
+      <form [formGroup]="chatForm" (ngSubmit)="sendText()">
         <div class="input-container">
           <textarea
             #textareaElement

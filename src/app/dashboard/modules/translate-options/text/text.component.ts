@@ -189,7 +189,7 @@ export class TextComponent implements OnInit, AfterViewInit {
     if(this.isLoggedIn) {
       this.apiService.postTranslate(url.translate, formData).subscribe(
         (response: any) => {
-          this.translatedText = response.text.replace(/<br\s*\/?>/gi, '');
+          this.translatedText = response.text;
           this.isLoading = false;
           this.copyBtn = !this.copyBtn;
 
@@ -218,7 +218,7 @@ export class TextComponent implements OnInit, AfterViewInit {
     } else {
       this.apiService.postFreeTranslate(url.translate, formData).subscribe(
         (response: any) => {
-          this.translatedText = response.text.replace(/<br\s*\/?>/gi, '');
+          this.translatedText = response.text;
           this.isLoading = false;
           this.copyBtn = !this.copyBtn;
         },
