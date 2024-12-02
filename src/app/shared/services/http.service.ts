@@ -89,7 +89,7 @@ export class HttpService {
     });
     this.requestCount++;
     sessionStorage.setItem('requestCount', this.requestCount.toString());
-    return this._http.post(`${this.host}${apiUrl}`, JSON.stringify(data), {
+    return this._http.post(`${this.host}${apiUrl}`, data, {
       headers,
     });
   }
@@ -97,7 +97,7 @@ export class HttpService {
   postContent(apiUrl: string, data: any) {
     this.requestCount++;
     sessionStorage.setItem('requestCount', this.requestCount.toString());
-    return this._http.post(`${this.host}${apiUrl}`, JSON.stringify(data));
+    return this._http.post(`${this.host}${apiUrl}`, data);
   }
 
   postFreeWriter(apiUrl: string, data: any) {

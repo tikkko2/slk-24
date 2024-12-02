@@ -171,8 +171,8 @@ export class TextComponent implements OnInit, AfterViewInit {
       this._router.navigate(['/services/balance'])
       return;
     }
-    if (this.isGeorgian(this.chatForm.value.text ?? '')) {
-      this.selectedLanguageID = '2'
+    if (this.isGeorgian(this.chatForm.value.text ?? '') && this.selectedLanguageID == '1') {
+      this.selectedLanguageID = '2';
       this.selectedENG = true;
       this.selectedGEO = false;
     }
