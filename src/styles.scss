@@ -274,7 +274,7 @@ body {
 /// translate component ///
 
 .translate-container {
-  height: fit-content;
+  height: 100%;
   .translate-content,
   .translated-content {
     border-radius: 10px;
@@ -283,7 +283,7 @@ body {
       rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   }
   .translate-content {
-    height: fit-content;
+    height: 100%;
     position: relative;
     textarea {
       min-height: 200px;
@@ -296,6 +296,7 @@ body {
     }
   }
   .translated-content {
+    height: 100%;
     min-height: 232px;
     position: relative;
     .bi-copy {

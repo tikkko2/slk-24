@@ -6,6 +6,7 @@ import { Category } from '../interfaces/category.interface';
 import { FreeServiceService } from './free-service.service';
 import { Language } from '../interfaces/language.interface';
 import { RequestHistory } from '../interfaces/request-history.interface';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,20 +17,13 @@ export class ProductCategoryService {
 
   constructor(
     private http: HttpClient,
-    private freeService: FreeServiceService
+    private freeService: FreeServiceService,
   ) {
     this.host = environment.apiUrl;
   }
 
   getProductCategory(apiUrl: string): Observable<Category[]> {
-    const auth: any = localStorage.getItem('authorize');
-    const newToken = JSON.parse(auth);
-    const token: string = newToken.accessToken;
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    return this.http.get<Category[]>(`${this.host}${apiUrl}`, {headers});
+    return this.http.get<Category[]>(`${this.host}${apiUrl}`);
   }
 
   getFreeProductCategory(apiUrl: string): Observable<Category[]> {
@@ -41,14 +35,7 @@ export class ProductCategoryService {
   }
 
   getLanguage(apiUrl: string): Observable<Language[]> {
-    const auth: any = localStorage.getItem('authorize');
-    const newToken = JSON.parse(auth);
-    const token: string = newToken.accessToken;
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    return this.http.get<Language[]>(`${this.host}${apiUrl}`, {headers});
+    return this.http.get<Language[]>(`${this.host}${apiUrl}`);
   }
 
   getFreeLanguage(apiUrl: string): Observable<Language[]> {
@@ -60,13 +47,6 @@ export class ProductCategoryService {
   }
 
   getHistory(apiUrl: string, userId: string): Observable<RequestHistory[]> {
-    const auth: any = localStorage.getItem('authorize');
-    const newToken = JSON.parse(auth);
-    const token: string = newToken.accessToken;
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    return this.http.get<RequestHistory[]>(`${this.host}${apiUrl}${userId}`, {headers});
+    return this.http.get<RequestHistory[]>(`${this.host}${apiUrl}${userId}`);
   }
 }

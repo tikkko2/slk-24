@@ -14,4 +14,5 @@ export const url = {
   language: '/api/Language',
   history: '/api/UserRequestLog/by-user/',
   lawyer: '/api/Content/prompt',
+  enhance: '/api/UserContent/enhance-translate'
 };

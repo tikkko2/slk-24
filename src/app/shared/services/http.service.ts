@@ -22,9 +22,7 @@ export class HttpService {
 
   constructor(
     private _http: HttpClient,
-    private authService: AuthService,
     private freeService: FreeServiceService,
-    private jwt_decode: JwtDecodeService
   ) {
     this.host = environment.apiUrl;
   }
@@ -145,6 +143,10 @@ export class HttpService {
     return this._http.post(`${this.host}${apiUrl}`, JSON.stringify(data), {
       headers,
     });
+  }
+
+  enhanceTranslation(apiUrl: string, data: any) {
+    return this._http.post(`${this.host}${apiUrl}`, data);
   }
 
   hasExceededFreeRequests(): boolean {

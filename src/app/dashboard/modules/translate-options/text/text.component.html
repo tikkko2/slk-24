@@ -7,10 +7,10 @@
           {{ "translate.language-detection" | transloco }}
         </p>
       </div>
-      <div class="translate-content">
+      <div class="translate-content d-flex flex-column">
         <textarea
           #textareaElement
-          class="form-control shadow-none"
+          class="form-control shadow-none flex-grow-1"
           [placeholder]="'translate.text-to-be-translated' | transloco"
           [maxlength]="maxChars"
           formControlName="text"
@@ -29,31 +29,6 @@
 
     <div class="col-12 col-lg-6">
       <div class="d-flex align-items-center justify-content-end">
-        <!-- <select
-          id="languageSelect"
-          (change)="onInput($event)"
-          class="form-select product-selection c-p shadow-none mx-w-15"
-          aria-label="Large select example"
-          [(ngModel)]="selectedLanguage"
-          [ngModelOptions]="{ standalone: true }"
-          [ngClass]="{
-            'error-text': languageNotSelected && selectedLanguage === '0',
-            'selected-language-active':
-              selectedLanguage && (selectedLanguage !== '0' && selectedLanguage !== '1' && selectedLanguage !== '2')
-          }"
-          required
-        >
-          <option selected value="0" disabled>
-            {{ "translate.language-options" | transloco }}
-          </option>
-          <option *ngFor="let language of languages" [value]="language.id">
-            {{
-              this._transloco.getActiveLang() == "ge"
-                ? language.nameGeo
-                : language.name
-            }}
-          </option>
-        </select> -->
         <div
           class="language-tr-div"
           (click)="chooseGe()"
@@ -74,11 +49,13 @@
           class="language-tr-div"
           [ngClass]="selectedOther ? 'selected-lanp-active' : ''"
         >
-          <p>{{
-            this._transloco.getActiveLang() == "ge"
-              ? this.selectedLanguage.nameGeo
-              : this.selectedLanguage.name
-          }}</p>
+          <p>
+            {{
+              this._transloco.getActiveLang() == "ge"
+                ? this.selectedLanguage.nameGeo
+                : this.selectedLanguage.name
+            }}
+          </p>
         </div>
         <button
           mat-icon-button
@@ -105,15 +82,19 @@
       </div>
       <div class="translated-content p-2 position-relative">
         <div class="translated-div">
-          <!-- <div class="loader" *ngIf="isLoading"></div> -->
+          <div class="check-original lh-1 pb-2" *ngIf="toggleOriginBtn">
+            <span class="check-original-text text-uppercase" (click)="toggleTextView()">
+              {{ toggleOrigin ? 'Check Enhanced' : 'Check Original' }}
+            </span>
+          </div>
           <div class="loader" *ngIf="isLoading">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
-        </div>
+          </div>
           <p
-          *ngIf="!isLoading"
-            [innerHTML]="translatedText"
+            *ngIf="!isLoading"
+            [innerHTML]="translatedText || originalText"
             class="pe-3 text-break"
             #generatedResponse
           ></p>
@@ -126,36 +107,9 @@
       </div>
     </div>
   </div>
-  <!-- <div class="text-center py-5">
-    <div class="btn-group dropup-center dropup">
-      <button
-        type="button"
-        class="content-btn"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-      >
-        <i class="bi bi-cloud-arrow-up"></i>
-        {{ "attach-file" | transloco }}
-      </button>
-      <ul class="dropdown-menu">
-        <li (click)="onImage()">
-          <span class="dropdown-item c-p">{{
-            "translate.photo" | transloco
-          }}</span>
-        </li>
-        <li (click)="onDoc()">
-          <span class="dropdown-item c-p">{{
-            "translate.document" | transloco
-          }}</span>
-        </li>
-      </ul>
-    </div>
-  </div> -->
-  <!-- <div class="text-center py-5">
-    <button class="button content-btn" (click)="sendText()">
-      <span class="button-content">{{
-        "translate.translate" | transloco
-      }}</span>
+  <div class="text-center py-5" *ngIf="enhanceBtn">
+    <button class="button content-btn" [disabled]="enhanceBtnDisable" [class.disabled_enhance]="enhanceBtnDisable" (click)="enhanceTranslation()">
+      <span class="button-content">{{ "translate.enhance" | transloco }}</span>
     </button>
-  </div> -->
+  </div>
 </form>

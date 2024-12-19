@@ -11,7 +11,6 @@ import { HttpService } from '../../../../shared/services/http.service';
 import { AuthService } from '../../../../shared/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { BalanceService } from '../../../../shared/services/balance.service';
-import { TranslateModel } from '../../../../shared/models/translate.model';
 import { url } from '../../../../shared/data/api';
 import { SafeUrl } from '@angular/platform-browser';
 import { Language } from '../../../../shared/interfaces/language.interface';
@@ -24,7 +23,6 @@ import { TranslateActiveService } from '../../../../shared/services/translate-ac
 import { ImageComponent } from '../image/image.component';
 import { DocComponent } from '../doc/doc.component';
 import { animate, style, transition, trigger } from '@angular/animations';
-import e from 'express';
 
 @Component({
   selector: 'app-text',
@@ -64,6 +62,12 @@ export class TextComponent implements OnInit, AfterViewInit {
   textareaContent: string = '';
   imageUrl: SafeUrl | null = null;
 
+  enhanceBtn: boolean = false;
+  enhanceBtnDisable: boolean = false;
+  isEnhanced: boolean = false;
+  toggleOrigin: boolean = false;
+  toggleOriginBtn: boolean = false;
+
   isLoading: boolean = false;
   selectedLanguage: any;
   selectedLanguageID = '1';
@@ -75,6 +79,8 @@ export class TextComponent implements OnInit, AfterViewInit {
   selectedOther = false;
 
   translatedText: string = '';
+  originalText: string = '';
+  enhancedText: string = '';
 
   languages: Language[] = [];
 
@@ -97,6 +103,7 @@ export class TextComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.isLoggedIn = this.authService.isAuthenticated();
     this.selectedGEO = true;
 
     this.freeService.getToken().subscribe((value) => (this.fakeToken = value));
@@ -160,7 +167,8 @@ export class TextComponent implements OnInit, AfterViewInit {
       return;
     }
     if (
-      this.apiService.hasExceededFreeRequests() && !this.authService.isAuthenticated()
+      this.apiService.hasExceededFreeRequests() &&
+      !this.authService.isAuthenticated()
     ) {
       this.toastr.error(this._transloco.translate('error-toastr.registration'));
       this._router.navigate(['/sign-up']);
@@ -168,10 +176,13 @@ export class TextComponent implements OnInit, AfterViewInit {
     }
     if (this.balance <= 0) {
       this.toastr.error(this._transloco.translate('error-toastr.balance'));
-      this._router.navigate(['/services/balance'])
+      this._router.navigate(['/services/balance']);
       return;
     }
-    if (this.isGeorgian(this.chatForm.value.text ?? '') && this.selectedLanguageID == '1') {
+    if (
+      this.isGeorgian(this.chatForm.value.text ?? '') &&
+      this.selectedLanguageID == '1'
+    ) {
       this.selectedLanguageID = '2';
       this.selectedENG = true;
       this.selectedGEO = false;
@@ -186,12 +197,14 @@ export class TextComponent implements OnInit, AfterViewInit {
     formData.append('files', '[]');
     formData.append('isPdf', 'false');
 
-    if(this.isLoggedIn) {
+    if (this.isLoggedIn) {
       this.apiService.postTranslate(url.translate, formData).subscribe(
         (response: any) => {
           this.translatedText = response.text;
+          this.originalText = response.text;
           this.isLoading = false;
           this.copyBtn = !this.copyBtn;
+          this.enhanceBtn = !this.enhanceBtn;
 
           var user = this.authService.userInfo();
           if (this.isLoggedIn) {
@@ -211,8 +224,10 @@ export class TextComponent implements OnInit, AfterViewInit {
           }
         },
         (error) => {
-          this.toastr.error(this._transloco.translate('error-toastr.valid-word'));
-          this.isLoading = false;
+          this.toastr.error(
+            this._transloco.translate('error-toastr.valid-word')
+          );
+          console.log(this.enhanceBtn);
         }
       );
     } else {
@@ -221,13 +236,51 @@ export class TextComponent implements OnInit, AfterViewInit {
           this.translatedText = response.text;
           this.isLoading = false;
           this.copyBtn = !this.copyBtn;
+          console.log(this.enhanceBtn);
         },
         (error) => {
-          this.toastr.error(this._transloco.translate('error-toastr.valid-word'));
+          this.toastr.error(
+            this._transloco.translate('error-toastr.valid-word')
+          );
           this.isLoading = false;
         }
       );
     }
+  }
+
+  enhanceTranslation() {
+    this.toggleOriginBtn = false;
+    this.isLoading = true;
+    this.copyBtn = false;
+    var formData = new FormData();
+    formData.append('userInput', this.chatForm.value.text ?? '');
+    formData.append('translateOutput', this.originalText);
+    formData.append('targetLanguageId', this.selectedLanguageID);
+    formData.append('sourceLanguageId', this.selectedSourceLanguage);
+    console.log(formData);
+    this.apiService.enhanceTranslation(url.enhance, formData).subscribe(
+      (response: any) => {
+        this.translatedText = response.text;
+        this.enhancedText = response.text;
+        this.isLoading = false;
+        this.isEnhanced = true;
+        this.copyBtn = true;
+        this.toggleOriginBtn = true;
+        this.enhanceBtnDisable = true;
+      },
+      (error) => {
+        this.toastr.error(this._transloco.translate('error-toastr.valid-word'));
+        this.isLoading = false;
+      }
+    );
+  }
+
+  toggleTextView() {
+    this.toggleOrigin = !this.toggleOrigin;
+    this.translatedText = this.isEnhanced
+      ? this.originalText
+      : this.enhancedText;
+    this.isEnhanced = !this.isEnhanced;
   }
 
   deleteById(id: any): void {

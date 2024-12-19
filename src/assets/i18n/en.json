@@ -69,7 +69,8 @@
     "empty-file": "No file chosen",
     "empty-photo": "No image chosen",
     "upload-img": "Upload a photo(s)!",
-    "upload-file": "Upload a file(s)!"
+    "upload-file": "Upload a file(s)!",
+    "enhance": "Enhance"
   },
   "mailman": {
     "title": "Mailman",
