@@ -225,9 +225,9 @@ export class TextComponent implements OnInit, AfterViewInit {
         },
         (error) => {
           this.toastr.error(
-            this._transloco.translate('error-toastr.valid-word')
+            this._transloco.translate('error-toastr.balance')
           );
-          console.log(this.enhanceBtn);
+          this.isLoading = false;
         }
       );
     } else {
@@ -236,11 +236,10 @@ export class TextComponent implements OnInit, AfterViewInit {
           this.translatedText = response.text;
           this.isLoading = false;
           this.copyBtn = !this.copyBtn;
-          console.log(this.enhanceBtn);
         },
         (error) => {
           this.toastr.error(
-            this._transloco.translate('error-toastr.valid-word')
+            this._transloco.translate('error-toastr.balance')
           );
           this.isLoading = false;
         }
@@ -269,7 +268,7 @@ export class TextComponent implements OnInit, AfterViewInit {
         this.enhanceBtnDisable = true;
       },
       (error) => {
-        this.toastr.error(this._transloco.translate('error-toastr.valid-word'));
+        this.toastr.error(this._transloco.translate('error-toastr.balance'));
         this.isLoading = false;
       }
     );
