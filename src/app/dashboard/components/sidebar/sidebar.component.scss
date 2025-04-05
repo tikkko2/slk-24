@@ -1,34 +1,13 @@
-.loggedin-link:hover, .loggedin-link-active {
+.loggedin-link:hover,
+.loggedin-link-active {
   background-color: #3b5af328 !important;
-  color: black !important;
+  fill: black !important;
 }
-
-// .active::before, .nav-link:hover::before {
-//   content: '';
-//   background-color: #3b59f3;
-//   border-radius: 0 1rem 1rem 0;
-//   width: 5px;
-//   position: absolute;
-//   height: 45px;
-//   z-index: 11;
-//   transform: translateX(-2rem);
-// }
-
-// .loggedin-link-active::before, .loggedin-link:hover::before {
-//   content: '';
-//   background-color: #3b5af328;
-//   border-radius: 0 1rem 1rem 0;
-//   width: 5px;
-//   position: absolute;
-//   height: 40px;
-//   z-index: 11;
-//   transform: translateX(-2rem);
-// }
 
 *::-webkit-scrollbar {
   height: 50%;
   width: 0.2rem !important;
-  background-color: #eeeeee !important; /* or add it to the track */
+  background-color: #eeeeee !important;
   border-radius: 1rem;
 }
 

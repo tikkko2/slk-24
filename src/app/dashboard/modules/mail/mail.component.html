@@ -7,7 +7,7 @@
         <div class="col-12 col-lg-6">
           <select
             id="languageSourceSelect"
-            style="max-width: 15rem;"
+            style="max-width: 15rem"
             class="form-select product-selection c-p shadow-none mt-5 mb-4"
             aria-label="Large select example"
             [(ngModel)]="emailFormId"
@@ -19,8 +19,13 @@
             <option value="3">{{ "mailman.f3" | transloco }}</option>
           </select>
 
-          <div class="translate-content"
-          [ngClass]="{'select-error': chatForm.get('text')?.invalid && (chatForm.get('text')?.touched || chatForm.get('text')?.dirty)}"
+          <div
+            class="translate-content"
+            [ngClass]="{
+              'select-error':
+                chatForm.get('text')?.invalid &&
+                (chatForm.get('text')?.touched || chatForm.get('text')?.dirty)
+            }"
           >
             <textarea
               #textareaElement
@@ -47,7 +52,9 @@
             aria-label="Large select example"
             [(ngModel)]="selectedLanguage"
             [ngModelOptions]="{ standalone: true }"
-            [ngClass]="{'error-text': notSelectedLanguage && selectedLanguage == 0}"
+            [ngClass]="{
+              'error-text': notSelectedLanguage && selectedLanguage == 0
+            }"
             required
           >
             <option selected value="0" disabled>

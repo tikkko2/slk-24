@@ -173,6 +173,10 @@ body {
   background-color: #3b59f3;
   color: white;
   transition: all 0.15s ease-in-out;
+  svg {
+    width: 16px;
+    fill: white;
+  }
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
       rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
@@ -255,10 +259,19 @@ body {
   align-items: center;
   margin-bottom: 7px;
   color: black;
+  svg {
+    fill: #2c3035;
+    width: 18px;
+    margin: 4px 2px;
+    height: 20px;
+  }
 }
 .nav .nav-link:hover {
   background-color: #3b59f3 !important;
   color: white !important;
+  svg {
+    fill: white;
+  }
 }
 .nav p {
   font-size: 14px;
@@ -268,6 +281,9 @@ body {
 .nav .active {
   background-color: #3b59f3 !important;
   color: white !important;
+  svg {
+    fill: white;
+  }
 }
 /////////// SIDEBAR ///////////
 
@@ -471,6 +487,11 @@ body {
   .custom-file-upload {
     display: inline-block;
     cursor: pointer;
+    svg {
+      width: 16px;
+      fill: rgb(73, 73, 73);
+      margin-bottom: 2px;
+    }
     i {
       color: rgb(73, 73, 73);
     }
@@ -536,7 +557,6 @@ body {
 }
 /////////// ERRORs /////////////
 
-
 .language-tr-div {
   p {
     margin: 0;
@@ -553,7 +573,8 @@ body {
   }
 }
 
-#languageSelect, #languageSourceSelect {
+#languageSelect,
+#languageSourceSelect {
   padding: 0.75rem 1rem;
   margin-right: 10px;
   border-bottom: 2px solid rgb(255, 255, 255);
@@ -562,7 +583,8 @@ body {
   cursor: pointer;
 }
 
-.selected-lanp-active, .auto-language {
+.selected-lanp-active,
+.auto-language {
   background-color: rgb(248, 248, 248);
   border-bottom: 2px solid blue !important;
 }
@@ -573,7 +595,8 @@ body {
 }
 
 // HOME COMPONENT //
-.home-nav, .z-999 {
+.home-nav,
+.z-999 {
   z-index: 999 !important;
 }
 
@@ -601,7 +624,6 @@ canvas {
 }
 // HOME COMPONENT //
 
-
 .mat-mdc-menu-content {
   max-height: 300px !important;
 }
@@ -618,7 +640,7 @@ canvas {
 .acc-del {
   padding: 5px 15px;
   border-radius: 1rem;
-  transition: all .25s ease-in-out;
+  transition: all 0.25s ease-in-out;
   color: red;
   &:hover {
     background-color: rgba(255, 0, 0, 0.5);
@@ -626,10 +648,11 @@ canvas {
   }
 }
 
-.del-acc-btn, .close-dialog-delacc {
+.del-acc-btn,
+.close-dialog-delacc {
   padding: 5px 15px;
   border-radius: 1rem;
-  transition: all .25s ease-in-out;
+  transition: all 0.25s ease-in-out;
   border: none;
   outline: none;
 }

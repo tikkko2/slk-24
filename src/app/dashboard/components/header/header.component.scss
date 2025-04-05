@@ -10,7 +10,7 @@ ul {
   li {
     list-style: none;
     cursor: pointer;
-    img{
+    img {
       width: 40px;
     }
   }
@@ -22,6 +22,11 @@ ul {
 
 .dropdown-user {
   position: relative;
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: white;
+  }
   .user-div {
     display: flex;
     justify-content: center;
@@ -32,7 +37,7 @@ ul {
     border-radius: 7px;
     cursor: pointer;
     &:hover {
-    background-color: #0e33ed;
+      background-color: #0e33ed;
     }
     i {
       color: white;
