@@ -38,7 +38,7 @@ export class MailComponent implements OnInit {
 
   activeComponent: any = TextComponent;
 
-  maxChars: number = 2500;
+  maxChars: number = 5000;
 
   isLoggedIn: boolean = false;
   userID: string = '';

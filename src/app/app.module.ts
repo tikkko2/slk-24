@@ -16,13 +16,16 @@ import { AuthInterceptor } from './shared/services/auth-interceptor.interceptor'
 import { PixelModule } from 'ngx-multi-pixel';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { HomeModule } from './home/home.module';
+import { PurchaseModalComponent } from './shared/components/purchase-modal/purchase-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignInComponent,
     SignUpComponent,
-    ErrorComponent
+    ErrorComponent,
+    PurchaseModalComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +34,7 @@ import { HomeModule } from './home/home.module';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MatDialogModule,
     ToastrModule.forRoot(),
     PixelModule.forRoot({ enabled: true, pixelId: ["536291588920812"]}),
     TranslocoRootModule,

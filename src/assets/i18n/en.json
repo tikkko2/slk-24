@@ -70,7 +70,13 @@
     "empty-photo": "No image chosen",
     "upload-img": "Upload a photo(s)!",
     "upload-file": "Upload a file(s)!",
-    "enhance": "Enhance"
+    "enhance": "Enhance",
+    "enhanced-translation": "Enhanced Translation",
+    "standard-translation": "Standard Translation",
+    "enhanced": "Enhanced",
+    "original": "Original",
+    "copy-to-clipboard": "Copy to clipboard",
+    "enhance-description": "AI will refine this translation to make it sound more natural and context-aware"
   },
   "mailman": {
     "title": "Mailman",
@@ -211,6 +217,26 @@
         "address": "Chubinashvili 50, Tbilisi, Georgia"
       },
       "copyright": "Copyright 2024 Suliko AI. All rights reserved."
+    },
+    "balance-sub": {
+      "buy": "Buy",
+      "sub1": "Standard",
+      "sub1-p": "Subscription",
+      "sub2": "Premium",
+      "sub2-p": "₾30 Subscription",
+      "sub3": "Write your price",
+      "sub3-p": "Individual subscription",
+      "purchase-title": "Purchase Information",
+      "package": "Package",
+      "amount": "Amount",
+      "bank-info": "Bank Information",
+      "bank-name": "Bank Name",
+      "account-number": "Account Number",
+      "recipient": "Recipient",
+      "contact-info": "For any questions or to confirm your payment, please contact us at:",
+      "email": "Email",
+      "phone": "Phone",
+      "close": "Close"
     }
   }
 }

@@ -8,7 +8,7 @@
         <h1 class="mt-4 fw-bold">₾ 9.50</h1>
         <hr class="my-5" />
         <div>
-          <button type="button" class="buy">{{ "balance-sub.buy" | transloco }}</button>
+          <button type="button" class="buy" (click)="buyStandardPackage()">{{ "balance-sub.buy" | transloco }}</button>
         </div>
       </div>
       <div class="card-b col-md-4 px-4 py-5 bg-white text-center">
@@ -17,7 +17,7 @@
         <h1 class="mt-4 fw-bold">₾ 19.50</h1>
         <hr class="my-5" />
         <div>
-          <button type="button" class="buy">{{ "balance-sub.buy" | transloco }}</button>
+          <button type="button" class="buy" (click)="buyPremiumPackage()">{{ "balance-sub.buy" | transloco }}</button>
         </div>
       </div>
       <div class="card-b col-md-4 px-4 py-5 bg-white text-center">

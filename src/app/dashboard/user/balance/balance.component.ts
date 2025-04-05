@@ -1,16 +1,11 @@
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  Inject,
-  OnInit,
-  PLATFORM_ID,
-} from '@angular/core';
+import { Component, ElementRef, HostListener, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { BalanceService } from '../../../shared/services/balance.service';
 import { AuthService } from '../../../shared/services/auth.service';
 import { HttpService } from '../../../shared/services/http.service';
 import { url } from '../../../shared/data/api';
 import { isPlatformBrowser } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { PurchaseModalComponent } from '../../../shared/components/purchase-modal/purchase-modal.component';
 
 @Component({
   selector: 'app-balance',
@@ -26,7 +21,8 @@ export class BalanceComponent implements OnInit {
   constructor(
     private _balance: BalanceService,
     private _auth: AuthService,
-    private _api: HttpService
+    private _api: HttpService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -48,7 +44,35 @@ export class BalanceComponent implements OnInit {
     }
   }
 
-  clickToBuy() {}
+  clickToBuy() {
+    let packageName = 'Custom';
+    let amountValue = this.amount.replace('₾', '').trim();
+    
+    // If amount is empty, set a default value
+    if (!amountValue) {
+      amountValue = '30.00';
+    }
+    
+    this.openPurchaseDialog(packageName, amountValue);
+  }
+  
+  buyStandardPackage() {
+    this.openPurchaseDialog('Standard', '9.50');
+  }
+  
+  buyPremiumPackage() {
+    this.openPurchaseDialog('Premium', '19.50');
+  }
+
+  openPurchaseDialog(packageName: string, amount: string) {
+    this.dialog.open(PurchaseModalComponent, {
+      width: '500px',
+      data: {
+        packageName: packageName,
+        amount: '₾' + amount
+      }
+    });
+  }
 
   onKeyUp(event: any) {
     this.formatCurrency(event.target);
