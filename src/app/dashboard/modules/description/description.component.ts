@@ -19,14 +19,14 @@ import { MatSelectChange } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 
-
 @Component({
   selector: 'app-description',
   templateUrl: './description.component.html',
-  styleUrl: './description.component.scss'
+  styleUrl: './description.component.scss',
 })
 export class DescriptionComponent {
-  @ViewChild('generatedResponse', { static: false }) generatedResponse!: ElementRef;
+  @ViewChild('generatedResponse', { static: false })
+  generatedResponse!: ElementRef;
   selectedCategoryName: string = '';
   userMessageText: string = '';
   responseText: any;
@@ -68,14 +68,14 @@ export class DescriptionComponent {
   });
 
   ngOnInit(): void {
-
-    var user = this.authService.userInfo();
-
     this.initializeFilterOptions();
     this.checkScreenWidth();
-    this.balanceService.getBalance().subscribe(value => this.balance = value);
+    this.balanceService
+      .getBalance()
+      .subscribe((value) => (this.balance = value));
 
     if (this.isLoggedIn) {
+      var user = this.authService.userInfo();
       this.userID = user.UserId;
       this.apiService.get(url.user, this.userID).subscribe(
         (res) => {
@@ -106,29 +106,31 @@ export class DescriptionComponent {
         }
       );
     }
-
   }
 
   sendText() {
-    if(!this.chatForm.valid && this.selectedProductCategoryId == '') {
+    if (!this.chatForm.valid && this.selectedProductCategoryId == '') {
       this.notProductName = true;
       this.notSelectedCategory = true;
       return;
     }
-    if(this.selectedProductCategoryId == '') {
+    if (this.selectedProductCategoryId == '') {
       this.notSelectedCategory = true;
       return;
     }
     if (!this.chatForm.valid) {
       this.notProductName = true;
       return;
-    };
-    if (this.apiService.hasExceededFreeRequests() && !this.authService.isAuthenticated()) {
+    }
+    if (
+      this.apiService.hasExceededFreeRequests() &&
+      !this.authService.isAuthenticated()
+    ) {
       this.toastr.error(this._transloco.translate('error-toastr.registration'));
       this.router.navigate(['/sign-up']);
       return;
     }
-    if(this.balance <= 0) {
+    if (this.balance <= 0) {
       this.toastr.error(this._transloco.translate('error-toastr.balance'));
       this.router.navigate(['/services/balance']);
       return;
@@ -147,7 +149,7 @@ export class DescriptionComponent {
       []
     );
 
-    if(this.authService.isAuthenticated()) {
+    if (this.authService.isAuthenticated()) {
       this.apiService.postContent(url.content, model).subscribe(
         (response: any) => {
           this.sent = !this.sent;
@@ -155,13 +157,15 @@ export class DescriptionComponent {
           this.isLoading = false;
 
           var user = this.authService.userInfo();
-          if(this.isLoggedIn) {
+          if (this.isLoggedIn) {
             this.userID = user.UserId;
             this.apiService.get(url.user, this.userID).subscribe(
               (res) => {
                 this.userInfoUpdate = JSON.parse(res);
                 this.balanceService.setBalance(this.userInfoUpdate.balance);
-                this.apiService.updateUserInfo('/api/User', this.userInfoUpdate).subscribe();
+                this.apiService
+                  .updateUserInfo('/api/User', this.userInfoUpdate)
+                  .subscribe();
               },
               (err) => {
                 console.log(err);
@@ -185,21 +189,21 @@ export class DescriptionComponent {
           console.error('Error:', error);
           this.isLoading = false;
         }
-      )
+      );
     }
   }
 
   private initializeFilterOptions() {
     this.filterOptions = this.chatForm.get('category')!.valueChanges.pipe(
       startWith(''),
-      map(value => this._FILTER(value || ''))
+      map((value) => this._FILTER(value || ''))
     );
   }
 
   private _FILTER(value: string): Category[] {
     const searchValue = value.toLowerCase();
     const activeLang = this._transloco.getActiveLang();
-    return this.productCategoryList.filter(category => {
+    return this.productCategoryList.filter((category) => {
       if (activeLang === 'ge') {
         return category.name.toLowerCase().includes(searchValue);
       } else {
@@ -214,7 +218,7 @@ export class DescriptionComponent {
 
   saveCategoryName() {
     const selectedCategory = this.productCategoryList.find(
-      category => category.id === this.selectedProductCategoryId
+      (category) => category.id === this.selectedProductCategoryId
     );
     if (selectedCategory) {
       this.selectedCategoryName = selectedCategory.name;

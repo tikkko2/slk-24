@@ -15,6 +15,7 @@ import { DocComponent } from '../doc/doc.component';
 import { TranslateActiveService } from '../../../../shared/services/translate-active.service';
 import { TextComponent } from '../text/text.component';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { LanguageSelectionService } from '../../../../shared/services/language-selection.service';
 
 @Component({
   selector: 'app-image',
@@ -101,11 +102,11 @@ export class ImageComponent {
     private docxService: TextToWordService,
     private languageService: ProductCategoryService,
     public _transloco: TranslocoService,
-    private _translateActive: TranslateActiveService
+    private _translateActive: TranslateActiveService,
+    private languageSelectionService: LanguageSelectionService
   ) {}
 
   ngOnInit() {
-
     this.balanceService
       .getBalance()
       .subscribe((value) => (this.balance = value));
@@ -113,6 +114,23 @@ export class ImageComponent {
       this.languageService.getLanguage(url.language).subscribe(
         (response: any) => {
           this.languages = response;
+          // Load saved languages after languages are loaded
+          const savedSourceLangId = sessionStorage.getItem('imageSelectedSourceLanguage');
+          const savedTargetLangId = sessionStorage.getItem('imageSelectedTargetLanguage');
+          
+          if (savedSourceLangId) {
+            const sourceLanguage = this.languages.find(l => l.id.toString() === savedSourceLangId);
+            if (sourceLanguage) {
+              this.selectSourceLanguage(sourceLanguage, false);
+            }
+          }
+          
+          if (savedTargetLangId) {
+            const targetLanguage = this.languages.find(l => l.id.toString() === savedTargetLangId);
+            if (targetLanguage) {
+              this.selectLanguage(targetLanguage, false);
+            }
+          }
         },
         (error) => {
           console.error('Error fetching languages', error);
@@ -122,6 +140,23 @@ export class ImageComponent {
       this.languageService.getFreeLanguage(url.language).subscribe(
         (response: any) => {
           this.languages = response;
+          // Load saved languages after languages are loaded
+          const savedSourceLangId = sessionStorage.getItem('imageSelectedSourceLanguage');
+          const savedTargetLangId = sessionStorage.getItem('imageSelectedTargetLanguage');
+          
+          if (savedSourceLangId) {
+            const sourceLanguage = this.languages.find(l => l.id.toString() === savedSourceLangId);
+            if (sourceLanguage) {
+              this.selectSourceLanguage(sourceLanguage, false);
+            }
+          }
+          
+          if (savedTargetLangId) {
+            const targetLanguage = this.languages.find(l => l.id.toString() === savedTargetLangId);
+            if (targetLanguage) {
+              this.selectLanguage(targetLanguage, false);
+            }
+          }
         },
         (error) => {
           console.error('Error fetching languages', error);
@@ -270,7 +305,7 @@ export class ImageComponent {
     }
   }
 
-  selectLanguage(lang: any) {
+  selectLanguage(lang: any, saveToStorage: boolean = true) {
     this.selectedLanguage = lang;
     this.selectedLanguageID = lang.id.toString();
     if (this.selectedLanguageID === '1') {
@@ -286,6 +321,9 @@ export class ImageComponent {
       this.selectedGEO = false;
       this.selectedOther = true;
     }
+    if (saveToStorage) {
+      this.languageSelectionService.setImageTargetLanguage(this.selectedLanguageID);
+    }
   }
 
   chooseGe() {
@@ -293,6 +331,7 @@ export class ImageComponent {
     this.selectedLanguageID = '1';
     this.selectedGEO = true;
     this.selectedOther = false;
+    this.languageSelectionService.setImageTargetLanguage(this.selectedLanguageID);
   }
 
   chooseEn() {
@@ -300,9 +339,10 @@ export class ImageComponent {
     this.selectedLanguageID = '2';
     this.selectedENG = true;
     this.selectedOther = false;
+    this.languageSelectionService.setImageTargetLanguage(this.selectedLanguageID);
   }
 
-  selectSourceLanguage(lang: any) {
+  selectSourceLanguage(lang: any, saveToStorage: boolean = true) {
     this.selectedSourceLanguage = lang;
     this.selectedSourceLanguageID = lang.id.toString();
     if (this.selectedSourceLanguageID === '1') {
@@ -318,6 +358,9 @@ export class ImageComponent {
       this.selectedSourceGEO = false;
       this.selectedSourceOther = true;
     }
+    if (saveToStorage) {
+      this.languageSelectionService.setImageSourceLanguage(this.selectedSourceLanguageID);
+    }
   }
 
   chooseSourceGe() {
@@ -325,6 +368,7 @@ export class ImageComponent {
     this.selectedSourceLanguageID = '1';
     this.selectedSourceGEO = true;
     this.selectedSourceOther = false;
+    this.languageSelectionService.setImageSourceLanguage(this.selectedSourceLanguageID);
   }
 
   chooseSourceEn() {
@@ -332,6 +376,7 @@ export class ImageComponent {
     this.selectedSourceLanguageID = '2';
     this.selectedSourceENG = true;
     this.selectedSourceOther = false;
+    this.languageSelectionService.setImageSourceLanguage(this.selectedSourceLanguageID);
   }
 
   onImage() {

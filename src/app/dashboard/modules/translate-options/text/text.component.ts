@@ -23,6 +23,7 @@ import { TranslateActiveService } from '../../../../shared/services/translate-ac
 import { ImageComponent } from '../image/image.component';
 import { DocComponent } from '../doc/doc.component';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { LanguageSelectionService } from '../../../../shared/services/language-selection.service';
 
 @Component({
   selector: 'app-text',
@@ -95,7 +96,8 @@ export class TextComponent implements OnInit, AfterViewInit {
     public _transloco: TranslocoService,
     private freeService: FreeServiceService,
     private _router: Router,
-    private _translateActive: TranslateActiveService
+    private _translateActive: TranslateActiveService,
+    private languageSelectionService: LanguageSelectionService
   ) {
     this.inputSubject.pipe(debounceTime(1000)).subscribe(() => {
       this.sendText();
@@ -115,6 +117,14 @@ export class TextComponent implements OnInit, AfterViewInit {
       this.languageService.getLanguage(url.language).subscribe(
         (response: any) => {
           this.languages = response;
+          // Load saved language after languages are loaded
+          const savedLangId = sessionStorage.getItem('textSelectedTargetLanguage');
+          if (savedLangId) {
+            const language = this.languages.find(l => l.id.toString() === savedLangId);
+            if (language) {
+              this.selectLanguage(language, false);
+            }
+          }
         },
         (error) => {
           console.error('Error fetching languages', error);
@@ -204,7 +214,7 @@ export class TextComponent implements OnInit, AfterViewInit {
           this.originalText = response.text;
           this.isLoading = false;
           this.copyBtn = !this.copyBtn;
-          this.enhanceBtn = !this.enhanceBtn;
+          this.enhanceBtn = true;
 
           var user = this.authService.userInfo();
           if (this.isLoggedIn) {
@@ -286,7 +296,7 @@ export class TextComponent implements OnInit, AfterViewInit {
     this.languages = this.languages.filter((item: any) => item.id !== id);
   }
 
-  selectLanguage(lang: any) {
+  selectLanguage(lang: any, saveToStorage: boolean = true) {
     this.selectedLanguage = lang;
     this.selectedLanguageID = lang.id.toString();
     if (this.selectedLanguageID === '1') {
@@ -302,6 +312,9 @@ export class TextComponent implements OnInit, AfterViewInit {
       this.selectedGEO = false;
       this.selectedOther = true;
     }
+    if (saveToStorage) {
+      this.languageSelectionService.setTextTargetLanguage(this.selectedLanguageID);
+    }
     this.sendText();
   }
 
@@ -310,6 +323,7 @@ export class TextComponent implements OnInit, AfterViewInit {
     this.selectedLanguageID = '1';
     this.selectedGEO = true;
     this.selectedOther = false;
+    this.languageSelectionService.setTextTargetLanguage(this.selectedLanguageID);
     this.sendText();
   }
 
@@ -318,6 +332,7 @@ export class TextComponent implements OnInit, AfterViewInit {
     this.selectedLanguageID = '2';
     this.selectedENG = true;
     this.selectedOther = false;
+    this.languageSelectionService.setTextTargetLanguage(this.selectedLanguageID);
     this.sendText();
   }
 

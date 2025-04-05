@@ -21,6 +21,7 @@ import { ImageComponent } from '../image/image.component';
 import { TranslateActiveService } from '../../../../shared/services/translate-active.service';
 import { TextComponent } from '../text/text.component';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { LanguageSelectionService } from '../../../../shared/services/language-selection.service';
 
 @Component({
   selector: 'app-doc',
@@ -97,7 +98,8 @@ export class DocComponent implements OnInit {
     private docxService: TextToWordService,
     private languageService: ProductCategoryService,
     public _transloco: TranslocoService,
-    private _translateActive: TranslateActiveService
+    private _translateActive: TranslateActiveService,
+    private languageSelectionService: LanguageSelectionService
   ) {}
 
   docTranslateForm = this.builder.group({
@@ -105,7 +107,6 @@ export class DocComponent implements OnInit {
   });
 
   ngOnInit() {
-
     this.balanceService
       .getBalance()
       .subscribe((value) => (this.balance = value));
@@ -113,6 +114,14 @@ export class DocComponent implements OnInit {
       this.languageService.getLanguage(url.language).subscribe(
         (response: any) => {
           this.languages = response;
+          // Load saved language after languages are loaded
+          const savedLangId = sessionStorage.getItem('docSelectedTargetLanguage');
+          if (savedLangId) {
+            const language = this.languages.find(l => l.id.toString() === savedLangId);
+            if (language) {
+              this.selectLanguage(language, false);
+            }
+          }
         },
         (error) => {
           console.error('Error fetching languages', error);
@@ -122,6 +131,14 @@ export class DocComponent implements OnInit {
       this.languageService.getFreeLanguage(url.language).subscribe(
         (response: any) => {
           this.languages = response;
+          // Load saved language after languages are loaded
+          const savedLangId = sessionStorage.getItem('docSelectedTargetLanguage');
+          if (savedLangId) {
+            const language = this.languages.find(l => l.id.toString() === savedLangId);
+            if (language) {
+              this.selectLanguage(language, false);
+            }
+          }
         },
         (error) => {
           console.error('Error fetching languages', error);
@@ -254,7 +271,7 @@ export class DocComponent implements OnInit {
     this.text = `Drag and drop or <span class="text-primary c-p">Browse</span> file(s)`;
   }
 
-  selectLanguage(lang: any) {
+  selectLanguage(lang: any, saveToStorage: boolean = true) {
     this.selectedLanguage = lang;
     this.selectedLanguageID = lang.id.toString();
     if (this.selectedLanguageID === '1') {
@@ -270,6 +287,9 @@ export class DocComponent implements OnInit {
       this.selectedGEO = false;
       this.selectedOther = true;
     }
+    if (saveToStorage) {
+      this.languageSelectionService.setDocTargetLanguage(this.selectedLanguageID);
+    }
   }
 
   chooseGe() {
@@ -277,6 +297,7 @@ export class DocComponent implements OnInit {
     this.selectedLanguageID = '1';
     this.selectedGEO = true;
     this.selectedOther = false;
+    this.languageSelectionService.setDocTargetLanguage(this.selectedLanguageID);
   }
 
   chooseEn() {
@@ -284,6 +305,7 @@ export class DocComponent implements OnInit {
     this.selectedLanguageID = '2';
     this.selectedENG = true;
     this.selectedOther = false;
+    this.languageSelectionService.setDocTargetLanguage(this.selectedLanguageID);
   }
 
   setDropText(lang: string) {
