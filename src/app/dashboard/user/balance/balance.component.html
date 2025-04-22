@@ -1,44 +1,130 @@
 <div class="content-component balance-container">
   <div class="balance-cards mt-5">
-    <h3 class="mb-5 text-center">{{ 'sidebar.balance' | transloco }}: ₾ {{balance}}</h3>
-    <div class="row gap-5 justify-content-center">
-      <div class="card-b col-md-4 px-4 py-5 bg-white text-center">
-        <h5 class="fw-bold">{{ "balance-sub.sub1" | transloco }}</h5>
-        <p>{{ "balance-sub.sub1-p" | transloco }}</p>
-        <h1 class="mt-4 fw-bold">₾ 9.50</h1>
-        <hr class="my-5" />
-        <div>
-          <button type="button" class="buy" (click)="buyStandardPackage()">{{ "balance-sub.buy" | transloco }}</button>
-        </div>
-      </div>
-      <div class="card-b col-md-4 px-4 py-5 bg-white text-center">
-        <h5 class="fw-bold">{{ "balance-sub.sub2" | transloco }}</h5>
-        <p>{{ "balance-sub.sub2-p" | transloco }}</p>
-        <h1 class="mt-4 fw-bold">₾ 19.50</h1>
-        <hr class="my-5" />
-        <div>
-          <button type="button" class="buy" (click)="buyPremiumPackage()">{{ "balance-sub.buy" | transloco }}</button>
-        </div>
-      </div>
-      <div class="card-b col-md-4 px-4 py-5 bg-white text-center">
-        <h5 class="fw-bold">{{ "balance-sub.sub3" | transloco }}</h5>
-        <p style="margin-bottom: 1.4rem">{{ "balance-sub.sub3-p" | transloco }}</p>
-        <input
-          type="text"
-          name="currency-field"
-          id="currency-field"
-          [(ngModel)]="amount"
-          (keyup)="onKeyUp($event)"
-          (blur)="onBlur($event)"
-          placeholder="₾30.00"
-          autocomplete="off"
-          class="text-center fw-bold"
-        />
-        <hr class="my-5" />
-        <div>
-          <button type="button" (click)="clickToBuy()" class="buy">{{ "balance-sub.buy" | transloco }}</button>
-        </div>
-      </div>
+    <!-- Pricing Header -->
+    <div class="pricing-header text-center mb-4">
+      <h2>{{ 'pricing.title' | transloco }}</h2>
+      <p class="text-muted">{{ 'pricing.subtitle' | transloco }}</p>
     </div>
+
+    <!-- Pricing Cards Row -->
+    <div class="row gap-5 justify-content-center">
+      <!-- Standard Package -->
+      <div class="card-b col-lg-4 col-md-6 px-4 py-5 bg-white text-center">
+        <div class="package-header">
+          <span class="package-badge most-popular">{{ 'pricing.badgePopular' | transloco }}</span>
+          <h5 class="fw-bold mt-3">{{ "balance-sub.sub1" | transloco }}</h5>
+          <p class="text-muted">{{ "balance-sub.sub1-p" | transloco }}</p>
+        </div>
+        <h1 class="mt-4 fw-bold price-tag">₾ 9.50</h1>
+        <p class="text-muted">{{ 'pricing.perMonth' | transloco }}</p>
+        <div class="features-list my-4">
+          <div class="feature-item">
+            <i class="feature-icon check"></i>
+            <span>{{ 'features.basicAI' | transloco }}</span>
+          </div>
+          <div class="feature-item">
+            <i class="feature-icon check"></i>
+            <span>{{ 'features.standardSupport' | transloco }}</span>
+          </div>
+          <div class="feature-item">
+            <i class="feature-icon check"></i>
+            <span>{{ 'features.words1000' | transloco }}</span>
+          </div>
+        </div>
+        <hr class="my-4" />
+        <div class="button-container mt-auto">
+          <button type="button" class="buy" (click)="buyStandardPackage()">
+            {{ "balance-sub.buy" | transloco }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Premium Package -->
+      <div class="card-b col-lg-4 col-md-6 px-4 py-5 bg-white text-center premium-card">
+        <div class="package-header">
+          <span class="package-badge premium">{{ 'pricing.badgeValue' | transloco }}</span>
+          <h5 class="fw-bold mt-3">{{ "balance-sub.sub2" | transloco }}</h5>
+          <p class="text-muted">{{ "balance-sub.sub2-p" | transloco }}</p>
+        </div>
+        <h1 class="mt-4 fw-bold price-tag">₾ 19.50</h1>
+        <p class="text-muted">{{ 'pricing.perMonth' | transloco }}</p>
+        <div class="features-list my-4">
+          <div class="feature-item">
+            <i class="feature-icon check"></i>
+            <span>{{ 'features.advancedAI' | transloco }}</span>
+          </div>
+          <div class="feature-item">
+            <i class="feature-icon check"></i>
+            <span>{{ 'features.prioritySupport' | transloco }}</span>
+          </div>
+          <div class="feature-item">
+            <i class="feature-icon check"></i>
+            <span>{{ 'features.words3000' | transloco }}</span>
+          </div>
+          <div class="feature-item">
+            <i class="feature-icon check"></i>
+            <span>{{ 'features.customTemplates' | transloco }}</span>
+          </div>
+        </div>
+        <hr class="my-4" />
+        <div class="button-container mt-auto">
+          <button type="button" class="buy premium-btn" (click)="buyPremiumPackage()">
+            {{ "balance-sub.buy" | transloco }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Custom Package -->
+      <div class="card-b col-lg-4 col-md-6 px-4 py-5 bg-white text-center">
+        <div class="package-header">
+          <span class="package-badge custom">{{ 'pricing.badgeCustom' | transloco }}</span>
+          <h5 class="fw-bold mt-3">{{ "balance-sub.sub3" | transloco }}</h5>
+          <p class="text-muted">{{ "balance-sub.sub3-p" | transloco }}</p>
+        </div>
+        <div class="custom-price-input mt-4">
+          <input
+            type="text"
+            name="currency-field"
+            id="currency-field"
+            [(ngModel)]="amount"
+            (keyup)="onKeyUp($event)"
+            (blur)="onBlur($event)"
+            placeholder="₾30.00"
+            autocomplete="off"
+            class="text-center fw-bold"
+          />
+        </div>
+        <p class="text-muted">{{ 'pricing.customAmountLabel' | transloco }}</p>
+        <div class="features-list my-4">
+          <div class="feature-item">
+            <i class="feature-icon check"></i>
+            <span>{{ 'features.allPremium' | transloco }}</span>
+          </div>
+          <div class="feature-item">
+            <i class="feature-icon check"></i>
+            <span>{{ 'features.support247' | transloco }}</span>
+          </div>
+          <div class="feature-item">
+            <i class="feature-icon check"></i>
+            <span>{{ 'features.customWordLimit' | transloco }}</span>
+          </div>
+        </div>
+        <hr class="my-4" />
+        <div class="button-container mt-auto">
+          <button type="button" class="buy custom-btn" (click)="clickToBuy()">
+            {{ "balance-sub.buy" | transloco }}
+          </button>
+        </div>
+      </div>
+    </div> <!-- End Row -->
+
+  </div> <!-- End balance-cards -->
+
+  <!-- Floating Balance Display -->
+  <div class="balance-float">
+    <span class="balance-float-label">{{ 'sidebar.balance' | transloco }}:</span>
+    <span class="balance-float-amount fw-bold">₾ {{balance}}</span>
   </div>
-</div>
+  <!-- End Floating Balance Display -->
+
+</div> <!-- End balance-container -->

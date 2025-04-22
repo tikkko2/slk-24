@@ -46,8 +46,6 @@
   "send": "Send",
   "productname": "Product Name",
   "search": "Search",
-  "test-title1": "The site is working in test mode",
-  "test-title2": "Test mode",
   "attach-file": "Attach File",
   "tr-text-btn": "Text Translate",
   "translate": {
@@ -142,9 +140,42 @@
     "sub1": "Standard",
     "sub1-p": "Subscription",
     "sub2": "Premium",
-    "sub2-p": "₾30 Subscription",
+    "sub2-p": "₾30 Subscription", 
     "sub3": "Write your price",
-    "sub3-p": "Individual subscription"
+    "sub3-p": "Individual subscription",
+   
+    "purchase-title": "Purchase Information",
+    "package": "Package",
+    "amount": "Amount",
+    "bank-info": "Bank Information",
+    "bank-name": "Bank Name",
+    "account-number": "Account Number",
+    "recipient": "Recipient",
+    "contact-info": "For any questions or to confirm your payment, please contact us at:",
+    "email": "Email",
+    "phone": "Phone",
+    "close": "Close"
+  },
+  "pricing": { 
+    "title": "Choose the Perfect Plan for You",
+    "subtitle": "Select a package that best suits your needs",
+    "badgePopular": "Most Popular",
+    "badgeValue": "Best Value",
+    "badgeCustom": "Custom",
+    "perMonth": "per month",
+    "customAmountLabel": "custom amount"
+  },
+  "features": { 
+    "basicAI": "Basic AI Features",
+    "standardSupport": "Standard Support",
+    "words1000": "1000 Words/Month",
+    "advancedAI": "Advanced AI Features",
+    "prioritySupport": "Priority Support",
+    "words3000": "3000 Words/Month",
+    "customTemplates": "Custom Templates",
+    "allPremium": "All Premium Features",
+    "support247": "24/7 Support",
+    "customWordLimit": "Custom Word Limit"
   },
   "error": {
     "err1": "Looks like you’ve got lost...",

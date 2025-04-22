@@ -38,11 +38,6 @@
     />
   </div>
 
-  <h6 class="m-0 p-0 text-muted">
-    {{
-      isSmallScreen ? ("test-title2" | transloco) : ("test-title1" | transloco)
-    }}
-  </h6>
   <div class="d-flex align-items-center justify-content-between">
     <div class="sound" *ngIf="!this._auth.isAuthenticated()">
       <div class="main" (click)="dropdownOpen()">

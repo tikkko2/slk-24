@@ -70,7 +70,7 @@ export class MailComponent implements OnInit {
     private balanceService: BalanceService,
     public _transloco: TranslocoService,
     private languageService: ProductCategoryService
-  ) {}
+  ) { }
 
   ngOnInit() {
 
@@ -78,7 +78,7 @@ export class MailComponent implements OnInit {
       .getBalance()
       .subscribe((value) => (this.balance = value));
     this.adjustTextareaHeight();
-    if(this.isLoggedIn) {
+    if (this.isLoggedIn) {
       this.languageService.getLanguage(url.language).subscribe(
         (response: any) => {
           this.languages = response;
@@ -110,11 +110,11 @@ export class MailComponent implements OnInit {
   });
 
   sendText() {
-    if(this.selectedLanguage === 0) {
+    if (this.selectedLanguage === 0) {
       this.notSelectedLanguage = true;
       return;
     }
-    if (!this.chatForm.valid) {
+    if (!this.chatForm.valid || !this.chatForm.value.text?.trim()) {
       this.toastr.error(this._transloco.translate('error-toastr.email-text'));
       return;
     };
@@ -142,7 +142,7 @@ export class MailComponent implements OnInit {
       Number(this.emailFormId)
     );
 
-    if(!this.authService.isAuthenticated()) {
+    if (!this.authService.isAuthenticated()) {
       this.apiService.postFreeEmail(url.email, model).subscribe(
         (response: any) => {
           this.translatedText = response.text;

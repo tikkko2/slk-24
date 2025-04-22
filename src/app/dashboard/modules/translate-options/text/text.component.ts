@@ -174,6 +174,7 @@ export class TextComponent implements OnInit, AfterViewInit {
       return;
     }
     if (!this.chatForm.valid) {
+      this.toastr.error(this._transloco.translate('error-toastr.translate-text'));
       return;
     }
     if (
