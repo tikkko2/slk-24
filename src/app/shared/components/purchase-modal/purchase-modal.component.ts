@@ -27,11 +27,11 @@ export interface PurchaseDialogData {
         </p>
         
         <p class="bank-detail">
-          <span class="building-icon"></span> {{ bankNameLabel }}: Bank of Georgia
+          <span class="building-icon"></span> {{ bankNameLabel }}: Paysera Bank
         </p>
         
         <p class="bank-detail">
-          <span class="card-icon"></span> {{ accountNumberLabel }}: GE123456789012345678
+          <span class="card-icon"></span> {{ accountNumberLabel }}: GE58PS0000010017927595
         </p>
         
         <p class="bank-detail mb-4">
