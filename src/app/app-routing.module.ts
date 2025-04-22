@@ -65,7 +65,6 @@ const routes: Routes = [
       {
         path: 'balance',
         component: BalanceComponent,
-        canActivate: [userGuard]
       },
       {
         path: 'history',
