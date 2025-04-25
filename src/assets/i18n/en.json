@@ -56,6 +56,7 @@
     "text-title": "Text - Translate every 45 words and/or 250 characters for 10 tetri",
     "photo": "Photo",
     "document": "Document",
+    "ocr": "OCR",
     "language-detection": "Language detection",
     "language-main": "Original language",
     "language-options": "Target language",
@@ -74,7 +75,11 @@
     "enhanced": "Enhanced",
     "original": "Original",
     "copy-to-clipboard": "Copy to clipboard",
-    "enhance-description": "AI will refine this translation to make it sound more natural and context-aware"
+    "enhance-description": "AI will refine this translation to make it sound more natural and context-aware",
+    "ocr-processing": "OCR Processing",
+    "ocr-process": "Process Document",
+    "ocr-success": "Document processed successfully! The file has been downloaded.",
+    "ocr-download-success": "File processed and downloaded successfully"
   },
   "mailman": {
     "title": "Mailman",

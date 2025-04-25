@@ -28,6 +28,7 @@ import { TranslateComponent } from './modules/translate/translate.component';
 import { HistoryComponent } from './user/history/history.component';
 import { AuthRequireComponent } from '../shared/components/auth-require/auth-require.component';
 import { AccountDeleteComponent } from './user/account-delete/account-delete.component';
+import { OcrComponent } from './modules/translate-options/ocr/ocr.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { AccountDeleteComponent } from './user/account-delete/account-delete.com
     GreetingComponent,
     HistoryComponent,
     AuthRequireComponent,
-    AccountDeleteComponent
+    AccountDeleteComponent,
+    OcrComponent
   ],
   imports: [
     ReactiveFormsModule,

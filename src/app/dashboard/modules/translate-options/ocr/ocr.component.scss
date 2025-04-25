@@ -1,0 +1,105 @@
+@media screen and (max-width: 668px) {
+    .image-container {
+      flex-direction: column;
+    }
+    .image-input,
+    .image-preview {
+      width: 100%;
+      min-height: 150px;
+    }
+    .image-preview {
+      border-top: 0.25px solid rgba(128, 128, 128, 0.1);
+    }
+    .image-input {
+      border-radius: 10px !important;
+    }
+  }
+  
+  @media screen and (min-width: 669px) {
+    .image-input,
+    .image-preview {
+      width: 50%;
+    }
+  }
+  
+  .image-container {
+    min-height: 18rem;
+    max-height: 30rem;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 10px;
+    .translate-img {
+      opacity: 0;
+      cursor: pointer;
+      height: 250px;
+      width: 100%;
+    }
+    .image-preview {
+      border-left: 0.25px solid rgba(128, 128, 128, 0.1);
+    }
+    .image-preview.with-m {
+      padding-top: 7rem;
+      padding-bottom: 7rem;
+    }
+    .image-input {
+      position: relative;
+      transition: all 0.5s ease;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      cursor: pointer;
+      .drag-drop-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        .bi {
+          line-height: 5px;
+          color: #3b5af358;
+          font-size: 10rem;
+          display: inline-block;
+          height: 5px;
+        }
+      }
+    }
+  }
+  
+  /* HTML: <div class="loader"></div> */
+  .loader {
+    width: fit-content;
+    font-weight: 500;
+    font-size: 16px;
+    background: radial-gradient(circle closest-side, #3d3a4e 94%, #0000)
+      right/calc(200% - 1em) 100%;
+    animation: l24 1s infinite alternate linear;
+  }
+  .loader::before {
+    content: "Loading...";
+    line-height: 1em;
+    color: #0000;
+    background: inherit;
+    background-image: radial-gradient(circle closest-side, #fff 94%, #3b59f3);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  
+  @keyframes l24 {
+    100% {
+      background-position: left;
+    }
+  }
+  
+  *::-webkit-scrollbar {
+    height: 50%;
+    width: 0.2rem !important;
+    background-color: #eeeeee !important; /* or add it to the track */
+    border-radius: 1rem;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background: #8f8f8f !important;
+  }
+  
+  .dragover {
+    background-color: #3b59f31a;
+    transition: all 0.5s ease;
+  }

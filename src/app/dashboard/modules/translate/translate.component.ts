@@ -3,6 +3,7 @@ import { TextComponent } from '../translate-options/text/text.component';
 import { ImageComponent } from '../translate-options/image/image.component';
 import { DocComponent } from '../translate-options/doc/doc.component';
 import { TranslateActiveService } from '../../../shared/services/translate-active.service';
+import { OcrComponent } from '../translate-options/ocr/ocr.component';
 
 @Component({
   selector: 'app-translate',
@@ -11,7 +12,7 @@ import { TranslateActiveService } from '../../../shared/services/translate-activ
 })
 export class TranslateComponent {
   activeComponent: any = TextComponent;
-  activeButton: 'text' | 'image' | 'doc' | null = 'text';
+  activeButton: 'text' | 'image' | 'doc' | 'ocr' | null = 'text';
 
   constructor(
     private _translateActive: TranslateActiveService
@@ -36,5 +37,10 @@ export class TranslateComponent {
   onDoc() {
     this.activeButton = 'doc';
     this.activeComponent = DocComponent;
+  }
+
+  onOcr() {
+    this.activeButton = 'ocr';
+    this.activeComponent = OcrComponent;
   }
 }

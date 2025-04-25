@@ -1,0 +1,90 @@
+<form [formGroup]="ocrForm" @fadeIn>
+    <div
+      class="d-flex align-items-center justify-content-between flex-wrap gap-3"
+    >
+      <div class="language-tr-div">
+        <p class="l-d auto-language">
+          {{ "translate.ocr-processing" | transloco }}
+        </p>
+      </div>
+    </div>
+    <div class="image-container mb-5 d-flex">
+      <div
+        class="image-input"
+        (dragover)="changeBack()"
+        (dragleave)="changeBackLeave()"
+        [ngClass]="[divStyle, isNotUpload ? 'error-text' : '']"
+      >
+        <div class="text-center drag-drop-container">
+          <p class="p-0 m-0">
+            <i class="bi bi-cloud-arrow-up-fill"></i><br /><span
+              [innerHTML]="text"
+            ></span>
+          </p>
+        </div>
+        <input
+          #myFileInput
+          type="file"
+          formControlName="file"
+          class="translate-img"
+          (change)="getFile($event)"
+          accept=".pdf"
+        />
+      </div>
+      <div
+        class="image-preview with-m d-flex align-items-center justify-content-center flex-column"
+        *ngIf="!isProcessing && !isLoading"
+      >
+        <div
+          *ngIf="file"
+          class="file-div position-relative"
+        >
+          <p class="c-p file-name-text">
+            <i class="bi bi-file-earmark-check-fill text-muted fs-5 me-2"></i
+            >{{ fileName }}
+          </p>
+          <i
+            class="bi bi-x-octagon position-absolute"
+            (click)="deleteFile()"
+          ></i>
+        </div>
+  
+        <p *ngIf="!file" [ngClass]="isNotUpload ? 'error-text' : ''">
+          {{ "translate.empty-file" | transloco }}
+        </p>
+        <small class="text-muted">{{ "translate.format-doc" | transloco }}</small>
+      </div>
+      <div
+        class="image-preview d-flex align-items-center justify-content-center flex-column"
+        *ngIf="isProcessing"
+        [ngClass]="isProcessing ? 'w-100' : ''"
+      >
+        <p class="text-center">
+          <i class="bi bi-check-circle-fill text-success fs-1"></i>
+        </p>
+        <p class="mt-3">{{ "translate.ocr-success" | transloco }}</p>
+      </div>
+      <div
+        class="image-preview d-flex align-items-center justify-content-center flex-column"
+        *ngIf="isLoading"
+        [ngClass]="isLoading ? 'w-100' : ''"
+      >
+        <div class="pr-container my-1">
+          <div class="progress-bar__container">
+            <div class="progress-bar" #progressBar></div>
+          </div>
+        </div>
+        <span class="progress-text mt-3 fw-bold slk-color"
+          >{{ currentText }} {{ currentPercentage }}%</span
+        >
+      </div>
+    </div>
+  
+    <div class="text-center">
+      <button class="button content-btn" (click)="processFile()" [disabled]="isLoading">
+        <span class="button-content">{{
+          "translate.ocr-process" | transloco
+        }}</span>
+      </button>
+    </div>
+  </form>

@@ -134,6 +134,31 @@ export class HttpService {
     });
   }
 
+  // Add these methods to the HttpService class in src/app/shared/services/http.service.ts
+
+// For authenticated users
+postFile(apiUrl: string, data: any) {
+  this.requestCount++;
+  sessionStorage.setItem('requestCount', this.requestCount.toString());
+  return this._http.post(`${this.host}${apiUrl}`, data, {
+    responseType: 'blob'
+  });
+}
+
+// For non-authenticated users
+postFreeFile(apiUrl: string, data: any) {
+  this.freeService.getToken().subscribe((value) => (this.fakeToken = value));
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${this.fakeToken}`,
+  });
+  this.requestCount++;
+  sessionStorage.setItem('requestCount', this.requestCount.toString());
+  return this._http.post(`${this.host}${apiUrl}`, data, { 
+    headers,
+    responseType: 'blob'
+  });
+}
+
   postLawyer(apiUrl: string, data: any) {
     this.requestCount++;
     sessionStorage.setItem('requestCount', this.requestCount.toString());
